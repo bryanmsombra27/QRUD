@@ -1,0 +1,14 @@
+.alerta {
+  display: block;
+  max-width: 350px;
+  font-size: 15px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  color: #ffffff;
+  background: #e24a4a;
+  border-radius: 5px;
+
+  text-align: center;
+  margin: 0 auto;
+  padding: 2px;
+}

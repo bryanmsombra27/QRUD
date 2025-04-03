@@ -1,0 +1,53 @@
+.validacion {
+  position: absolute;
+  top: 25px;
+  right: 30px;
+  border-radius: 12px;
+  background: #fff;
+  padding: 20px 35px 20px 25px;
+  box-shadow: 0 5px rgb(0, 0, 0, 0.1);
+  border-left: 6px solid #e24a4a;
+  z-index: 10000;
+}
+
+.content-message {
+  display: flex;
+  align-items: center;
+}
+.content-message .error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 35px;
+  width: 35px;
+  background-color: #e24a4a;
+  color: #fff;
+  font-size: 20px;
+  border-radius: 50%;
+}
+.message {
+  display: flex;
+  flex-direction: column;
+  margin: 0 20px;
+}
+.text {
+  font-size: 20px;
+  font-weight: 400;
+  color: #666666;
+  margin-bottom: 5px;
+}
+.text .text-1 {
+  font-weight: 600;
+  color: #333;
+}
+.validacion .close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  padding: 5px;
+  cursor: pointer;
+  opacity: 0.7;
+}
+.validacion .close:hover {
+  opacity: 1;
+}

@@ -1,0 +1,67 @@
+<app-errores-backend [mensaje]="msgErrores()" *ngIf="msgErrores().length >0"></app-errores-backend>
+
+<div class="fondo" *ngIf="loginExistoso">
+    <div class="spinner-container">
+        <div class="lds-spinner">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+</div>
+
+
+<img class="wave" src="assets/img/wave2.png">
+<div class="form-img">
+    <div class="content-form">
+        <img src="assets/img/logo.svg">
+        <h1>¡Bienvenido!</h1>
+        <form [formGroup]="form" (ngSubmit)="login()">
+
+            <div class="group">
+                <input type="text" formControlName="email" (keyup)="removerAlertas()">
+                <span class="highlight"></span>
+                <span class="bar"></span>
+                <label>Email</label>
+                <div class="contenedor-validacion">
+                    <app-errores-frontend mensaje="Debe de ser un correo valido"
+                        *ngIf="campoValido('email')"></app-errores-frontend>
+
+                </div>
+            </div>
+
+            <div class="group">
+                <input type="password" formControlName="password" (keyup)="removerAlertas()">
+                <span class="highlight"></span>
+                <span class="bar"></span>
+                <label>Password</label>
+                <app-errores-frontend mensaje="El campo es obligatorio"
+                    *ngIf="campoValido('password')"></app-errores-frontend>
+            </div>
+            <div class="wrapper">
+                <button href="#0" class="btn10">
+                    <span>Ingresar</span>
+                    <div class="transition"></div>
+                </button>
+            </div>
+            <p>
+                <a routerLink="/forget-password">¿Olvidaste tu contraseña?</a>
+            </p>
+
+        </form>
+    </div>
+    <div class="login-imagen">
+        <img src="assets/img/undraw_mobile_interface_wakp.svg" alt="User">
+    </div>
+
+
+</div>
