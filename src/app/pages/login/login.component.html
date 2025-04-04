@@ -1,6 +1,6 @@
 <app-errores-backend [mensaje]="msgErrores()" *ngIf="msgErrores().length >0"></app-errores-backend>
 
-<div class="fondo" *ngIf="loginExistoso">
+<div class="fondo" *ngIf="loginExistoso()">
     <div class="spinner-container">
         <div class="lds-spinner">
             <div></div>

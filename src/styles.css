@@ -1,1 +1,91 @@
 /* You can add global styles to this file, and also import other style files */
+:root {
+  --main-color: #7380ec;
+  --color-dark: #00adf1;
+  --text-grey: #7a7575;
+
+  --nav-width: 92px;
+
+  /*===== Colores =====*/
+  --first-color: #838af3;
+  --bg-color: #edeaea;
+  --sub-color: #ffffff;
+  --white-color: #3e3798;
+
+  /*===== Fuente y tipografia =====*/
+  --body-font: "Poppins", sans-serif;
+  --normal-font-size: 1rem;
+  --small-font-size: 0.875rem;
+
+  /*===== z index =====*/
+  --z-fixed: 100;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+}
+/*-------select-*/
+.controls {
+  width: 100%;
+  background: #ffffff;
+  padding: 10px;
+  border-radius: 4px;
+  margin-bottom: 16px;
+  border: 1px solid #efe9fb;
+  font-family: "calibri";
+  font-size: 18px;
+  color: #746f7e;
+}
+/*-----------text tarea---*/
+textarea {
+  min-width: 300px;
+  min-height: 74px;
+  background-color: #e3dcfa;
+  color: #666666;
+  padding: 1em;
+  border-radius: 10px;
+  border: 2px solid transparent;
+  outline: none;
+  font-family: "Heebo", sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.4;
+  resize: none;
+  transition: all 0.2s;
+}
+.textarea:hover {
+  cursor: pointer;
+  background-color: #eeeeee;
+}
+
+.textarea:focus {
+  cursor: text;
+  color: #333333;
+  background-color: white;
+  border-color: #333333;
+  /*,::before,::after{
+    box-sizing: border-box;*/
+}
+
+/*body{
+     position: relative; 
+  }*/
+
+body {
+  position: relative;
+  margin: 0;
+  padding: 0rem 0 0 5.75rem;
+  font-family: var(--body-font);
+  font-size: var(--normal-font-size);
+  transition: 0.5s;
+  background: #f1f5f9;
+}
+
+.body-pd {
+  padding: 0rem 0 0 15rem !important;
+}
+
+.resp tbody tr {
+  border: solid 2px #f0def3;
+  border-radius: 10px;
+}

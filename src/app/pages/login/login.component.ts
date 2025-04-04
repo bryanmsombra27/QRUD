@@ -36,13 +36,10 @@ import { ErroresBackendComponent } from '../../components/shared/errores-backend
 })
 export class LoginComponent implements OnInit {
   form!: FormGroup;
-  loginExistoso: boolean = false;
+  loginExistoso = signal<boolean>(false);
   msgErrores = signal<string>('');
-  emailMsgValidation = signal<string>('Debe de ser un correo valido');
-  formMsgValidation = signal<string>('El campo es obligatorio');
 
   // services
-
   private fb = inject(FormBuilder);
   private AuthService = inject(AuthService);
   private router = inject(Router);
@@ -54,8 +51,8 @@ export class LoginComponent implements OnInit {
   }
   formularioLogin() {
     this.form = this.fb.group({
-      email: ['qrud.app@gmail.com', [Validators.required, Validators.email]],
-      password: ['Pru3baTest!', [Validators.required]],
+      email: ['koso2@koso.com', [Validators.required, Validators.email]],
+      password: ['123456', [Validators.required]],
     });
   }
 
@@ -66,7 +63,7 @@ export class LoginComponent implements OnInit {
 
     const personal: PersonalLogin = this.form.value;
 
-    this.loginExistoso = true;
+    this.loginExistoso.set(true);
 
     try {
       this.msgErrores.set('');
@@ -74,12 +71,12 @@ export class LoginComponent implements OnInit {
       this.StorageService.encryptar('nombre', response.personal.nombre);
 
       setTimeout(() => {
-        this.loginExistoso = false;
+        this.loginExistoso.set(false);
         this.router.navigateByUrl('/');
       }, 1000);
     } catch (err: any) {
       if (err.error.message) {
-        this.loginExistoso = false;
+        this.loginExistoso.set(false);
         this.msgErrores.set(err.error.message);
       } else {
         this.ErrorServidor.error();

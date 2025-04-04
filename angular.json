@@ -87,7 +87,7 @@
               }
             ],
             "styles": ["src/styles.css"],
-            "scripts": []
+            "scripts": ["node_modules/ionicons/dist/ionicons/ionicons.js"]
           }
         }
       }
