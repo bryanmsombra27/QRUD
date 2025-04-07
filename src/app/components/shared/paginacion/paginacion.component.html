@@ -1,0 +1,17 @@
+<ul class="pagination">
+
+    <li><a *ngIf="actualPage() <= 1 ? false:true" (click)="prevOrNextPage(-1)">
+            <i class="fas fa-chevron-left"></i>
+        </a></li>
+    <li>
+        <a *ngFor="let i of arregloPaginas()" (click)="saltoEntrePaginas(i)" [ngClass]="{'active': i == actualPage() }">
+            {{i }}
+        </a>
+    </li>
+
+
+    <li><a *ngIf="actualPage() < totalPages()  ? true:false" (click)="prevOrNextPage(1)">
+            <i class="fas fa-chevron-right"></i>
+
+        </a></li>
+</ul>

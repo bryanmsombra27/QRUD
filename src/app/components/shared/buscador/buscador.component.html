@@ -1,0 +1,9 @@
+<div class="search-wrapper">
+    <div class="buscador">
+        <input type="text" placeholder="Búsqueda por nombre" #busqueda
+            (keyup)="busquedaRegistros($event,busqueda.value)">
+        <div class="btn-search">
+            <i class="fas fa-search icon"></i>
+        </div>
+    </div>
+</div>

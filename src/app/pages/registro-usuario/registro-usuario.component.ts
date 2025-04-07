@@ -29,8 +29,10 @@ import { UsuarioService } from '../../services/usuario.service';
   styleUrl: './registro-usuario.component.css',
 })
 export default class RegistroUsuarioComponent {
+  // PENDIENTE DE VERIFICAR SU REFACTORIZACION
   existeError: boolean = false;
   errores!: [{ msg: string }];
+  /////
 
   form!: FormGroup;
   msgExito = signal<string>('');

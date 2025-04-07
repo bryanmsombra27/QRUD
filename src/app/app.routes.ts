@@ -20,9 +20,13 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./pages/registro-usuario/registro-usuario.component'),
       },
+      {
+        path: 'ver-usuarios',
+        loadComponent: () =>
+          import('./pages/ver-usuarios/ver-usuarios.component'),
+      },
       // {path:"registro-personal", component:RegistroPersonalComponent },
       // {path:"registro-rol", component:RegistroRolComponent },
-      // {path:"ver-usuarios", component:VerUsuariosComponent },
       // {path:"ver-personal", component:VerPersonalComponent },
       // {path:"ver-rol", component:VerRolComponent},
       // {path:"usuarios-eliminados", component:UsuariosEliminadosComponent },
