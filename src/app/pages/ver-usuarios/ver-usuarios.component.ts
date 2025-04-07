@@ -22,6 +22,7 @@ import { PaginacionComponent } from '../../components/shared/paginacion/paginaci
 import { ModalComponent } from '../../components/shared/modal/modal.component';
 import { ActualizarUsuarioComponent } from '../../components/formularios/actualizar-usuario/actualizar-usuario.component';
 import { Meta } from '../../interfaces/pagination';
+import { SwitchBoxComponent } from '../../components/shared/switch-box/switch-box.component';
 
 @Component({
   selector: 'app-ver-usuarios',
@@ -33,6 +34,7 @@ import { Meta } from '../../interfaces/pagination';
     PaginacionComponent,
     ModalComponent,
     ActualizarUsuarioComponent,
+    SwitchBoxComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './ver-usuarios.component.html',
@@ -147,7 +149,7 @@ export default class VerUsuariosComponent {
     }, 1500);
   }
 
-  async activarUsuario(id: string) {
+  async activarUsuario(id: any) {
     try {
       const response = await firstValueFrom(
         this.UsuarioService.activateUser(id)

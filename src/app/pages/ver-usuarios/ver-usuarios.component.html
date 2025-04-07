@@ -64,10 +64,7 @@
 
                     <!-- From Uiverse.io by mrhyddenn -->
                     @if (usuario) {
-                    <label class="switch" (click)="switchBox($event,usuario.id)">
-                        <input type="checkbox">
-                        <span class="slider"></span>
-                    </label>
+                    <app-switch-box [id]="usuario.id" (activado)="activarUsuario($event)" />
                     }
 
                     }
