@@ -110,4 +110,14 @@ export class UsuarioService {
       },
     });
   }
+
+  generateQR(id: string) {
+    const token = this.storageService.desencriptar(llaveToken);
+
+    return this.http.get<{ message: string }>(`${url}/user/qr/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  }
 }

@@ -27,7 +27,6 @@ import { Meta } from '../../interfaces/pagination';
   selector: 'app-ver-usuarios',
   imports: [
     CommonModule,
-    ErroresBackendComponent,
     ExitoComponent,
     BuscadorComponent,
     SpinnerComponent,
@@ -52,29 +51,13 @@ export default class VerUsuariosComponent {
   usuarioparaEliminar = signal<User | null>(null);
 
   /**
-   * propiedad que muestra el mensaje de error solo si la accion de generar el codigo QR ya fue realizada
-   */
-  existeQRregistrado: boolean = false;
-
-  /**
    * propiedad que restringe el acceso a ciertas acciones que esten delimitadas por el rol del personal logueado
    */
   accesoDenegado: boolean = true;
 
   /**
-   * propiedad que guarda el mensaje de exito ´proveido por el backend solo si la accion de generar codigo QR se realizo con exito
-   */
-  msgQR: string = '';
-
-  /**
-   * propiedad que controla la pagina actual del registro
-   */
-  page: any = 0;
-
-  /**
    * inyeccion de servicios
    */
-  private AuthService = inject(AuthService);
   private StorageService = inject(StorageService);
   private ErrorServidor = inject(ErrorServidorService);
   private UsuarioService = inject(UsuarioService);
@@ -183,30 +166,18 @@ export default class VerUsuariosComponent {
   /**
    * metodo que genera el codigo QR del usuario
    */
-  enviarQR(id: any) {
-    // this.QRUDService.GenerarQRUSuario(id)
-    //   .then((data: any) => {
-    //     this.existeMsgQRExito = true;
-    //     this.msgQR = data.msg;
-    //     setTimeout(() => {
-    //       this.existeMsgQRExito = false;
-    //     }, 2000);
-    //   })
-    //   .catch((err) => {
-    //     if (err.error.msg) {
-    //       this.msgQR = err.error.msg;
-    //       this.existeQRregistrado = true;
-    //       setTimeout(() => {
-    //         this.existeQRregistrado = false;
-    //       }, 2000);
-    //       return;
-    //     }
-    //     if (err.error.msgtk) {
-    //       this.AuthService.logout();
-    //       return;
-    //     }
-    //     this.ErrorServidor.error();
-    //   });
+  async enviarQR(id: string) {
+    try {
+      const response = await firstValueFrom(this.UsuarioService.generateQR(id));
+
+      this.msgExito.set(response.message);
+      this.obtenerUsuarios();
+      setTimeout(() => {
+        this.msgExito.set('');
+      }, 2000);
+    } catch (error) {
+      this.ErrorServidor.invalidToken(error as CustomError);
+    }
   }
   /**
    * metodo que verifica la el rol del personal logueado para restringir el acceso a ciertas acciones
