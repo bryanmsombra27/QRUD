@@ -77,10 +77,34 @@ export class UsuarioService {
       },
     });
   }
+  activateUser(id: string) {
+    const token = this.storageService.desencriptar(llaveToken);
+
+    return this.http.patch<{ message: string }>(
+      `${url}/user/activate/${id}`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+  }
+
   updateUser(id: string, data: RegistroUsuario) {
     const token = this.storageService.desencriptar(llaveToken);
 
     return this.http.patch<UpdateUserResponse>(`${url}/user/${id}`, data, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  }
+
+  removeUser(id: string) {
+    const token = this.storageService.desencriptar(llaveToken);
+
+    return this.http.delete<{ message: string }>(`${url}/user/def/${id}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

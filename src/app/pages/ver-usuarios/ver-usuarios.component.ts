@@ -94,12 +94,8 @@ export default class VerUsuariosComponent {
     try {
       const response = await firstValueFrom(this.UsuarioService.getAllUsers());
 
-      console.log(response.meta, 'DATA PAGINACION');
-
       this.usuarios.set(response.usuarios);
       this.metaData.set(response.meta);
-
-      console.log(this.metaData(), 'METADATA SETEADA');
     } catch (error) {
       this.ErrorServidor.invalidToken(error as CustomError);
     }
@@ -130,6 +126,23 @@ export default class VerUsuariosComponent {
       this.ErrorServidor.invalidToken(error as CustomError);
     }
   }
+
+  async eliminacionDefinitiva() {
+    try {
+      const response = await firstValueFrom(
+        this.UsuarioService.removeUser(this.usuarioparaEliminar()?.id!)
+      );
+      this.msgExito.set(response.message);
+      this.usuarioparaEliminar.set(null);
+      this.obtenerUsuarios();
+      setTimeout(() => {
+        this.msgExito.set('');
+      }, 1500);
+    } catch (error) {
+      this.ErrorServidor.invalidToken(error as CustomError);
+    }
+  }
+
   /**
    *  metodo que muestra el formulario emergente para actualizar el usuario y  guarda la referencia del usuario que se desea actualizar
    */
@@ -149,6 +162,22 @@ export default class VerUsuariosComponent {
     setTimeout(() => {
       this.msgExito.set('');
     }, 1500);
+  }
+
+  async activarUsuario(id: string) {
+    try {
+      const response = await firstValueFrom(
+        this.UsuarioService.activateUser(id)
+      );
+      this.msgExito.set(response.message);
+      this.obtenerUsuarios();
+
+      setTimeout(() => {
+        this.msgExito.set('');
+      }, 1500);
+    } catch (error) {
+      this.ErrorServidor.invalidToken(error as CustomError);
+    }
   }
 
   /**
@@ -190,10 +219,11 @@ export default class VerUsuariosComponent {
     }
   }
 
-  switchBox(e: any) {
+  async switchBox(e: any, id: string) {
     const input = e.currentTarget.children[0];
 
     if (input.checked) {
+      await this.activarUsuario(id);
     } else {
       input.checked = false;
     }

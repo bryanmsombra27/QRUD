@@ -55,13 +55,19 @@
 
                     <button class="btn" (click)="enviarQR(usuario.id)"><i class="fa-solid fa-qrcode fa-lg"></i></button>
                     } @else {
-                    <i class="fa-solid fa-trash fa-lg btn"></i>
+                    <label for="btn-modal-delete-def" (click)="referenciaUsuarioEliminar(usuario)">
+
+                        <i class="fa-solid fa-trash fa-lg btn"></i>
+                    </label>
 
                     <!-- From Uiverse.io by mrhyddenn -->
-                    <label class="switch" (click)="switchBox($event)">
+                    @if (usuario) {
+                    <label class="switch" (click)="switchBox($event,usuario.id)">
                         <input type="checkbox">
                         <span class="slider"></span>
                     </label>
+                    }
+
                     }
 
                 </div>
@@ -86,6 +92,10 @@
 <app-modal *ngIf="usuarioparaEliminar()"
     msg="¿Esta seguro que quiere eliminar al usuario {{usuarioparaEliminar()?.email}} ?" titulo="Eliminar"
     [funcion]="eliminarUsuario.bind(this)" modal="btn-modal-delete" />
+
+<app-modal *ngIf="usuarioparaEliminar()"
+    msg="¿Esta seguro que quiere eliminar definitivamente al usuario {{usuarioparaEliminar()?.email}} ?"
+    titulo="Eliminación Permanentemente" [funcion]="eliminacionDefinitiva.bind(this)" modal="btn-modal-delete-def" />
 
 
 <app-actualizar-usuario *ngIf="mostrarFormularioEmergente()" [usuario]="usuarioparaActualizar()!"

@@ -19,8 +19,6 @@ export class ErrorServidorService {
     this.router.navigateByUrl('/error');
   }
   invalidToken(error: CustomError) {
-    console.log(error, 'ESTA EN EL SERVICIO DE INVALID TOKEN');
-
     if (error.statusText == 'Unauthorized' && error.status == 401) {
       this.authService.logout();
     }
