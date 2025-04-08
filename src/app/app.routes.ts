@@ -25,8 +25,16 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./pages/ver-usuarios/ver-usuarios.component'),
       },
-      // {path:"registro-personal", component:RegistroPersonalComponent },
-      // {path:"registro-rol", component:RegistroRolComponent },
+      {
+        path: 'registro-personal',
+        loadComponent: () =>
+          import('./pages/registro-personal/registro-personal.component'),
+      },
+      {
+        path: 'registro-rol',
+        loadComponent: () =>
+          import('./pages/registro-rol/registro-rol.component'),
+      },
       // {path:"ver-personal", component:VerPersonalComponent },
       // {path:"ver-rol", component:VerRolComponent},
       // {path:"usuarios-eliminados", component:UsuariosEliminadosComponent },

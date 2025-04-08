@@ -1,0 +1,46 @@
+<ng-container *ngIf="existeError">
+    <div class="mensajes-container">
+
+        <app-errores-backend [mensaje]="error.msg" *ngFor="let error of errores"></app-errores-backend>
+    </div>
+
+
+</ng-container>
+
+
+<app-exito [msg]="msgExito()" *ngIf="msgExito().length>0"></app-exito>
+
+<div class="activity-grid">
+    <div class="container">
+        <div class="title">Formulario de Registro Rol</div>
+        <form action="#" [formGroup]="form" (ngSubmit)="submit()">
+            <div class="user-details">
+
+                <div class="group">
+                    <input type="text" formControlName="name" (keyup)="removerAlertas()">
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label>Rol</label>
+                    <app-errores-frontend mensaje="Campo requerido" *ngIf="campoValido('name')"></app-errores-frontend>
+                </div>
+
+                <div class="group">
+                    <textarea formControlName="description" (keyup)="removerAlertas()"
+                        placeholder="Descripción..."> </textarea>
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <app-errores-frontend mensaje="Campo requerido"
+                        *ngIf="campoValido('description')"></app-errores-frontend>
+                </div>
+
+            </div>
+            <div class="wrapper">
+                <button href="#0" class="btn10">
+                    <span>REGISTRAR</span>
+                    <div class="transition"></div>
+                </button>
+            </div>
+
+        </form>
+    </div>
+</div>

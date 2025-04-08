@@ -1,3 +1,4 @@
+import { Meta } from './pagination';
 import { RolRelation } from './rol.interface';
 
 export interface Personal {
@@ -8,4 +9,22 @@ export interface Personal {
   qr: boolean;
   id: string;
   rol: RolRelation;
+}
+
+export interface RegistroPersonal {
+  nombre: string;
+  telefono: string;
+  email: string;
+  password: string;
+  rolId: string;
+}
+
+export interface GetAllPersonal {
+  message: string;
+  personal: Personal[];
+  meta: Meta;
+}
+export interface createPersonalResponse {
+  message: string;
+  personal: Personal;
 }
