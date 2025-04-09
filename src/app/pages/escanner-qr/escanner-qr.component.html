@@ -1,0 +1,71 @@
+<div class="container" *ngIf="camara()">
+    <zxing-scanner [formats]="allowedFormats" (scanSuccess)="escanearQR($event)"
+        (camerasNotFound)="camaranoEncontrada($event)"> </zxing-scanner>
+
+</div>
+
+
+<div class="spinner-container" *ngIf="!camara">
+    <app-spinner></app-spinner>
+</div>
+
+
+<h1 *ngIf="!camara()">Para acceder a este componente, debe de tener una camara disponible </h1>
+
+
+<div *ngIf="ocultarFormulario()">
+    <form class="form-edit" [formGroup]="form" (ngSubmit)="submit()">
+
+        <div class="group-edit">
+            <input type="text" formControlName="nombre">
+            <span class="highlight"></span>
+            <span class="bar"></span>
+            <label>Nombre</label>
+            <app-errores-frontend *ngIf="campoValido('nombre')" mensaje="El campo es requerido"></app-errores-frontend>
+        </div>
+
+        <div class="group-edit">
+            <input type="text" formControlName="rfc">
+            <span class="highlight"></span>
+            <span class="bar"></span>
+            <label>RFC</label>
+            <app-errores-frontend *ngIf="campoValido('rfc')"
+                mensaje="Tiene que ser un rfc valido"></app-errores-frontend>
+        </div>
+
+        <div class="group-edit">
+            <input type="text" formControlName="direccion">
+            <span class="highlight"></span>
+            <span class="bar"></span>
+            <label>Direccion</label>
+            <app-errores-frontend *ngIf="campoValido('direccion')"
+                mensaje="El campo es requerido"></app-errores-frontend>
+        </div>
+
+        <div class="group-edit">
+            <input type="tel" formControlName="telefono">
+            <span class="highlight"></span>
+            <span class="bar"></span>
+            <label>Telefono</label>
+            <app-errores-frontend *ngIf="campoValido('telefono')"
+                mensaje="Tiene que ser un numero telefonico valido"></app-errores-frontend>
+        </div>
+
+        <div class="group-edit">
+            <input type="email" formControlName="email">
+            <span class="highlight"></span>
+            <span class="bar"></span>
+            <label>Email</label>
+            <app-errores-frontend *ngIf="campoValido('email')"
+                mensaje="Tiene que ser un correo valido"></app-errores-frontend>
+        </div>
+
+        <div class="save-edit">
+            <button type="submit" class="btn10">
+                <span>Facturar </span>
+                <div class="transition"></div>
+            </button>
+        </div>
+    </form>
+
+</div>

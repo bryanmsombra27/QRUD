@@ -44,9 +44,11 @@ export const routes: Routes = [
         path: 'ver-rol',
         loadComponent: () => import('./pages/ver-rol/ver-rol.component'),
       },
-      // {path:"usuarios-eliminados", component:UsuariosEliminadosComponent },
-      // {path:"personal-eliminado", component:PersonalEliminadoComponent },
-      // {path:"qr", component:EscannerQRComponent},
+      {
+        path: 'qr',
+        loadComponent: () =>
+          import('./pages/escanner-qr/escanner-qr.component'),
+      },
       // {path:"contrasena", component:CambioContrasenaComponent},
     ],
   },
