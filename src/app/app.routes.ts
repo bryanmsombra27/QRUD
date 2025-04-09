@@ -49,7 +49,11 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./pages/escanner-qr/escanner-qr.component'),
       },
-      // {path:"contrasena", component:CambioContrasenaComponent},
+      {
+        path: 'contrasena',
+        loadComponent: () =>
+          import('./pages/cambio-contrasena/cambio-contrasena.component'),
+      },
     ],
   },
   { path: '**', redirectTo: '' },

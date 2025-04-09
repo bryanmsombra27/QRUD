@@ -36,3 +36,8 @@ export interface DeletePersonalResponse {
   message: string;
   personal: Personal;
 }
+export interface UpdatePassword {
+  last_password: string;
+  new_password: string;
+  new_password_confirmation: string;
+}

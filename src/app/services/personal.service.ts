@@ -9,6 +9,7 @@ import {
   GetAllPersonal,
   Personal,
   RegistroPersonal,
+  UpdatePassword,
 } from '../interfaces/personal.interface';
 import { environment } from '../../environments/environment.development';
 import { firstValueFrom } from 'rxjs';
@@ -121,6 +122,19 @@ export class PersonalService {
 
     return this.http.patch<{ message: string }>(
       `${url}/personal/${id}`,
+      personal,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+  }
+  updatePassword(personal: UpdatePassword) {
+    const token = this.storageService.desencriptar(llaveToken);
+
+    return this.http.post<{ message: string }>(
+      `${url}/personal/update-password`,
       personal,
       {
         headers: {
