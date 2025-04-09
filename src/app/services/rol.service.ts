@@ -1,6 +1,8 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { Meta, Pagination } from '../interfaces/pagination';
 import {
+  ActualizarRol,
+  CommonResponse,
   CreateRolResponse,
   GetAllRoles,
   RegistroRol,
@@ -65,30 +67,6 @@ export class RolService {
     this.metaData.set(meta);
   }
 
-  constructor() {
-    // this.getAllRoles();
-  }
-
-  // async getAllRoles() {
-  //   const token = this.storageService.desencriptar(llaveToken);
-
-  //   const response = await firstValueFrom(
-  //     this.http.get<GetAllRoles>(
-  //       `${url}/roles?limit=${this.pagination().limit}&page=${
-  //         this.pagination().page
-  //       }&search=${this.pagination().search}`,
-  //       {
-  //         headers: {
-  //           Authorization: `Bearer ${token}`,
-  //         },
-  //       }
-  //     )
-  //   );
-  //   console.log(response.roles, 'ROLES DESDE SERVICIO');
-
-  //   this.roles.set(response.roles);
-  //   this.metaData.set(response.meta);
-  // }
   getAllRoles() {
     const token = this.storageService.desencriptar(llaveToken);
 
@@ -108,6 +86,45 @@ export class RolService {
     const token = this.storageService.desencriptar(llaveToken);
 
     return this.http.post<CreateRolResponse>(`${url}/roles`, role, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  }
+
+  deleteRol(id: string) {
+    const token = this.storageService.desencriptar(llaveToken);
+    return this.http.delete<CommonResponse>(`${url}/roles/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  }
+  removeRol(id: string) {
+    const token = this.storageService.desencriptar(llaveToken);
+    return this.http.delete<CommonResponse>(`${url}/roles/def/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  }
+  activate(id: string) {
+    const token = this.storageService.desencriptar(llaveToken);
+    return this.http.patch<CommonResponse>(
+      `${url}/roles/activate/${id}`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+  }
+
+  updateRol(id: string, rol: ActualizarRol) {
+    const token = this.storageService.desencriptar(llaveToken);
+
+    return this.http.patch<{ message: string }>(`${url}/roles/${id}`, rol, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

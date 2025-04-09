@@ -26,3 +26,9 @@ export interface CreateRolResponse {
   message: string;
   rol: Rol;
 }
+
+export interface CommonResponse {
+  message: string;
+}
+
+export interface ActualizarRol extends Pick<Rol, 'description' | 'name'> {}

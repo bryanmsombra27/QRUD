@@ -1,1 +1,92 @@
-<p>ver-rol works!</p>
+<app-exito [msg]="msgExito()" *ngIf="msgExito().length > 0" />
+<!-- <app-exito [msg]="msgQR" *ngIf="existeMsgQRExito"></app-exito> -->
+
+
+
+<div class="spinner-container" *ngIf="roles().length == 0  ">
+    <app-spinner />
+</div>
+
+<!-- <div class="container" *ngIf="usuarios.length == 0 && noexistenUsuarios ">
+        <app-no-encontrado mensaje="No se encontraron usuarios disponibles"></app-no-encontrado>
+    </div> -->
+
+
+
+<app-buscador (refresh)="refetchRoles('')" (search)="search($event)" />
+
+<!----------contenedor de las tablas-------------
+        <section class="recent">
+            <div class="activity-grid">
+                <div class="activity-card">
+               
+                    <div class="table-responsive">------->
+<h3>Lista de Usuarios</h3>
+<table class="resp">
+    <thead>
+        <tr>
+            <th>Rol</th>
+            <th>Descripcion</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- <tr *ngFor="let usuario of usuarios|busqueda:page:busqueda"> -->
+        <tr *ngFor="let rol of roles()">
+
+            <!-- <app-no-encontrado *ngIf="usuario.error" [mensaje]="usuario.msg"></app-no-encontrado> -->
+
+
+            <td data-title="Nombre">{{rol.name| uppercase}}</td>
+            <td data-title="RFC">{{rol.description }}</td>
+            <td class="icons" data-title="Acciones">
+                <div class="btn-group">
+                    @if (accesoDenegado && rol.isActive) {
+                    <button class="btn" (click)="actualizarUsuario(rol)" *ngIf="accesoDenegado"><i
+                            class="fa-solid fa-square-pen fa-xl"></i></button>
+
+                    <label class="btn" for="btn-modal-delete" (click)="referenciaRolEliminar(rol)"><i
+                            class="fa-solid fa-user-xmark fa-lg"></i></label>
+
+                    } @else {
+                    <label for="btn-modal-delete-def" (click)="referenciaRolEliminar(rol)">
+
+                        <i class="fa-solid fa-trash fa-lg btn"></i>
+                    </label>
+
+                    <!-- From Uiverse.io by mrhyddenn -->
+                    @if (rol) {
+                    <app-switch-box [id]="rol.id" (activado)="activarUsuario($event)" />
+                    }
+
+                    }
+
+                </div>
+
+            </td>
+        </tr>
+
+
+        @if (metaData().totalPages) {
+        <app-paginacion [actualPage]="metaData().actualPage" [totalPages]="metaData().totalPages"
+            (changePage)="refetchRoles('',$event)" />
+        }
+
+    </tbody>
+</table>
+<!---        </div>
+                </div>       
+            </div>
+        </section>-->
+
+
+<app-modal *ngIf="rolparaEliminar()" msg="¿Esta seguro que quiere eliminar al usuario {{rolparaEliminar()?.name}} ?"
+    titulo="Eliminar" [funcion]="eliminarRol.bind(this)" modal="btn-modal-delete" />
+
+<app-modal *ngIf="rolparaEliminar()"
+    msg="¿Esta seguro que quiere eliminar definitivamente al usuario {{rolparaEliminar()?.name}}?"
+    titulo="Eliminación Permanentemente" [funcion]="eliminacionDefinitiva.bind(this)" modal="btn-modal-delete-def" />
+
+
+<app-actualizar-rol *ngIf="mostrarFormularioEmergente()" [rol]="rolparaActualizar()!" (msgExito)="refetchRoles($event)"
+    (ocultar)="mostrarFormularioEmergente.set($event)" />

@@ -76,7 +76,6 @@ export default class PanelAdminComponent {
     [
       { ruta: '/registro-personal', nombre: 'Registrar ' },
       { ruta: '/ver-personal', nombre: 'Ver' },
-      { ruta: '/personal-eliminado', nombre: 'Eliminados' },
     ],
     [
       { ruta: '/registro-rol', nombre: 'Crear' },
@@ -90,7 +89,6 @@ export default class PanelAdminComponent {
     [
       { ruta: '/ver-usuarios', nombre: 'Ver' },
       { ruta: '', nombre: 'Crear' },
-      { ruta: '/usuarios-eliminados', nombre: 'Eliminados' }, //rutas usuario
     ],
     [{ ruta: '/ver-personal', nombre: 'Ver' }],
   ];

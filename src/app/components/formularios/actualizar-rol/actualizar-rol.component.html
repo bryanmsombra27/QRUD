@@ -1,0 +1,35 @@
+<div id="myModaledit" class="modaledit">
+
+    <div class="modal-content-edit">
+        <span class="closeedit" (click)="ocultarFormulario()">&times;</span>
+        <p>Editar Personal</p>
+        <form class="form-edit" [formGroup]="form" (ngSubmit)="submit()">
+
+            <div class="group-edit">
+                <input type="text" formControlName="name">
+                <span class="highlight"></span>
+                <span class="bar"></span>
+                <label>Rol</label>
+                <app-errores-frontend *ngIf="campoValido('name')"
+                    mensaje="El campo es requerido"></app-errores-frontend>
+            </div>
+
+
+
+            <div class="group-edit">
+                <textarea formControlName="description" placeholder="Descripción..."></textarea>
+                <span class="highlight"></span>
+                <span class="bar"></span>
+                <app-errores-frontend *ngIf="campoValido('description')"
+                    mensaje="Tiene que ser un rol  valido"></app-errores-frontend>
+            </div>
+
+            <div class="save-edit">
+                <button type="submit" class="btn10">
+                    <span>Guardar</span>
+                    <div class="transition"></div>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

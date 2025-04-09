@@ -40,7 +40,10 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./pages/ver-personal/ver-personal.component'),
       },
-      // {path:"ver-rol", component:VerRolComponent},
+      {
+        path: 'ver-rol',
+        loadComponent: () => import('./pages/ver-rol/ver-rol.component'),
+      },
       // {path:"usuarios-eliminados", component:UsuariosEliminadosComponent },
       // {path:"personal-eliminado", component:PersonalEliminadoComponent },
       // {path:"qr", component:EscannerQRComponent},
