@@ -143,4 +143,10 @@ export class PersonalService {
       }
     );
   }
+  forgotPassword(email: string) {
+    return this.http.post<{ message: string }>(
+      `${url}/personal/forgot-password`,
+      email
+    );
+  }
 }

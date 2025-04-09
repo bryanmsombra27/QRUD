@@ -12,7 +12,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { StorageService } from '../../services/storage.service';
 import { PersonalLogin } from '../../interfaces/login.interface';
 import { firstValueFrom } from 'rxjs';
@@ -28,6 +28,7 @@ import { ErroresBackendComponent } from '../../components/shared/errores-backend
     ReactiveFormsModule,
     ErroresFrontendComponent,
     ErroresBackendComponent,
+    RouterModule,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 
@@ -70,6 +71,7 @@ export class LoginComponent implements OnInit {
       const response = await this.AuthService.login(personal);
       this.StorageService.encryptar('nombre', response.personal.nombre);
 
+      console.log(response, 'RESPUESTA BACKEND');
       setTimeout(() => {
         this.loginExistoso.set(false);
         this.router.navigateByUrl('/');

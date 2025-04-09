@@ -56,5 +56,10 @@ export const routes: Routes = [
       },
     ],
   },
+  {
+    path: 'forget-password',
+    loadComponent: () =>
+      import('./pages/contrasena-email/contrasena-email.component'),
+  },
   { path: '**', redirectTo: '' },
 ];
