@@ -13,7 +13,7 @@
 
 
 
-<app-buscador (refresh)="refetchUsuarios('')" />
+<app-buscador (refresh)="refetchUsuarios('')" (search)="search($event)" />
 
 <!----------contenedor de las tablas-------------
     <section class="recent">

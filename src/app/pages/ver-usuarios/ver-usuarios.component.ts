@@ -192,13 +192,7 @@ export default class VerUsuariosComponent {
     }
   }
 
-  async switchBox(e: any, id: string) {
-    const input = e.currentTarget.children[0];
-
-    if (input.checked) {
-      await this.activarUsuario(id);
-    } else {
-      input.checked = false;
-    }
+  search(search: string) {
+    this.UsuarioService.search = search;
   }
 }

@@ -3,7 +3,9 @@ import { inject, Injectable, signal } from '@angular/core';
 import { StorageService } from './storage.service';
 import { Meta, Pagination } from '../interfaces/pagination';
 import {
+  ActualizarRegistroPersonal,
   createPersonalResponse,
+  DeletePersonalResponse,
   GetAllPersonal,
   Personal,
   RegistroPersonal,
@@ -56,27 +58,19 @@ export class PersonalService {
     return this.personal();
   }
 
-  constructor() {
-    // this.getAllPersonal();
-  }
-
-  async getAllPersonal() {
+  getAllPersonal() {
     const token = this.storageService.desencriptar(llaveToken);
 
-    const response = await firstValueFrom(
-      this.http.get<GetAllPersonal>(
-        `${url}/personal?limit=${this.pagination().limit}&page=${
-          this.pagination().page
-        }&search=${this.pagination().search}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      )
+    return this.http.get<GetAllPersonal>(
+      `${url}/personal?limit=${this.pagination().limit}&page=${
+        this.pagination().page
+      }&search=${this.pagination().search}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
     );
-    this.personal.set(response.personal);
-    this.metaData.set(response.meta);
   }
 
   createPersonal(body: RegistroPersonal) {
@@ -87,5 +81,52 @@ export class PersonalService {
         Authorization: `Bearer ${token}`,
       },
     });
+  }
+
+  deletePersonal(id: string) {
+    const token = this.storageService.desencriptar(llaveToken);
+
+    return this.http.delete<DeletePersonalResponse>(`${url}/personal/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  }
+
+  activateUser(id: string) {
+    const token = this.storageService.desencriptar(llaveToken);
+
+    return this.http.patch<DeletePersonalResponse>(
+      `${url}/personal/activate/${id}`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+  }
+
+  removeUser(id: string) {
+    const token = this.storageService.desencriptar(llaveToken);
+
+    return this.http.delete<{ message: string }>(`${url}/personal/def/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  }
+  updateUser(id: string, personal: ActualizarRegistroPersonal) {
+    const token = this.storageService.desencriptar(llaveToken);
+
+    return this.http.patch<{ message: string }>(
+      `${url}/personal/${id}`,
+      personal,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
   }
 }

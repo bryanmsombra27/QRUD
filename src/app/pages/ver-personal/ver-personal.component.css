@@ -1,0 +1,195 @@
+table {
+  width: 100%;
+  background: white;
+  margin-bottom: 1.25em;
+  border: solid 1px #dddddd;
+  border-collapse: collapse;
+  border-spacing: 0;
+  margin-top: 15px;
+  border-radius: 12px 12px 0 0;
+  overflow: hidden;
+}
+
+table tr th,
+table tr td {
+  padding: 0.5625em 0.625em;
+  font-size: 0.875em;
+  color: #3e3798;
+  border: 1px solid #f9f9f9;
+  text-align: center;
+}
+
+@media only screen and (max-width: 768px) {
+  table tr th,
+  table tr td {
+    padding-left: 28%;
+    width: auto;
+    color: #3e3798;
+  }
+  @media only screen and (max-width: 500px) {
+    table tr:first-child {
+      margin-top: 0;
+    }
+  }
+}
+table tr.even,
+table tr.alt,
+table tr:nth-of-type(even) {
+  background: #f9f9f9;
+}
+@media only screen and (max-width: 768px) {
+  table.resp,
+  .resp thead,
+  .resp tbody,
+  .resp tr,
+  .resp th,
+  .resp td,
+  .resp caption {
+    display: block;
+  }
+  table tr:first-child {
+    margin-top: 0 !important;
+  }
+
+  table.resp {
+    border: none;
+  }
+
+  .resp thead tr {
+    display: none;
+  }
+
+  .resp tbody tr {
+    margin: 2em 0;
+    background: #fbfbfb;
+  }
+
+  .resp td {
+    border: none;
+    border-bottom: 1px solid #dddddd;
+    position: relative;
+    padding-left: 45%;
+    text-align: right;
+  }
+
+  .resp tr td:last-child {
+    border-bottom: 1px double #dddddd;
+  }
+
+  .resp tr:last-child td:last-child {
+    border: none;
+  }
+
+  .resp td:before {
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    width: 45%;
+    padding-right: 10px;
+    white-space: nowrap;
+    text-align: left;
+    font-weight: bold;
+  }
+  td:nth-of-type(1):before {
+    content: "Nombre";
+  }
+
+  td:nth-of-type(2):before {
+    content: "RFC";
+  }
+
+  td:nth-of-type(3):before {
+    content: "Direccion";
+  }
+
+  td:nth-of-type(4):before {
+    content: "Telefono";
+  }
+
+  td:nth-of-type(5):before {
+    content: "E-mail";
+  }
+  td:nth-of-type(6):before {
+    content: "Acciones";
+  }
+}
+
+/*-------------Tabla----------------*/
+@media only screen and (max-width: 1200px) {
+  .sidebar {
+    width: 60px;
+    z-index: 150;
+  }
+
+  .sidebar .sidebar-header h3 span,
+  .sidebar li span:last-child {
+    display: none;
+  }
+
+  .sidebar .sidebar-header,
+  .sidebar li {
+    display: flex;
+    justify-content: center;
+  }
+
+  .main-content {
+    margin-left: 60px;
+  }
+
+  .main-content header {
+    left: 60px;
+    width: calc(100% - 600px);
+  }
+}
+/*RESPONSIVE*/
+@media only screen and (max-width: 860px) {
+  .activity-grid {
+    display: block;
+  }
+}
+
+@media only screen and (max-width: 450px) {
+  main {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
+/*----------botones editar eliminar-----------------*/
+.btn {
+  background: none;
+  border: none;
+}
+
+.fa-square-pen,
+.fa-user-xmark,
+.fa-user-check,
+.fa-user-slash,
+.btn,
+.fa-qrcode {
+  color: #6c63ff;
+  padding: 0.3rem;
+  cursor: pointer;
+}
+.btn-group {
+  text-align: center;
+}
+.btn-action {
+  background: none;
+  border: none;
+}
+
+td.icons {
+  width: 9rem;
+}
+
+.spinner-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
+.container {
+  margin: 0 auto;
+  display: block;
+  position: absolute;
+}

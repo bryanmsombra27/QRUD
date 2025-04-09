@@ -8,17 +8,20 @@ import { UsuarioService } from '../../../services/usuario.service';
   styleUrl: './buscador.component.css',
 })
 export class BuscadorComponent {
-  userService = inject(UsuarioService);
+  // userService = inject(UsuarioService);
 
   refresh = output<boolean>();
+  search = output<string>();
 
   busquedaRegistros(e: any, search: string) {
     // console.log(search, 'BUSQUEDA');
     if (search.length >= 3) {
-      this.userService.search = search;
+      // this.userService.search = search;
+      this.search.emit(search);
       this.refresh.emit(true);
     } else {
-      this.userService.search = '';
+      // this.userService.search = '';
+      this.search.emit('');
     }
     if (search.length == 0) {
       this.refresh.emit(true);

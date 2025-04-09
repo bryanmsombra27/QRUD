@@ -35,7 +35,11 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./pages/registro-rol/registro-rol.component'),
       },
-      // {path:"ver-personal", component:VerPersonalComponent },
+      {
+        path: 'ver-personal',
+        loadComponent: () =>
+          import('./pages/ver-personal/ver-personal.component'),
+      },
       // {path:"ver-rol", component:VerRolComponent},
       // {path:"usuarios-eliminados", component:UsuariosEliminadosComponent },
       // {path:"personal-eliminado", component:PersonalEliminadoComponent },

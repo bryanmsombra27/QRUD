@@ -28,3 +28,11 @@ export interface createPersonalResponse {
   message: string;
   personal: Personal;
 }
+
+export interface ActualizarRegistroPersonal
+  extends Pick<RegistroPersonal, 'nombre' | 'telefono' | 'rolId'> {}
+
+export interface DeletePersonalResponse {
+  message: string;
+  personal: Personal;
+}

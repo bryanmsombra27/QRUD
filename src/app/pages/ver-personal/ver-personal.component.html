@@ -1,1 +1,97 @@
-<p>ver-personal works!</p>
+<app-exito [msg]="msgExito()" *ngIf="msgExito().length > 0" />
+<!-- <app-exito [msg]="msgQR" *ngIf="existeMsgQRExito"></app-exito> -->
+
+
+
+<div class="spinner-container" *ngIf="personal().length == 0  ">
+    <app-spinner />
+</div>
+
+<!-- <div class="container" *ngIf="usuarios.length == 0 && noexistenUsuarios ">
+        <app-no-encontrado mensaje="No se encontraron usuarios disponibles"></app-no-encontrado>
+    </div> -->
+
+
+
+<app-buscador (refresh)="refetchPersonal('')" (search)="search($event)" />
+
+<!----------contenedor de las tablas-------------
+        <section class="recent">
+            <div class="activity-grid">
+                <div class="activity-card">
+               
+                    <div class="table-responsive">------->
+<h3>Lista de Personal</h3>
+<table class="resp">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Rol</th>
+            <th>Telefono</th>
+            <th>Email</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- <tr *ngFor="let usuario of usuarios|busqueda:page:busqueda"> -->
+        <tr *ngFor="let personal of personal()">
+
+            <!-- <app-no-encontrado *ngIf="personal.error" [mensaje]="personal.msg"></app-no-encontrado> -->
+
+
+            <td data-title="Nombre">{{personal.nombre | uppercase}}</td>
+            <td data-title="RFC">{{personal.rol.name| uppercase}}</td>
+            <td data-title="Telefono">{{personal.telefono}}</td>
+            <td class="right" data-title="Email">{{personal.email}}</td>
+            <td class="icons" data-title="Acciones">
+                <div class="btn-group">
+                    @if (accesoDenegado && personal.isActive) {
+                    <button class="btn" (click)="actualizarUsuario(personal)" *ngIf="accesoDenegado"><i
+                            class="fa-solid fa-square-pen fa-xl"></i></button>
+
+                    <label class="btn" for="btn-modal-delete" (click)="referenciaUsuarioEliminar(personal)"><i
+                            class="fa-solid fa-user-xmark fa-lg"></i></label>
+
+                    } @else {
+                    <label for="btn-modal-delete-def" (click)="referenciaUsuarioEliminar(personal)">
+
+                        <i class="fa-solid fa-trash fa-lg btn"></i>
+                    </label>
+
+                    <!-- From Uiverse.io by mrhyddenn -->
+                    @if (personal) {
+                    <app-switch-box [id]="personal.id" (activado)="activarUsuario($event)" />
+                    }
+
+                    }
+
+                </div>
+
+            </td>
+        </tr>
+
+
+        @if (metaData().totalPages) {
+        <app-paginacion [actualPage]="metaData().actualPage" [totalPages]="metaData().totalPages"
+            (changePage)="refetchPersonal('',$event)" />
+        }
+
+    </tbody>
+</table>
+<!---        </div>
+                </div>       
+            </div>
+        </section>-->
+
+
+<app-modal *ngIf="personalParaEliminar()"
+    msg="¿Esta seguro que quiere eliminar al usuario {{personalParaEliminar()?.email}} ?" titulo="Eliminar"
+    [funcion]="eliminarUsuario.bind(this)" modal="btn-modal-delete" />
+
+<app-modal *ngIf="personalParaEliminar()"
+    msg="¿Esta seguro que quiere eliminar definitivamente al usuario {{personalParaEliminar()?.email}} ?"
+    titulo="Eliminación Permanentemente" [funcion]="eliminacionDefinitiva.bind(this)" modal="btn-modal-delete-def" />
+
+
+<app-actualizar-personal *ngIf="mostrarFormularioEmergente()" [personal]="personalparaActualizar()!"
+    (msgExito)="refetchPersonal($event)" (ocultar)="mostrarFormularioEmergente.set($event)" />

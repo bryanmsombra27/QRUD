@@ -1,0 +1,48 @@
+<div id="myModaledit" class="modaledit">
+
+    <!-- Modal content -->
+    <div class="modal-content-edit">
+        <span class="closeedit" (click)="ocultarFormulario()">&times;</span>
+        <p>Editar Personal</p>
+        <form class="form-edit" [formGroup]="form" (ngSubmit)="submit()">
+
+            <div class="group-edit">
+                <input type="text" formControlName="nombre">
+                <span class="highlight"></span>
+                <span class="bar"></span>
+                <label>Nombre</label>
+                <app-errores-frontend *ngIf="campoValido('nombre')"
+                    mensaje="El campo es requerido"></app-errores-frontend>
+            </div>
+
+            <div class="group-edit">
+                <input type="tel" formControlName="telefono">
+                <span class="highlight"></span>
+                <span class="bar"></span>
+                <label>Telefono</label>
+                <app-errores-frontend *ngIf="campoValido('telefono')"
+                    mensaje="Tiene que ser un numero telefonico valido"></app-errores-frontend>
+            </div>
+
+
+            <div class="group-edit">
+                <select class="controls" formControlName="rol">
+                    <option value="{{this.personal().rol.id}}" disabled selected>{{personal().rol.name}}</option>
+                    <option value="{{rol.id}}" *ngFor="let rol of roles()"> {{rol.name}} </option>
+                </select>
+                <span class="highlight"></span>
+                <span class="bar"></span>
+
+                <app-errores-frontend *ngIf="campoValido('rol')"
+                    mensaje="Tiene que ser un rol  valido"></app-errores-frontend>
+            </div>
+
+            <div class="save-edit">
+                <button type="submit" class="btn10">
+                    <span>Guardar</span>
+                    <div class="transition"></div>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
