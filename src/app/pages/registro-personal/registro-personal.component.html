@@ -15,44 +15,16 @@
         <form action="#" [formGroup]="form" (ngSubmit)="submit()">
             <div class="user-details">
 
-                <div class="group">
-                    <input type="text" formControlName="nombre" (keyup)="removerAlertas()">
-                    <span class="highlight"></span>
-                    <span class="bar"></span>
-                    <label>Nombre</label>
-                    <app-errores-frontend mensaje="Campo requerido"
-                        *ngIf="campoValido('nombre')"></app-errores-frontend>
-                </div>
+                <app-text error="El campo es requerido" fieldName="nombre" [form]="form" label="Nombre"
+                    (removeAlerts)="this.removerAlertas()" />
+                <app-text error="Tiene que ser un numero valido" fieldName="telefono" [form]="form" label="Telefono"
+                    (removeAlerts)="this.removerAlertas()" />
 
+                <app-text type="email" error="Tiene que ser un correo valido" fieldName="email" [form]="form"
+                    label="Email" (removeAlerts)="this.removerAlertas()" />
 
-
-                <div class="group">
-                    <input type="tel" formControlName="telefono" (keyup)="removerAlertas()">
-                    <span class="highlight"></span>
-                    <span class="bar"></span>
-                    <label>Telefono</label>
-                    <app-errores-frontend mensaje="Tiene que ser un numero valido"
-                        *ngIf="campoValido('telefono')"></app-errores-frontend>
-                </div>
-
-                <div class="group">
-                    <input type="email" formControlName="email" (keyup)="removerAlertas()">
-                    <span class="highlight"></span>
-                    <span class="bar"></span>
-                    <label>Email</label>
-                    <app-errores-frontend mensaje="Tiene que ser un correo valido"
-                        *ngIf="campoValido('email')"></app-errores-frontend>
-                </div>
-
-                <div class="group">
-                    <input type="password" formControlName="password" (keyup)="removerAlertas()">
-                    <span class="highlight"></span>
-                    <span class="bar"></span>
-                    <label>Contraseña</label>
-                    <!-- <app-errores-frontend mensaje="La contraseña debe tener al entre 8 y 16 caracteres, al menos un dígito, al menos una minúscula, al menos una mayúscula y al menos un caracter no alfanumérico" *ngIf="campoValido('password')"  ></app-errores-frontend> -->
-                    <app-errores-frontend mensaje="La contraseña es requerida"
-                        *ngIf="campoValido('password')"></app-errores-frontend>
-                </div>
+                <app-text type="password" error="La contraseña es requerida" fieldName="password" [form]="form"
+                    label="Contraseña" (removeAlerts)="this.removerAlertas()" />
 
                 <div class="group">
                     <select class="controls" name="" id="" formControlName="rolId" (keyup)="removerAlertas()">

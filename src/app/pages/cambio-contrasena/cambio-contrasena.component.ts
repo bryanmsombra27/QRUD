@@ -22,15 +22,16 @@ import { UpdatePassword } from '../../interfaces/personal.interface';
 import { PersonalService } from '../../services/personal.service';
 import { firstValueFrom } from 'rxjs';
 import { ExitoComponent } from '../../components/shared/exito/exito.component';
+import { TextComponent } from '../../components/shared/inputs/text/text.component';
 
 @Component({
   selector: 'app-cambio-contrasena',
   imports: [
-    ErroresFrontendComponent,
     ErroresBackendComponent,
     ReactiveFormsModule,
     CommonModule,
     ExitoComponent,
+    TextComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './cambio-contrasena.component.html',
@@ -108,7 +109,6 @@ export default class CambioContrasenaComponent {
       const response = await firstValueFrom(
         this.personalService.updatePassword(actualizarContrasena)
       );
-      console.log(response.message, 'MENSAJE');
 
       this.msgExito.set(response.message);
       this.form.reset();
@@ -133,13 +133,6 @@ export default class CambioContrasenaComponent {
         pass2Control?.setErrors({ noEsigual: true });
       }
     };
-  }
-  /**
-   * valida campos vacios del formulario reactivo si existen retorna un valor booleano true
-   * @param campo recibe un campo del formulario para validar si contiene errores de validacion o no
-   */
-  campoValido(campo: string) {
-    return !this.form.get(campo)?.valid && this.form.get(campo)?.touched;
   }
 
   /**

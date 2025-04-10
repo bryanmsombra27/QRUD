@@ -13,10 +13,11 @@ import {
 import { ActualizarRol, Rol } from '../../../interfaces/rol.interface';
 import { firstValueFrom } from 'rxjs';
 import { RolService } from '../../../services/rol.service';
+import { TextComponent } from '../../shared/inputs/text/text.component';
 
 @Component({
   selector: 'app-actualizar-rol',
-  imports: [ErroresFrontendComponent, ReactiveFormsModule],
+  imports: [ErroresFrontendComponent, ReactiveFormsModule, TextComponent],
   templateUrl: './actualizar-rol.component.html',
   styleUrl: './actualizar-rol.component.css',
 })

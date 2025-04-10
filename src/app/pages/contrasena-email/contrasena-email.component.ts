@@ -13,7 +13,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import {
   CustomError,
   ErrorServidorService,
@@ -21,6 +21,7 @@ import {
 import { PersonalService } from '../../services/personal.service';
 import { firstValueFrom } from 'rxjs';
 import { CommonModule } from '@angular/common';
+import { TextComponent } from '../../components/shared/inputs/text/text.component';
 
 @Component({
   selector: 'app-contrasena-email',
@@ -28,8 +29,9 @@ import { CommonModule } from '@angular/common';
     CommonModule,
     ReactiveFormsModule,
     ExitoComponent,
-    ErroresFrontendComponent,
     ErroresBackendComponent,
+    TextComponent,
+    RouterModule,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './contrasena-email.component.html',
@@ -48,17 +50,7 @@ export default class ContrasenaEmailComponent {
   /**
    * almacena y muestra el mensaje de error proveido por el backend cuando el email no coincide  o   no exista un error en el servidor
    */
-  msgError: string = '';
-
-  /**
-   * bandera que permite mostrar el mensaje de error solo si existe un error
-   */
-  existeError: boolean = false;
-
-  /**
-   * bandera que permite mostrar el mensaje de exito solo si se realizo la accion correctamente
-   */
-  existeMsgExito: boolean = false;
+  // msgError: string = '';
 
   /**
    * inyeccion de servicios en el constructor
@@ -69,6 +61,7 @@ export default class ContrasenaEmailComponent {
   private personalService = inject(PersonalService);
 
   msgExito = signal<string>('');
+  msgError = signal<string>('');
   /**
    * inicializando el formulario reactivo una vez el componente es cargado
    */
@@ -106,15 +99,13 @@ export default class ContrasenaEmailComponent {
         this.msgExito.set('');
         this.router.navigateByUrl('/login');
       }, 2000);
-    } catch (error) {
+    } catch (error: any) {
+      this.msgError.set(error.error.message);
       this.errorServidor.invalidToken(error as CustomError);
+
+      setTimeout(() => {
+        this.msgError.set('');
+      }, 2000);
     }
-  }
-  /**
-   * valida campos vacios del formulario reactivo si existen retorna un valor booleano true
-   * @param campo recibe un campo del formulario para validar si contiene errores de validacion o no
-   */
-  campoValido(campo: string) {
-    return !this.form.get(campo)?.valid && this.form.get(campo)?.touched;
   }
 }

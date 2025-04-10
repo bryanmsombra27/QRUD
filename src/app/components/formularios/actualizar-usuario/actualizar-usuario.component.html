@@ -5,50 +5,24 @@
         <p>Editar Usuario </p>
         <form class="form-edit" [formGroup]="form" (ngSubmit)="submit()">
 
-            <div class="group-edit">
-                <input type="text" formControlName="nombre">
-                <span class="highlight"></span>
-                <span class="bar"></span>
-                <label>Nombre</label>
-                <app-errores-frontend *ngIf="campoValido('nombre')"
-                    mensaje="El campo es requerido"></app-errores-frontend>
-            </div>
 
-            <div class="group-edit">
-                <input type="text" formControlName="rfc">
-                <span class="highlight"></span>
-                <span class="bar"></span>
-                <label>RFC</label>
-                <app-errores-frontend *ngIf="campoValido('rfc')"
-                    mensaje="Tiene que ser un rfc valido"></app-errores-frontend>
-            </div>
+            <app-text error="El campo es requerido" fieldName="nombre" [form]="form" label="Nombre"
+                (removeAlerts)="this.removerAlertas()" />
 
-            <div class="group-edit">
-                <input type="text" formControlName="direccion">
-                <span class="highlight"></span>
-                <span class="bar"></span>
-                <label>Direccion</label>
-                <app-errores-frontend *ngIf="campoValido('direccion')"
-                    mensaje="El campo es requerido"></app-errores-frontend>
-            </div>
 
-            <div class="group-edit">
-                <input type="tel" formControlName="telefono">
-                <span class="highlight"></span>
-                <span class="bar"></span>
-                <label>Telefono</label>
-                <app-errores-frontend *ngIf="campoValido('telefono')"
-                    mensaje="Tiene que ser un numero telefonico valido"></app-errores-frontend>
-            </div>
+            <app-text error="Tiene que ser un rfc valido" fieldName="rfc" [form]="form" label="RFC"
+                (removeAlerts)="this.removerAlertas()" />
 
-            <div class="group-edit">
-                <input type="email" formControlName="email">
-                <span class="highlight"></span>
-                <span class="bar"></span>
-                <label>Email</label>
-                <app-errores-frontend *ngIf="campoValido('email')"
-                    mensaje="Tiene que ser un correo valido"></app-errores-frontend>
-            </div>
+            <app-text error="El campo es requerido" fieldName="direccion" [form]="form" label="Dirección"
+                (removeAlerts)="this.removerAlertas()" />
+
+            <app-text error="Tiene que ser un numero telefonico valido" fieldName="telefono" [form]="form"
+                label="Telefono" (removeAlerts)="this.removerAlertas()" />
+
+
+            <app-text error="Tiene que ser un correo valido" fieldName="email" [form]="form" label="Email"
+                (removeAlerts)="this.removerAlertas()" />
+
 
             <div class="save-edit">
                 <button type="submit" class="btn10">

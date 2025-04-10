@@ -1,4 +1,9 @@
-import { Component, inject, signal } from '@angular/core';
+import {
+  Component,
+  CUSTOM_ELEMENTS_SCHEMA,
+  inject,
+  signal,
+} from '@angular/core';
 import { ErroresBackendComponent } from '../../components/shared/errores-backend/errores-backend.component';
 import { ExitoComponent } from '../../components/shared/exito/exito.component';
 import { ErroresFrontendComponent } from '../../components/shared/errores-frontend/errores-frontend.component';
@@ -16,6 +21,7 @@ import {
 import { RegistroRol } from '../../interfaces/rol.interface';
 import { firstValueFrom } from 'rxjs';
 import { RolService } from '../../services/rol.service';
+import { TextComponent } from '../../components/shared/inputs/text/text.component';
 
 @Component({
   selector: 'app-registro-rol',
@@ -25,7 +31,9 @@ import { RolService } from '../../services/rol.service';
     ErroresFrontendComponent,
     CommonModule,
     ReactiveFormsModule,
+    TextComponent,
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './registro-rol.component.html',
   styleUrl: './registro-rol.component.css',
 })

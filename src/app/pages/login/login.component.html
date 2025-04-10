@@ -27,26 +27,13 @@
         <h1>¡Bienvenido!</h1>
         <form [formGroup]="form" (ngSubmit)="login()">
 
-            <div class="group">
-                <input type="text" formControlName="email" (keyup)="removerAlertas()">
-                <span class="highlight"></span>
-                <span class="bar"></span>
-                <label>Email</label>
-                <div class="contenedor-validacion">
-                    <app-errores-frontend mensaje="Debe de ser un correo valido"
-                        *ngIf="campoValido('email')"></app-errores-frontend>
+            <app-text type="email" error="Debe de ser un correo valido" fieldName="email" [form]="form" label="Email"
+                (removeAlerts)="this.removerAlertas()" />
 
-                </div>
-            </div>
 
-            <div class="group">
-                <input type="password" formControlName="password" (keyup)="removerAlertas()">
-                <span class="highlight"></span>
-                <span class="bar"></span>
-                <label>Password</label>
-                <app-errores-frontend mensaje="El campo es obligatorio"
-                    *ngIf="campoValido('password')"></app-errores-frontend>
-            </div>
+            <app-text type="password" error="El campo es obligatorio" fieldName="password" [form]="form"
+                label="Password" (removeAlerts)="this.removerAlertas()" />
+
             <div class="wrapper">
                 <button href="#0" class="btn10">
                     <span>Ingresar</span>

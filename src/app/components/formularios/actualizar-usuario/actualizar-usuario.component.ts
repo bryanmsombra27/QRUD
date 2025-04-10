@@ -23,10 +23,11 @@ import {
   CustomError,
   ErrorServidorService,
 } from '../../../services/errorServidor.service';
+import { TextComponent } from '../../shared/inputs/text/text.component';
 
 @Component({
   selector: 'app-actualizar-usuario',
-  imports: [ErroresFrontendComponent, ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule, TextComponent],
   templateUrl: './actualizar-usuario.component.html',
   styleUrl: './actualizar-usuario.component.css',
 })
@@ -106,13 +107,6 @@ export class ActualizarUsuarioComponent {
     }
   }
 
-  /**
-   * valida campos vacios del formulario reactivo si existen retorna un valor booleano true
-   * @param campo recibe un campo del formulario para validar si contiene errores de validacion o no
-   */
-  campoValido(campo: string) {
-    return !this.form.get(campo)?.valid && this.form.get(campo)?.touched;
-  }
   /**
    * metodo que remueve los mensajes de error solo si existen
    */

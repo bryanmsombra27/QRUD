@@ -5,14 +5,11 @@
         <p>Editar Personal</p>
         <form class="form-edit" [formGroup]="form" (ngSubmit)="submit()">
 
-            <div class="group-edit">
-                <input type="text" formControlName="name">
-                <span class="highlight"></span>
-                <span class="bar"></span>
-                <label>Rol</label>
-                <app-errores-frontend *ngIf="campoValido('name')"
-                    mensaje="El campo es requerido"></app-errores-frontend>
-            </div>
+
+            <app-text error="El campo es requerido" fieldName="name" [form]="form" label="Rol"
+                (removeAlerts)="this.removerAlertas()" />
+
+
 
 
 

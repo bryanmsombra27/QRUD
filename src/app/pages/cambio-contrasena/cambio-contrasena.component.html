@@ -9,31 +9,16 @@
         <p>{{nombreUsuario()}}</p>
         <form [formGroup]="form" (ngSubmit)="submit()">
             <div class="user-details">
-                <div class="group">
-                    <input type="password" formControlName="last_password">
-                    <span class="highlight"></span>
-                    <span class="bar"></span>
-                    <label>Contraseña Anterior</label>
-                    <app-errores-frontend *ngIf="campoValido('last_password')"
-                        mensaje="Debe tener al entre 8 y 16 caracteres, al menos un dígito, una minúscula, una mayúscula y un caracter no alfanumérico"></app-errores-frontend>
-                </div>
-                <div class="group">
-                    <input type="password" formControlName="new_password">
-                    <span class="highlight"></span>
-                    <span class="bar"></span>
-                    <label>Nueva Contraseña</label>
-                    <app-errores-frontend *ngIf="campoValido('new_password')"
-                        mensaje="Debe tener al entre 8 y 16 caracteres, al menos un dígito, una minúscula, una mayúscula y un caracter no alfanumérico"></app-errores-frontend>
-                </div>
-                <div class="group">
-                    <input type="password" formControlName="new_password_confirmation">
-                    <span class="highlight"></span>
-                    <span class="bar"></span>
-                    <label>Confirma Nueva Contraseña </label>
-                    <app-errores-frontend *ngIf="campoValido('new_password_confirmation')"
-                        mensaje="Las  nuevas contraseñas no coinciden"></app-errores-frontend>
 
-                </div>
+                <app-text type="password" error="Campo requerido" fieldName="last_password" [form]="form"
+                    label="Contraseña Anterior" (removeAlerts)="this.removerAlertas()" />
+
+                <app-text type="password" error="Campo requerido" fieldName="new_password" [form]="form"
+                    label="Nueva Contraseña" (removeAlerts)="this.removerAlertas()" />
+
+                <app-text type="password" error="Las  nuevas contraseñas no coinciden"
+                    fieldName="new_password_confirmation" [form]="form" label="Confirma Nueva Contraseña"
+                    (removeAlerts)="this.removerAlertas()" />
             </div>
             <div class="wrapper">
                 <button href="#0" class="btn10">

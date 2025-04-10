@@ -20,10 +20,16 @@ import { PersonalService } from '../../../services/personal.service';
 import { Rol } from '../../../interfaces/rol.interface';
 import { RolService } from '../../../services/rol.service';
 import { CommonModule } from '@angular/common';
+import { TextComponent } from '../../shared/inputs/text/text.component';
 
 @Component({
   selector: 'app-actualizar-personal',
-  imports: [ErroresFrontendComponent, ReactiveFormsModule, CommonModule],
+  imports: [
+    ErroresFrontendComponent,
+    ReactiveFormsModule,
+    CommonModule,
+    TextComponent,
+  ],
   templateUrl: './actualizar-personal.component.html',
   styleUrl: './actualizar-personal.component.css',
 })

@@ -3,7 +3,7 @@
 <app-exito [msg]="msgExito()"> </app-exito>
 }
 
-<app-errores-backend [mensaje]="msgError" *ngIf="existeError"></app-errores-backend>
+<app-errores-backend [mensaje]="msgError()" *ngIf="msgError().length > 0"></app-errores-backend>
 
 <img class="wave" src="assets/img/wave2.png">
 
@@ -15,15 +15,9 @@
             restablecer la contraseña.</p>
         <form [formGroup]="form" (ngSubmit)="submit()">
             <div class="user-details">
-                <div class="group">
-                    <input type="email" formControlName="email">
-                    <span class="highlight"></span>
-                    <span class="bar"></span>
-                    <label>Email</label>
-                    <app-errores-frontend mensaje="Debe de ser un correo valido"
-                        *ngIf="campoValido('email')"></app-errores-frontend>
+                <app-text type="email" error="Debe de ser un correo valido" fieldName="email" [form]="form"
+                    label="Email" />
 
-                </div>
                 <a routerLink="/login">Recordaste tu contraseña?, Inicia Sesion</a>
 
                 <div class="wrapper">

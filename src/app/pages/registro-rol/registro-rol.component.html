@@ -16,13 +16,10 @@
         <form action="#" [formGroup]="form" (ngSubmit)="submit()">
             <div class="user-details">
 
-                <div class="group">
-                    <input type="text" formControlName="name" (keyup)="removerAlertas()">
-                    <span class="highlight"></span>
-                    <span class="bar"></span>
-                    <label>Rol</label>
-                    <app-errores-frontend mensaje="Campo requerido" *ngIf="campoValido('name')"></app-errores-frontend>
-                </div>
+                <app-text error="Campo requerido" fieldName="name" [form]="form" label="Rol"
+                    (removeAlerts)="this.removerAlertas()" />
+
+
 
                 <div class="group">
                     <textarea formControlName="description" (keyup)="removerAlertas()"

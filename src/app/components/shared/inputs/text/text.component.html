@@ -1,0 +1,7 @@
+<div class="group" [formGroup]="form()">
+    <input type="text" formControlName="{{fieldName()}}" (keyup)="removerAlertas()">
+    <span class="highlight"></span>
+    <span class="bar"></span>
+    <label>{{label()}}</label>
+    <app-errores-frontend *ngIf="campoValido(fieldName())" mensaje="{{frontendError()}}"></app-errores-frontend>
+</div>

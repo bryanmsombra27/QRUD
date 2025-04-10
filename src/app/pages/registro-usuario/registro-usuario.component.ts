@@ -1,4 +1,9 @@
-import { Component, inject, signal } from '@angular/core';
+import {
+  Component,
+  CUSTOM_ELEMENTS_SCHEMA,
+  inject,
+  signal,
+} from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -7,7 +12,10 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
-import { ErrorServidorService } from '../../services/errorServidor.service';
+import {
+  CustomError,
+  ErrorServidorService,
+} from '../../services/errorServidor.service';
 import { RegistroUsuario } from '../../interfaces/usuario.interface';
 import { ErroresFrontendComponent } from '../../components/shared/errores-frontend/errores-frontend.component';
 import { ErroresBackendComponent } from '../../components/shared/errores-backend/errores-backend.component';
@@ -15,16 +23,18 @@ import { CommonModule } from '@angular/common';
 import { ExitoComponent } from '../../components/shared/exito/exito.component';
 import { firstValueFrom } from 'rxjs';
 import { UsuarioService } from '../../services/usuario.service';
+import { TextComponent } from '../../components/shared/inputs/text/text.component';
 
 @Component({
   selector: 'app-registro-usuario',
   imports: [
-    ErroresFrontendComponent,
     ErroresBackendComponent,
     CommonModule,
     ReactiveFormsModule,
     ExitoComponent,
+    TextComponent,
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './registro-usuario.component.html',
   styleUrl: './registro-usuario.component.css',
 })
@@ -39,8 +49,6 @@ export default class RegistroUsuarioComponent {
   errorServidor = signal<string>('');
 
   private fb = inject(FormBuilder);
-  private router = inject(Router);
-  private AuthService = inject(AuthService);
   private ErrorServidor = inject(ErrorServidorService);
   private usuarioService = inject(UsuarioService);
 
@@ -95,15 +103,13 @@ export default class RegistroUsuarioComponent {
         this.msgExito.set('');
       }, 2000);
     } catch (err: any) {
+      this.ErrorServidor.invalidToken(err as CustomError);
+
       this.errorServidor.set(err.error.message);
       setTimeout(() => {
         this.errorServidor.set('');
       }, 2500);
     }
-  }
-
-  campoValido(campo: string) {
-    return !this.form.get(campo)?.valid && this.form.get(campo)?.touched;
   }
 
   removerAlertas() {

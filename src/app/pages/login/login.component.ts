@@ -20,15 +20,16 @@ import { ErrorServidorService } from '../../services/errorServidor.service';
 import { CommonModule } from '@angular/common';
 import { ErroresFrontendComponent } from '../../components/shared/errores-frontend/errores-frontend.component';
 import { ErroresBackendComponent } from '../../components/shared/errores-backend/errores-backend.component';
+import { TextComponent } from '../../components/shared/inputs/text/text.component';
 
 @Component({
   selector: 'app-login',
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    ErroresFrontendComponent,
     ErroresBackendComponent,
     RouterModule,
+    TextComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 

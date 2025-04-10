@@ -18,6 +18,7 @@ import { CommonModule } from '@angular/common';
 import { RolService } from '../../services/rol.service';
 import { Rol } from '../../interfaces/rol.interface';
 import { firstValueFrom } from 'rxjs';
+import { TextComponent } from '../../components/shared/inputs/text/text.component';
 
 @Component({
   selector: 'app-registro-personal',
@@ -27,6 +28,7 @@ import { firstValueFrom } from 'rxjs';
     ErroresFrontendComponent,
     ReactiveFormsModule,
     CommonModule,
+    TextComponent,
   ],
   templateUrl: './registro-personal.component.html',
   styleUrl: './registro-personal.component.css',

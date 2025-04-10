@@ -6,23 +6,12 @@
         <p>Editar Personal</p>
         <form class="form-edit" [formGroup]="form" (ngSubmit)="submit()">
 
-            <div class="group-edit">
-                <input type="text" formControlName="nombre">
-                <span class="highlight"></span>
-                <span class="bar"></span>
-                <label>Nombre</label>
-                <app-errores-frontend *ngIf="campoValido('nombre')"
-                    mensaje="El campo es requerido"></app-errores-frontend>
-            </div>
+            <app-text error="El campo es requerido" fieldName="nombre" [form]="form" label="Nombre"
+                (removeAlerts)="this.removerAlertas()" />
 
-            <div class="group-edit">
-                <input type="tel" formControlName="telefono">
-                <span class="highlight"></span>
-                <span class="bar"></span>
-                <label>Telefono</label>
-                <app-errores-frontend *ngIf="campoValido('telefono')"
-                    mensaje="Tiene que ser un numero telefonico valido"></app-errores-frontend>
-            </div>
+            <app-text error="Tiene que ser un numero telefonico valido" fieldName="telefono" [form]="form"
+                label="Telefono" (removeAlerts)="this.removerAlertas()" />
+
 
 
             <div class="group-edit">
