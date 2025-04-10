@@ -41,3 +41,6 @@ export interface UpdatePassword {
   new_password: string;
   new_password_confirmation: string;
 }
+
+export interface EmailUpdatePassword
+  extends Pick<UpdatePassword, 'new_password' | 'new_password_confirmation'> {}

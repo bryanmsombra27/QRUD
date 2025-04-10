@@ -6,6 +6,7 @@ import {
   ActualizarRegistroPersonal,
   createPersonalResponse,
   DeletePersonalResponse,
+  EmailUpdatePassword,
   GetAllPersonal,
   Personal,
   RegistroPersonal,
@@ -147,6 +148,12 @@ export class PersonalService {
     return this.http.post<{ message: string }>(
       `${url}/personal/forgot-password`,
       email
+    );
+  }
+  updateEmailPassword(id: string, token: string, data: EmailUpdatePassword) {
+    return this.http.post<{ message: string }>(
+      `${url}/personal/reset-password?token=${token}&id=${id}`,
+      data
     );
   }
 }

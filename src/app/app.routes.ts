@@ -61,5 +61,10 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./pages/contrasena-email/contrasena-email.component'),
   },
+  {
+    path: 'reset-password',
+    loadComponent: () =>
+      import('./pages/reset-password/reset-password.component'),
+  },
   { path: '**', redirectTo: '' },
 ];
