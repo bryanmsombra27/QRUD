@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { LoginComponent } from './pages/login/login.component';
 import { loginGuard } from './guards/login.guard';
+import { emailGuard } from './guards/email.guard';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -65,6 +66,7 @@ export const routes: Routes = [
     path: 'reset-password',
     loadComponent: () =>
       import('./pages/reset-password/reset-password.component'),
+    canActivate: [emailGuard],
   },
-  { path: '**', redirectTo: '' },
+  { path: '**', redirectTo: '/login' },
 ];
