@@ -5,12 +5,12 @@
 
 <app-errores-backend [mensaje]="msgError()" *ngIf="msgError().length > 0"></app-errores-backend>
 
-<img class="wave" src="assets/img/wave2.png">
+<img class="wave" src="/assets/img/wave2.png">
 
 <div class="activity-grid">
     <div class="container">
         <!--<section class="email">-->
-        <img src="assets/img/logo.svg">
+        <img src="/assets/img/logo.svg">
         <p>Ingrese la dirección de correo electrónico verificada de su cuenta de usuario y le enviaremos un enlace para
             restablecer la contraseña.</p>
         <form [formGroup]="form" (ngSubmit)="submit()">

@@ -22,6 +22,11 @@
               {
                 "glob": "**/*",
                 "input": "public"
+              },
+              {
+                "input": "src/assets",
+                "glob": "**/*",
+                "output": "public"
               }
             ],
             "styles": ["src/styles.css"],
@@ -41,11 +46,13 @@
                   "maximumError": "20kB"
                 }
               ],
-              "outputHashing": "all"
+              "outputHashing": "all",
+              "fileReplacements": []
             },
             "development": {
               "assets": [
-                { "input": "src/assets", "glob": "**/*", "output": "assets" }
+                { "input": "src/assets", "glob": "**/*", "output": "assets" },
+                { "input": "public/assets", "glob": "**/*", "output": "assets" }
               ],
               "optimization": false,
               "extractLicenses": false,
