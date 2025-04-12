@@ -1,5 +1,5 @@
 <div class="group" [formGroup]="form()">
-    <input type="text" formControlName="{{fieldName()}}" (keyup)="removerAlertas()">
+    <input type="{{type()}}" formControlName="{{fieldName()}}" (keyup)="removerAlertas()">
     <span class="highlight"></span>
     <span class="bar"></span>
     <label>{{label()}}</label>

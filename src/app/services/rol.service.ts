@@ -11,7 +11,7 @@ import {
 import { HttpClient } from '@angular/common/http';
 import { StorageService } from './storage.service';
 import { firstValueFrom } from 'rxjs';
-import { environment } from '../../environments/environment.development';
+import { environment } from '../../environments/environment';
 
 const { url, llaveToken } = environment;
 

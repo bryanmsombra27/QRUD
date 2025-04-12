@@ -12,7 +12,7 @@ import {
   RegistroPersonal,
   UpdatePassword,
 } from '../interfaces/personal.interface';
-import { environment } from '../../environments/environment.development';
+import { environment } from '../../environments/environment';
 import { firstValueFrom } from 'rxjs';
 const { url, llaveToken } = environment;
 @Injectable({

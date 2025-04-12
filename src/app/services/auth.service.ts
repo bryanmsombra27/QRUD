@@ -3,7 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { StorageService } from './storage.service';
 import { LoginResponse, PersonalLogin } from '../interfaces/login.interface';
-import { environment } from '../../environments/environment.development';
+import { environment } from '../../environments/environment';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { firstValueFrom, tap } from 'rxjs';
 

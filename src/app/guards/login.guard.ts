@@ -1,7 +1,7 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
 import { StorageService } from '../services/storage.service';
-import { environment } from '../../environments/environment.development';
+import { environment } from '../../environments/environment';
 const { llaveToken, llaveRole } = environment;
 
 export const loginGuard: CanActivateFn = (route, state) => {

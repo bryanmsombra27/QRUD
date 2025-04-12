@@ -8,7 +8,7 @@ import {
   User,
   UserResponse,
 } from '../interfaces/usuario.interface';
-import { environment } from '../../environments/environment.development';
+import { environment } from '../../environments/environment';
 import { StorageService } from './storage.service';
 import { Pagination } from '../interfaces/pagination';
 const { url, llaveToken } = environment;
