@@ -53,4 +53,4 @@ jobs:
         uses: actions/deploy-pages@v4
         with:
           branch: main
-          folder: dist/qrud-latest/browser
+          folder: /home/runner/work/QRUD/QRUD/dist/qrud-latest/browser/
