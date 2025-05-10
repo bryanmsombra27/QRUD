@@ -30,7 +30,12 @@
                 "glob": "**/*",
                 "output": "public"
               },
-              { "input": "public/assets", "glob": "**/*", "output": "assets" }
+              { "input": "public/assets", "glob": "**/*", "output": "assets" },
+              {
+                "input": "QRUD/public/assets",
+                "glob": "**/*",
+                "output": "assets"
+              }
             ],
             "styles": ["src/styles.css"],
             "scripts": [],
@@ -54,7 +59,16 @@
                   "glob": "**/*",
                   "output": "public"
                 },
-                { "input": "public/assets", "glob": "**/*", "output": "assets" }
+                {
+                  "input": "public/assets",
+                  "glob": "**/*",
+                  "output": "assets"
+                },
+                {
+                  "input": "QRUD/public/assets",
+                  "glob": "**/*",
+                  "output": "assets"
+                }
               ],
               "budgets": [
                 {
