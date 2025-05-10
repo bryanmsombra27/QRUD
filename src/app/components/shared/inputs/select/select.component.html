@@ -1,0 +1,10 @@
+<div class="group-edit" [formGroup]="form()">
+    <select class="controls" formControlName="{{fieldName()}}" (onchange)="removerAlertas()">
+        <option value="{{rol.value}}" *ngFor="let rol of options()" [selected]="selectValue(rol.value)">
+            {{rol.label}} </option>
+    </select>
+    <span class="highlight"></span>
+    <span class="bar"></span>
+
+    <app-errores-frontend *ngIf="campoValido(fieldName())" mensaje={{frontendError()}}></app-errores-frontend>
+</div>

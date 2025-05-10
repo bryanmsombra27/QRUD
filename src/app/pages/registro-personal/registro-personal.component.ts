@@ -1,7 +1,6 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { ErroresBackendComponent } from '../../components/shared/errores-backend/errores-backend.component';
 import { ExitoComponent } from '../../components/shared/exito/exito.component';
-import { ErroresFrontendComponent } from '../../components/shared/errores-frontend/errores-frontend.component';
 import {
   FormBuilder,
   FormGroup,
@@ -19,16 +18,17 @@ import { RolService } from '../../services/rol.service';
 import { Rol } from '../../interfaces/rol.interface';
 import { firstValueFrom } from 'rxjs';
 import { TextComponent } from '../../components/shared/inputs/text/text.component';
+import { SelectComponent } from '../../components/shared/inputs/select/select.component';
 
 @Component({
   selector: 'app-registro-personal',
   imports: [
     ErroresBackendComponent,
     ExitoComponent,
-    ErroresFrontendComponent,
     ReactiveFormsModule,
     CommonModule,
     TextComponent,
+    SelectComponent,
   ],
   templateUrl: './registro-personal.component.html',
   styleUrl: './registro-personal.component.css',
@@ -60,7 +60,8 @@ export default class RegistroPersonalComponent implements OnInit {
   private rolService = inject(RolService);
 
   msgExito = signal<string>('');
-  roles = signal<Rol[]>([]);
+  // roles = signal<Rol[]>([]);
+  roles = signal<{ label: string; value: string }[]>([]);
 
   /**
    * Inicializando el formulario reactivo y obtiene los roles del personal para mostrarlos en el formulario
@@ -124,17 +125,18 @@ export default class RegistroPersonalComponent implements OnInit {
       const response = await firstValueFrom(this.rolService.getAllRoles());
       this.rolService.meta = response.meta;
       this.rolService.allRoles = response.roles;
-      this.roles.set(this.rolService.allRoles);
+
+      const roles = response.roles.map((rol) => ({
+        label: rol.name,
+        value: rol.id,
+      }));
+
+      this.roles.set(roles);
+
+      // this.roles.set(this.rolService.allRoles);
     } catch (error) {
       this.ErrorServidor.invalidToken(error as CustomError);
     }
-  }
-  /**
-   * valida campos vacios del formulario reactivo si existen retorna un valor booleano true
-   * @param campo recibe un campo del formulario para validar si contiene errores de validacion o no
-   */
-  campoValido(campo: string) {
-    return !this.form.get(campo)?.valid && this.form.get(campo)?.touched;
   }
 
   /**

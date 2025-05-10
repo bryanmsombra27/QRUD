@@ -14,17 +14,9 @@
 
 
 
-            <div class="group-edit">
-                <select class="controls" formControlName="rol">
-                    <option value="{{this.personal().rol.id}}" disabled selected>{{personal().rol.name}}</option>
-                    <option value="{{rol.id}}" *ngFor="let rol of roles()"> {{rol.name}} </option>
-                </select>
-                <span class="highlight"></span>
-                <span class="bar"></span>
+            <app-select error="Campo requerido" fieldName="rolId" [options]="roles()" [form]="form"
+                selectedValue="{{personal().rol.id}}" />
 
-                <app-errores-frontend *ngIf="campoValido('rol')"
-                    mensaje="Tiene que ser un rol  valido"></app-errores-frontend>
-            </div>
 
             <div class="save-edit">
                 <button type="submit" class="btn10">

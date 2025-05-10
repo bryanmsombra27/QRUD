@@ -21,15 +21,11 @@ import { Rol } from '../../../interfaces/rol.interface';
 import { RolService } from '../../../services/rol.service';
 import { CommonModule } from '@angular/common';
 import { TextComponent } from '../../shared/inputs/text/text.component';
+import { SelectComponent } from '../../shared/inputs/select/select.component';
 
 @Component({
   selector: 'app-actualizar-personal',
-  imports: [
-    ErroresFrontendComponent,
-    ReactiveFormsModule,
-    CommonModule,
-    TextComponent,
-  ],
+  imports: [ReactiveFormsModule, CommonModule, TextComponent, SelectComponent],
   templateUrl: './actualizar-personal.component.html',
   styleUrl: './actualizar-personal.component.css',
 })
@@ -39,7 +35,7 @@ export class ActualizarPersonalComponent {
    */
   form!: FormGroup;
   personal = input.required<Personal>();
-  roles = signal<Rol[]>([]);
+  roles = signal<{ label: string; value: string }[]>([]);
   ocultar = output<boolean>();
   msgExito = output<string>();
   private fb = inject(FormBuilder);
@@ -65,7 +61,13 @@ export class ActualizarPersonalComponent {
     try {
       const response = await firstValueFrom(this.rolesService.getAllRoles());
 
-      this.roles.set(response.roles);
+      const roles = response.roles.map((rol) => ({
+        value: rol.id,
+        label: rol.name,
+      }));
+
+      this.roles.set(roles);
+      // this.roles.set(response.roles);
     } catch (error) {
       this.errorService.invalidToken(error as CustomError);
     }
@@ -79,15 +81,19 @@ export class ActualizarPersonalComponent {
       nombre: [this.personal().nombre, Validators.required],
       telefono: [
         this.personal().telefono,
-        [Validators.required, Validators.pattern(/^[0-9]\d{9}$/g)],
+        // [Validators.required, Validators.pattern(/^[0-9]\d{9}$/g)],
+        [Validators.required, Validators.pattern(/^[0-9]{10}$/)],
+        // [Validators.required],
       ],
-      rol: [this.personal().rol.id, Validators.required],
+      rolId: [this.personal().rol.id, Validators.required],
     });
   }
   /**
    * metodo que actualiza el usuario en el backend
    */
   async submit() {
+    console.log(this.form.value, 'VALORES DEL FORMULAIRO');
+
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       return;
@@ -113,13 +119,6 @@ export class ActualizarPersonalComponent {
     }
   }
 
-  /**
-   * valida campos vacios del formulario reactivo si existen retorna un valor booleano true
-   * @param campo recibe un campo del formulario para validar si contiene errores de validacion o no
-   */
-  campoValido(campo: string) {
-    return !this.form.get(campo)?.valid && this.form.get(campo)?.touched;
-  }
   /**
    * metodo que remueve los mensajes de error solo si existen
    */

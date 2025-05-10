@@ -70,7 +70,8 @@ export class ActualizarUsuarioComponent {
       ],
       telefono: [
         this.usuario().telefono,
-        [Validators.required, Validators.pattern(/^[0-9]\d{9}$/g)],
+        // [Validators.required, Validators.pattern(/^[0-9]\d{9}$/g)],
+        [Validators.required, Validators.pattern(/^[0-9]{10}$/)],
       ],
       direccion: [this.usuario().direccion, Validators.required],
       email: [this.usuario().email, [Validators.required, Validators.email]],

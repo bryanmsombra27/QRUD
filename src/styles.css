@@ -24,18 +24,7 @@
 body {
   font-family: "Poppins", sans-serif;
 }
-/*-------select-*/
-.controls {
-  width: 100%;
-  background: #ffffff;
-  padding: 10px;
-  border-radius: 4px;
-  margin-bottom: 16px;
-  border: 1px solid #efe9fb;
-  font-family: "calibri";
-  font-size: 18px;
-  color: #746f7e;
-}
+
 /*-----------text tarea---*/
 textarea {
   min-width: 300px;

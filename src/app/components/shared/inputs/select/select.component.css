@@ -1,0 +1,23 @@
+/*-------select-*/
+.controls {
+  width: 100%;
+  background: #ffffff;
+  padding: 10px;
+  border-radius: 4px;
+  margin-bottom: 16px;
+  border: 1px solid #efe9fb;
+  font-family: "calibri";
+  font-size: 18px;
+  color: #746f7e;
+}
+@media screen and (max-width: 500px) {
+  /* input {
+    width: 230px;
+  }
+  .container {
+    width: 80%;
+  } */
+  .controls {
+    width: 83%;
+  }
+}

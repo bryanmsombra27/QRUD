@@ -26,15 +26,9 @@
                 <app-text type="password" error="La contraseña es requerida" fieldName="password" [form]="form"
                     label="Contraseña" (removeAlerts)="this.removerAlertas()" />
 
-                <div class="group">
-                    <select class="controls" name="" id="" formControlName="rolId" (keyup)="removerAlertas()">
-                        <option value="" disabled selected>--Seleccione Rol--</option>
-                        <option value="{{rol.id}}" *ngFor="let rol of roles() ">{{rol.name}}</option>
-                    </select>
-                    <span class="highlight"></span>
-                    <span class="bar"></span>
-                    <app-errores-frontend mensaje="Campo requerido" *ngIf="campoValido('rol')"></app-errores-frontend>
-                </div>
+                <app-select error="Campo requerido" fieldName="rolId" [options]="roles()" [form]="form" />
+
+
 
             </div>
             <div class="wrapper">
