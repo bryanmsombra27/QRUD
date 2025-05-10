@@ -41,6 +41,7 @@
           },
           "configurations": {
             "production": {
+              "baseHref": "/QRUD-LATEST/",
               "budgets": [
                 {
                   "type": "initial",
