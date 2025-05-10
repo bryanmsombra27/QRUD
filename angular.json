@@ -29,7 +29,8 @@
                 "input": "src/assets",
                 "glob": "**/*",
                 "output": "public"
-              }
+              },
+              { "input": "public/assets", "glob": "**/*", "output": "assets" }
             ],
             "styles": ["src/styles.css"],
             "scripts": [],
