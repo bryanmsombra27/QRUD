@@ -14,6 +14,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
+            "baseHref": "/QRUD-LATEST/",
             "outputPath": "dist/qrud-latest",
             "index": "src/index.html",
             "browser": "src/main.ts",
@@ -41,7 +42,6 @@
           },
           "configurations": {
             "production": {
-              "baseHref": "/QRUD-LATEST/",
               "budgets": [
                 {
                   "type": "initial",
@@ -103,16 +103,6 @@
             ],
             "styles": ["src/styles.css"],
             "scripts": ["node_modules/ionicons/dist/ionicons/ionicons.js"]
-          }
-        },
-        "deploy": {
-          "builder": "angular-cli-ghpages:deploy",
-          "options": {
-            "ghPages": {
-              "branch": "gh-pages",
-              "repo": "https://github.com/bryanmsombra27/QRUD.git",
-              "message": "Deployed from CI"
-            }
           }
         }
       }
