@@ -102,6 +102,9 @@
             "styles": ["src/styles.css"],
             "scripts": ["node_modules/ionicons/dist/ionicons/ionicons.js"]
           }
+        },
+        "deploy": {
+          "builder": "angular-cli-ghpages:deploy"
         }
       }
     }
