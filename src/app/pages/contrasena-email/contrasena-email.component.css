@@ -46,7 +46,7 @@ body {
 .container form .user-details {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: center;
   margin: 35px 0 -20px 0;
 }
 .container img {

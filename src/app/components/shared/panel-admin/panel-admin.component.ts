@@ -172,6 +172,12 @@ export default class PanelAdminComponent {
       this.sidebar?.classList.remove('body-pd');
     }
   }
+  ocultarMenu() {
+    this.expandirMenu = false;
+    this.sidebar = document.querySelector('body#body-pd');
+    this.sidebar?.classList.remove('body-pd');
+  }
+
   /**
    * obtiene el rol del personal logueado y asigna las rutas a las que tiene acceso
    */

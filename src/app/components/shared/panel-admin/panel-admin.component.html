@@ -31,13 +31,13 @@
                     <ul class="collapse__menu " [ngClass]="{'showCollapse':mostrarOpcionesMenuUsuario}">
 
                         <ng-container *ngIf="esMaster || esAdmin">
-                            <a routerLink="{{ruta.ruta}}" class="collapse__sublink"
+                            <a routerLink="{{ruta.ruta}}" class="collapse__sublink" (click)="ocultarMenu()"
                                 *ngFor="let ruta of rutas[0]">{{ruta.nombre}}</a>
 
                         </ng-container>
 
                         <ng-container *ngIf="esAux">
-                            <a routerLink="{{ruta.ruta}}" class="collapse__sublink"
+                            <a routerLink="{{ruta.ruta}}" class="collapse__sublink" (click)="ocultarMenu()"
                                 *ngFor="let ruta of rutas">{{ruta.nombre}}</a>
                         </ng-container>
 
@@ -53,7 +53,7 @@
 
                     <ul class="collapse__menu" [ngClass]="{'showCollapse':mostrarOpcionesMenuPersonal}">
                         <ng-container *ngIf="esMaster || esAdmin">
-                            <a routerLink="{{ruta.ruta}}" class="collapse__sublink"
+                            <a routerLink="{{ruta.ruta}}" class="collapse__sublink" (click)="ocultarMenu()"
                                 *ngFor="let ruta of rutas[1]">{{ruta.nombre}}</a>
 
                         </ng-container>
@@ -70,7 +70,7 @@
 
                     <ul class="collapse__menu " [ngClass]="{'showCollapse':mostrarOpcionesMenuRol}">
                         <ng-container *ngIf="esMaster || esAdmin">
-                            <a routerLink="{{ruta.ruta}}" class="collapse__sublink"
+                            <a routerLink="{{ruta.ruta}}" class="collapse__sublink" (click)="ocultarMenu()"
                                 *ngFor="let ruta of rutas[2]">{{ruta.nombre}}</a>
 
                         </ng-container>
@@ -84,7 +84,7 @@
                     <i class="fa-solid fa-chevron-down collapse__link" [ngClass]="{'rotate':mostrarOpcionesMenuQR}"></i>
 
                     <ul class="collapse__menu" [ngClass]="{'showCollapse':mostrarOpcionesMenuQR}">
-                        <a routerLink="/qr" class="collapse__sublink">Escanear QR</a>
+                        <a routerLink="/qr" class="collapse__sublink" (click)="ocultarMenu()">Escanear QR</a>
                     </ul>
                 </div>
 
@@ -97,7 +97,8 @@
                         [ngClass]="{'rotate':mostrarOpcionesMenuContrasena}"></i>
 
                     <ul class="collapse__menu" [ngClass]="{'showCollapse':mostrarOpcionesMenuContrasena}">
-                        <a routerLink="/contrasena" class="collapse__sublink">Cambiar Contraseña</a>
+                        <a routerLink="/contrasena" (click)="ocultarMenu()" class="collapse__sublink">Cambiar
+                            Contraseña</a>
                     </ul>
                 </div>
 
