@@ -1,0 +1,6 @@
+<div class="group" [formGroup]="form()">
+    <textarea formControlName="{{fieldName()}}" (keyup)="removerAlertas()" placeholder="Descripción..."> </textarea>
+    <span class="highlight"></span>
+    <span class="bar"></span>
+    <app-errores-frontend mensaje="{{frontendError()}}" *ngIf="campoValido('{{fieldName()}}')"></app-errores-frontend>
+</div>

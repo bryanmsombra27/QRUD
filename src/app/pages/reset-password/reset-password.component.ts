@@ -1,7 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
 import { ExitoComponent } from '../../components/shared/exito/exito.component';
 import { ErroresBackendComponent } from '../../components/shared/errores-backend/errores-backend.component';
-import { ErroresFrontendComponent } from '../../components/shared/errores-frontend/errores-frontend.component';
 import {
   FormBuilder,
   FormGroup,
@@ -17,15 +16,16 @@ import {
 import { EmailUpdatePassword } from '../../interfaces/personal.interface';
 import { firstValueFrom } from 'rxjs';
 import { PersonalService } from '../../services/personal.service';
+import { TextComponent } from '../../components/shared/inputs/text/text.component';
 
 @Component({
   selector: 'app-reset-password',
   imports: [
     ExitoComponent,
     ErroresBackendComponent,
-    ErroresFrontendComponent,
     ReactiveFormsModule,
     CommonModule,
+    TextComponent,
   ],
   templateUrl: './reset-password.component.html',
   styleUrl: './reset-password.component.css',
@@ -136,31 +136,6 @@ export default class ResetPasswordComponent {
     } catch (error) {
       this.errorService.invalidToken(error as CustomError);
     }
-
-    //  this.QRUDService.restablecerContrasenaCorreo(actualizarContrasena,this.id,this.token).then((data:any) => {
-    //    this.msgExito = data.msg
-    //    this.form.reset();
-    //    this.existemsgExito = true;
-
-    //    setTimeout(() => {
-    //      this.existemsgExito = false;
-    //      this.router.navigateByUrl("/login")
-    //    },1500)
-
-    //  }).catch(err => {
-
-    //      if(err.error.err){
-    //        this.msgError = err.error.err;
-    //        this.existeError = true;
-    //        setTimeout(() =>{
-    //          this.existeError = false;
-    //        },1500)
-    //        return;
-    //      }
-
-    //      this.ErrorServidor.error();
-
-    //  })
   }
   /**
    * validacion personalizada que se encarga de validar que las contraseñas sean iguales
@@ -176,14 +151,6 @@ export default class ResetPasswordComponent {
         pass2Control?.setErrors({ noEsigual: true });
       }
     };
-  }
-
-  /**
-   * valida campos vacios del formulario reactivo si existen retorna un valor booleano true
-   * @param campo recibe un campo del formulario para validar si contiene errores de validacion o no
-   */
-  campoValido(campo: string) {
-    return !this.form.get(campo)?.valid && this.form.get(campo)?.touched;
   }
 
   /**

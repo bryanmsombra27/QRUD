@@ -87,9 +87,6 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  campoValido(campo: string) {
-    return !this.form.get(campo)?.valid && this.form.get(campo)?.touched;
-  }
   removerAlertas() {
     this.msgErrores.set('');
   }

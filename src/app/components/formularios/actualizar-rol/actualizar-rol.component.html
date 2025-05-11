@@ -11,15 +11,10 @@
 
 
 
+            <app-textarea error="Tiene que ser un rol  valido" fieldName="description" [form]="form" />
 
 
-            <div class="group-edit">
-                <textarea formControlName="description" placeholder="Descripción..."></textarea>
-                <span class="highlight"></span>
-                <span class="bar"></span>
-                <app-errores-frontend *ngIf="campoValido('description')"
-                    mensaje="Tiene que ser un rol  valido"></app-errores-frontend>
-            </div>
+
 
             <div class="save-edit">
                 <button type="submit" class="btn10">

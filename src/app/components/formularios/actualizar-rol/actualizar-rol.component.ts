@@ -14,10 +14,11 @@ import { ActualizarRol, Rol } from '../../../interfaces/rol.interface';
 import { firstValueFrom } from 'rxjs';
 import { RolService } from '../../../services/rol.service';
 import { TextComponent } from '../../shared/inputs/text/text.component';
+import { TextareaComponent } from '../../shared/inputs/textarea/textarea.component';
 
 @Component({
   selector: 'app-actualizar-rol',
-  imports: [ErroresFrontendComponent, ReactiveFormsModule, TextComponent],
+  imports: [ReactiveFormsModule, TextComponent, TextareaComponent],
   templateUrl: './actualizar-rol.component.html',
   styleUrl: './actualizar-rol.component.css',
 })
@@ -83,13 +84,6 @@ export class ActualizarRolComponent {
     }
   }
 
-  /**
-   * valida campos vacios del formulario reactivo si existen retorna un valor booleano true
-   * @param campo recibe un campo del formulario para validar si contiene errores de validacion o no
-   */
-  campoValido(campo: string) {
-    return !this.form.get(campo)?.valid && this.form.get(campo)?.touched;
-  }
   /**
    * metodo que remueve los mensajes de error solo si existen
    */
