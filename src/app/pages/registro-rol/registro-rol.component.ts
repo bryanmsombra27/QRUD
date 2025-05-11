@@ -2,6 +2,7 @@ import {
   Component,
   CUSTOM_ELEMENTS_SCHEMA,
   inject,
+  output,
   signal,
 } from '@angular/core';
 import { ErroresBackendComponent } from '../../components/shared/errores-backend/errores-backend.component';
@@ -24,6 +25,7 @@ import { RolService } from '../../services/rol.service';
 import { TextComponent } from '../../components/shared/inputs/text/text.component';
 import { TextareaComponent } from '../../components/shared/inputs/textarea/textarea.component';
 import { BtnComponent } from '../../components/shared/btn/btn.component';
+import { ModalService } from '../../services/modal.service';
 
 @Component({
   selector: 'app-registro-rol',
@@ -69,7 +71,9 @@ export default class RegistroRolComponent {
   private fb = inject(FormBuilder);
   private ErrorServidor = inject(ErrorServidorService);
   private rolService = inject(RolService);
+  private modalService = inject(ModalService);
 
+  refresh = output<boolean>();
   /**
    * Inicializando el formulario reactivo una vez se inicie el componente
    */
@@ -110,6 +114,8 @@ export default class RegistroRolComponent {
       this.form.reset();
       setTimeout(() => {
         this.msgExito.set('');
+        this.modalService.closeModal();
+        this.refresh.emit(true);
       }, 2000);
     } catch (error) {
       this.ErrorServidor.invalidToken(error as CustomError);

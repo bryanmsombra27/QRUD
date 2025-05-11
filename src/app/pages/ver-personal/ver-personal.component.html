@@ -21,7 +21,17 @@
                 <div class="activity-card">
                
                     <div class="table-responsive">------->
-<h3>Lista de Personal</h3>
+<div class="flex">
+    <h3>Lista de Personal</h3>
+
+    <app-open-custom-modal>
+        <app-registro-personal (refresh)="obtenerPersonal()" />
+
+    </app-open-custom-modal>
+</div>
+
+
+
 <table class="resp">
     <thead>
         <tr>

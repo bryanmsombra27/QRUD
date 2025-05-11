@@ -21,7 +21,15 @@
                 <div class="activity-card">
                
                     <div class="table-responsive">------->
-<h3>Lista de Usuarios</h3>
+<div class="flex">
+    <h3>Lista de Roles</h3>
+
+    <app-open-custom-modal>
+        <app-registro-rol (refresh)="obtenerRoles()" />
+
+    </app-open-custom-modal>
+</div>
+
 <table class="resp">
     <thead>
         <tr>

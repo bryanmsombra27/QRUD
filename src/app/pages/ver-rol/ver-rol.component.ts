@@ -21,6 +21,8 @@ import { RolService } from '../../services/rol.service';
 import { Rol } from '../../interfaces/rol.interface';
 import { CommonModule } from '@angular/common';
 import { ActualizarRolComponent } from '../../components/formularios/actualizar-rol/actualizar-rol.component';
+import RegistroRolComponent from '../registro-rol/registro-rol.component';
+import { OpenCustomModalComponent } from '../../components/shared/open-custom-modal/open-custom-modal.component';
 
 @Component({
   selector: 'app-ver-rol',
@@ -32,6 +34,8 @@ import { ActualizarRolComponent } from '../../components/formularios/actualizar-
     SwitchBoxComponent,
     CommonModule,
     ActualizarRolComponent,
+    RegistroRolComponent,
+    OpenCustomModalComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './ver-rol.component.html',

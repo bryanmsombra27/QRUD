@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, inject, OnInit, output, signal } from '@angular/core';
 import { ErroresBackendComponent } from '../../components/shared/errores-backend/errores-backend.component';
 import { ExitoComponent } from '../../components/shared/exito/exito.component';
 import {
@@ -20,6 +20,7 @@ import { firstValueFrom } from 'rxjs';
 import { TextComponent } from '../../components/shared/inputs/text/text.component';
 import { SelectComponent } from '../../components/shared/inputs/select/select.component';
 import { BtnComponent } from '../../components/shared/btn/btn.component';
+import { ModalService } from '../../services/modal.service';
 
 @Component({
   selector: 'app-registro-personal',
@@ -60,10 +61,12 @@ export default class RegistroPersonalComponent implements OnInit {
   private ErrorServidor = inject(ErrorServidorService);
   private personalService = inject(PersonalService);
   private rolService = inject(RolService);
-
+  private modalService = inject(ModalService);
   msgExito = signal<string>('');
   // roles = signal<Rol[]>([]);
   roles = signal<{ label: string; value: string }[]>([]);
+
+  refresh = output<boolean>();
 
   /**
    * Inicializando el formulario reactivo y obtiene los roles del personal para mostrarlos en el formulario
@@ -115,6 +118,8 @@ export default class RegistroPersonalComponent implements OnInit {
         this.msgExito.set('');
       }, 2000);
       this.form.reset();
+      this.modalService.closeModal();
+      this.refresh.emit(true);
     } catch (error) {
       this.ErrorServidor.invalidToken(error as CustomError);
     }

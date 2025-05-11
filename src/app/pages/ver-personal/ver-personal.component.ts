@@ -16,6 +16,8 @@ import {
 import { StorageService } from '../../services/storage.service';
 import { firstValueFrom } from 'rxjs';
 import { ActualizarPersonalComponent } from '../../components/formularios/actualizar-personal/actualizar-personal.component';
+import { OpenCustomModalComponent } from '../../components/shared/open-custom-modal/open-custom-modal.component';
+import RegistroPersonalComponent from '../registro-personal/registro-personal.component';
 
 @Component({
   selector: 'app-ver-personal',
@@ -28,6 +30,8 @@ import { ActualizarPersonalComponent } from '../../components/formularios/actual
     SwitchBoxComponent,
     PaginacionComponent,
     ActualizarPersonalComponent,
+    OpenCustomModalComponent,
+    RegistroPersonalComponent,
   ],
   templateUrl: './ver-personal.component.html',
   styleUrl: './ver-personal.component.css',
