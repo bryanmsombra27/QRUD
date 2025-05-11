@@ -23,6 +23,7 @@ import { PersonalService } from '../../services/personal.service';
 import { firstValueFrom } from 'rxjs';
 import { ExitoComponent } from '../../components/shared/exito/exito.component';
 import { TextComponent } from '../../components/shared/inputs/text/text.component';
+import { BtnComponent } from '../../components/shared/btn/btn.component';
 
 @Component({
   selector: 'app-cambio-contrasena',
@@ -32,6 +33,7 @@ import { TextComponent } from '../../components/shared/inputs/text/text.componen
     CommonModule,
     ExitoComponent,
     TextComponent,
+    BtnComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './cambio-contrasena.component.html',

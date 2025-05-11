@@ -21,6 +21,7 @@ import { CommonModule } from '@angular/common';
 import { ErroresFrontendComponent } from '../../components/shared/errores-frontend/errores-frontend.component';
 import { ErroresBackendComponent } from '../../components/shared/errores-backend/errores-backend.component';
 import { TextComponent } from '../../components/shared/inputs/text/text.component';
+import { BtnComponent } from '../../components/shared/btn/btn.component';
 
 @Component({
   selector: 'app-login',
@@ -30,6 +31,7 @@ import { TextComponent } from '../../components/shared/inputs/text/text.componen
     ErroresBackendComponent,
     RouterModule,
     TextComponent,
+    BtnComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 

@@ -22,6 +22,7 @@ import { PersonalService } from '../../services/personal.service';
 import { firstValueFrom } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { TextComponent } from '../../components/shared/inputs/text/text.component';
+import { BtnComponent } from '../../components/shared/btn/btn.component';
 
 @Component({
   selector: 'app-contrasena-email',
@@ -32,6 +33,7 @@ import { TextComponent } from '../../components/shared/inputs/text/text.componen
     ErroresBackendComponent,
     TextComponent,
     RouterModule,
+    BtnComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './contrasena-email.component.html',

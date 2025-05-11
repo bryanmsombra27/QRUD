@@ -22,10 +22,17 @@ import { RolService } from '../../../services/rol.service';
 import { CommonModule } from '@angular/common';
 import { TextComponent } from '../../shared/inputs/text/text.component';
 import { SelectComponent } from '../../shared/inputs/select/select.component';
+import { BtnComponent } from '../../shared/btn/btn.component';
 
 @Component({
   selector: 'app-actualizar-personal',
-  imports: [ReactiveFormsModule, CommonModule, TextComponent, SelectComponent],
+  imports: [
+    ReactiveFormsModule,
+    CommonModule,
+    TextComponent,
+    SelectComponent,
+    BtnComponent,
+  ],
   templateUrl: './actualizar-personal.component.html',
   styleUrl: './actualizar-personal.component.css',
 })

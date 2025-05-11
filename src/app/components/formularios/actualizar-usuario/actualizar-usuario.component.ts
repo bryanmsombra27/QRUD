@@ -24,10 +24,11 @@ import {
   ErrorServidorService,
 } from '../../../services/errorServidor.service';
 import { TextComponent } from '../../shared/inputs/text/text.component';
+import { BtnComponent } from '../../shared/btn/btn.component';
 
 @Component({
   selector: 'app-actualizar-usuario',
-  imports: [ReactiveFormsModule, CommonModule, TextComponent],
+  imports: [ReactiveFormsModule, CommonModule, TextComponent, BtnComponent],
   templateUrl: './actualizar-usuario.component.html',
   styleUrl: './actualizar-usuario.component.css',
 })

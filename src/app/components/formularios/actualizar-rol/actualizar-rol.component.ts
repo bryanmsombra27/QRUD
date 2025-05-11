@@ -15,10 +15,16 @@ import { firstValueFrom } from 'rxjs';
 import { RolService } from '../../../services/rol.service';
 import { TextComponent } from '../../shared/inputs/text/text.component';
 import { TextareaComponent } from '../../shared/inputs/textarea/textarea.component';
+import { BtnComponent } from '../../shared/btn/btn.component';
 
 @Component({
   selector: 'app-actualizar-rol',
-  imports: [ReactiveFormsModule, TextComponent, TextareaComponent],
+  imports: [
+    ReactiveFormsModule,
+    TextComponent,
+    TextareaComponent,
+    BtnComponent,
+  ],
   templateUrl: './actualizar-rol.component.html',
   styleUrl: './actualizar-rol.component.css',
 })

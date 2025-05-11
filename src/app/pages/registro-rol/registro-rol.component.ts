@@ -23,6 +23,7 @@ import { firstValueFrom } from 'rxjs';
 import { RolService } from '../../services/rol.service';
 import { TextComponent } from '../../components/shared/inputs/text/text.component';
 import { TextareaComponent } from '../../components/shared/inputs/textarea/textarea.component';
+import { BtnComponent } from '../../components/shared/btn/btn.component';
 
 @Component({
   selector: 'app-registro-rol',
@@ -33,6 +34,7 @@ import { TextareaComponent } from '../../components/shared/inputs/textarea/texta
     ReactiveFormsModule,
     TextComponent,
     TextareaComponent,
+    BtnComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './registro-rol.component.html',

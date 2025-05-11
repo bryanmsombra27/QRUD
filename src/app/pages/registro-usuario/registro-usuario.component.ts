@@ -24,6 +24,7 @@ import { ExitoComponent } from '../../components/shared/exito/exito.component';
 import { firstValueFrom } from 'rxjs';
 import { UsuarioService } from '../../services/usuario.service';
 import { TextComponent } from '../../components/shared/inputs/text/text.component';
+import { BtnComponent } from '../../components/shared/btn/btn.component';
 
 @Component({
   selector: 'app-registro-usuario',
@@ -33,6 +34,7 @@ import { TextComponent } from '../../components/shared/inputs/text/text.componen
     ReactiveFormsModule,
     ExitoComponent,
     TextComponent,
+    BtnComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './registro-usuario.component.html',

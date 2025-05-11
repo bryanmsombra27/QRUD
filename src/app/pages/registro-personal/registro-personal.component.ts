@@ -19,6 +19,7 @@ import { Rol } from '../../interfaces/rol.interface';
 import { firstValueFrom } from 'rxjs';
 import { TextComponent } from '../../components/shared/inputs/text/text.component';
 import { SelectComponent } from '../../components/shared/inputs/select/select.component';
+import { BtnComponent } from '../../components/shared/btn/btn.component';
 
 @Component({
   selector: 'app-registro-personal',
@@ -29,6 +30,7 @@ import { SelectComponent } from '../../components/shared/inputs/select/select.co
     CommonModule,
     TextComponent,
     SelectComponent,
+    BtnComponent,
   ],
   templateUrl: './registro-personal.component.html',
   styleUrl: './registro-personal.component.css',

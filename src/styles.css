@@ -22,45 +22,6 @@
 }
 
 body {
-  font-family: "Poppins", sans-serif;
-}
-
-/*-----------text tarea---*/
-textarea {
-  min-width: 300px;
-  min-height: 74px;
-  background-color: #e3dcfa;
-  color: #666666;
-  padding: 1em;
-  border-radius: 10px;
-  border: 2px solid transparent;
-  outline: none;
-  font-family: "Heebo", sans-serif;
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 1.4;
-  resize: none;
-  transition: all 0.2s;
-}
-.textarea:hover {
-  cursor: pointer;
-  background-color: #eeeeee;
-}
-
-.textarea:focus {
-  cursor: text;
-  color: #333333;
-  background-color: white;
-  border-color: #333333;
-  /*,::before,::after{
-    box-sizing: border-box;*/
-}
-
-/*body{
-     position: relative; 
-  }*/
-
-body {
   position: relative;
   margin: 0;
   padding: 0rem 0 0 5.75rem;

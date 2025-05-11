@@ -16,6 +16,7 @@ import {
 import { CommonModule } from '@angular/common';
 import { RegistroUsuario, User } from '../../interfaces/usuario.interface';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
+import { BtnComponent } from '../../components/shared/btn/btn.component';
 
 @Component({
   selector: 'app-escanner-qr',
@@ -25,6 +26,7 @@ import { ZXingScannerModule } from '@zxing/ngx-scanner';
     ReactiveFormsModule,
     CommonModule,
     ZXingScannerModule,
+    BtnComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './escanner-qr.component.html',

@@ -34,12 +34,7 @@
             <app-text type="password" error="El campo es obligatorio" fieldName="password" [form]="form"
                 label="Password" (removeAlerts)="this.removerAlertas()" />
 
-            <div class="wrapper">
-                <button href="#0" class="btn10">
-                    <span>Ingresar</span>
-                    <div class="transition"></div>
-                </button>
-            </div>
+            <app-btn text="Ingresar" />
             <p>
                 <a routerLink="/forget-password" style="cursor: pointer;">¿Olvidaste tu contraseña?</a>
             </p>
