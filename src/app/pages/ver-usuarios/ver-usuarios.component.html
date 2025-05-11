@@ -3,6 +3,7 @@
 
 
 
+
 <div class="spinner-container" *ngIf="usuarios().length == 0  ">
     <app-spinner />
 </div>
@@ -21,7 +22,17 @@
             <div class="activity-card">
            
                 <div class="table-responsive">------->
-<h3>Lista de Usuarios</h3>
+
+<div class="flex">
+    <h3>Lista de Usuarios</h3>
+
+    <app-open-custom-modal>
+        <app-registro-usuario (refresh)="obtenerUsuarios()" />
+
+    </app-open-custom-modal>
+</div>
+
+
 <table class="resp">
     <thead>
         <tr>

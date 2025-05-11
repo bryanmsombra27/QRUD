@@ -23,6 +23,8 @@ import { ModalComponent } from '../../components/shared/modal/modal.component';
 import { ActualizarUsuarioComponent } from '../../components/formularios/actualizar-usuario/actualizar-usuario.component';
 import { Meta } from '../../interfaces/pagination';
 import { SwitchBoxComponent } from '../../components/shared/switch-box/switch-box.component';
+import { OpenCustomModalComponent } from '../../components/shared/open-custom-modal/open-custom-modal.component';
+import RegistroUsuarioComponent from '../registro-usuario/registro-usuario.component';
 
 @Component({
   selector: 'app-ver-usuarios',
@@ -35,6 +37,8 @@ import { SwitchBoxComponent } from '../../components/shared/switch-box/switch-bo
     ModalComponent,
     ActualizarUsuarioComponent,
     SwitchBoxComponent,
+    OpenCustomModalComponent,
+    RegistroUsuarioComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './ver-usuarios.component.html',
@@ -51,6 +55,7 @@ export default class VerUsuariosComponent {
   msgExito = signal<string>('');
   usuarioparaActualizar = signal<User | null>(null);
   usuarioparaEliminar = signal<User | null>(null);
+  closeModal: any;
 
   /**
    * propiedad que restringe el acceso a ciertas acciones que esten delimitadas por el rol del personal logueado
@@ -81,6 +86,7 @@ export default class VerUsuariosComponent {
 
       this.usuarios.set(response.usuarios);
       this.metaData.set(response.meta);
+      this.closeModal();
     } catch (error) {
       this.ErrorServidor.invalidToken(error as CustomError);
     }

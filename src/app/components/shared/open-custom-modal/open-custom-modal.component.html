@@ -1,0 +1,15 @@
+<i class="fa-solid fa-user-plus add" (click)="showModal()"></i>
+
+
+@if (modalService.openModal()) {
+<div class="modal-wrapper">
+    <div class="modal-box">
+        <i class="fa-solid fa-circle-xmark close-modal-btn" (click)="closeModal()"></i>
+
+        <ng-content />
+
+
+    </div>
+
+</div>
+}

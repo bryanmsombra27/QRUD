@@ -2,6 +2,7 @@ import {
   Component,
   CUSTOM_ELEMENTS_SCHEMA,
   inject,
+  output,
   signal,
 } from '@angular/core';
 import {
@@ -25,6 +26,7 @@ import { firstValueFrom } from 'rxjs';
 import { UsuarioService } from '../../services/usuario.service';
 import { TextComponent } from '../../components/shared/inputs/text/text.component';
 import { BtnComponent } from '../../components/shared/btn/btn.component';
+import { ModalService } from '../../services/modal.service';
 
 @Component({
   selector: 'app-registro-usuario',
@@ -53,6 +55,8 @@ export default class RegistroUsuarioComponent {
   private fb = inject(FormBuilder);
   private ErrorServidor = inject(ErrorServidorService);
   private usuarioService = inject(UsuarioService);
+  modalService = inject(ModalService);
+  refresh = output<boolean>();
 
   ngOnInit(): void {
     this.FormularioUsuario();
@@ -101,6 +105,9 @@ export default class RegistroUsuarioComponent {
 
       this.msgExito.set(response.message);
       this.form.reset();
+      this.refresh.emit(true);
+      this.modalService.closeModal();
+
       setTimeout(() => {
         this.msgExito.set('');
       }, 2000);

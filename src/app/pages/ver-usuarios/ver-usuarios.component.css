@@ -193,3 +193,11 @@ td.icons {
   display: block;
   position: absolute;
 }
+
+/* OPEN MODAL BUTTON */
+.flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
