@@ -116,9 +116,9 @@ export default class RegistroPersonalComponent implements OnInit {
       this.msgExito.set(response.message);
       setTimeout(() => {
         this.msgExito.set('');
+        this.modalService.closeModal();
       }, 2000);
       this.form.reset();
-      this.modalService.closeModal();
       this.refresh.emit(true);
     } catch (error) {
       this.ErrorServidor.invalidToken(error as CustomError);

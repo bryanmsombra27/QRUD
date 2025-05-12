@@ -106,10 +106,10 @@ export default class RegistroUsuarioComponent {
       this.msgExito.set(response.message);
       this.form.reset();
       this.refresh.emit(true);
-      this.modalService.closeModal();
 
       setTimeout(() => {
         this.msgExito.set('');
+        this.modalService.closeModal();
       }, 2000);
     } catch (err: any) {
       this.ErrorServidor.invalidToken(err as CustomError);
