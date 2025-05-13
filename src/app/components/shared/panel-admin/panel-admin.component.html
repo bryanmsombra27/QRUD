@@ -6,8 +6,9 @@
         </div>
         @for (module of modulos(); track $index) {
         @if(module.Submodulos && module.Submodulos!.length > 0) {
-        <div class="nav_item collapse_items" (mouseenter)="hoverSubMenu.set(true)"
-            (mouseleave)="hoverSubMenu.set(false)">
+        <!-- <div class="nav_item collapse_items" (mouseenter)="hoverSubMenu.set(true)" -->
+        <div class="nav_item collapse_items" (mouseenter)="hoverSubMenuHoverClass(module.id)"
+            (mouseleave)="hoverSubMenuClassLeave()">
             <div class="spread-collapse-items" id="menu-{{module.id}}" (click)="showSubMenu(module.id)">
                 <i class="fa {{module.icon}}"></i>
 
@@ -22,7 +23,8 @@
             <div style="width: 100%;" class="submenu" id="{{module.id}}">
                 @for (submodule of module.Submodulos; track $index) {
 
-                <div [ngClass]="{'active-subroutes':hoverSubMenu()}" routerLink="{{submodule.route}}">
+                <!-- <div [ngClass]="{'active-subroutes':hoverSubMenu()}" routerLink="{{submodule.route}}"> -->
+                <div routerLink="{{submodule.route}}" [attr.data-module]="module.id" class="submenu-wrapper">
 
                     <i class="fa {{submodule.icon}}" style="margin-right: 10px; padding: 10px;"></i>
 

@@ -25,92 +25,10 @@ import {
 })
 export default class PanelAdminComponent {
   /**
-   * propiedad que permite expandir el menu con las opciones para realizar el crud de usuarios
-   */
-  mostrarOpcionesMenuUsuario: boolean = false;
-
-  /**
-   * propiedad que permite expandir el menu con las opciones para realizar el crud de personal
-   */
-  mostrarOpcionesMenuPersonal: boolean = false;
-  /**
-   * propiedad que permite expandir el menu con las opciones para realizar el crud de rol
-   */
-  mostrarOpcionesMenuRol: boolean = false;
-  /**
-   * propiedad que permite expandir el menu con la opcion de escanear codigo qr
-   */
-  mostrarOpcionesMenuQR: boolean = false;
-  /**
-   * propiedad que permite expandir el menu con las opciones para realizar el cambio de contraseña
-   */
-  mostrarOpcionesMenuContrasena: boolean = false;
-  /**
-   * propiedad que permite expandir el menu lateral
-   */
-  expandirMenu: boolean = true;
-  /**
-   * guarda la referencia  del body
-   */
-  sidebar: any;
-  //controla las rutas del personal logueado
-  /**
-   * propiedad que permite mostrar las rutas del personal cuyo rol coincida con el rol del personal logueado
-   */
-  esAdmin: boolean = false;
-  /**
-   * propiedad que permite mostrar las rutas del personal cuyo rol coincida con el rol del personal logueado
-   */
-  esMaster: boolean = false;
-  /**
-   * propiedad que permite mostrar las rutas del personal cuyo rol coincida con el rol del personal logueado
-   */
-  esAux: boolean = false;
-
-  /**
-   * almacena las rutas a las que el personal logueado tendra acceso dependiendo del rol
-   */
-  rutas: any[] = [];
-
-  /**
    * almacena la referencia a la funcion de cambio de color
    */
   funcionCambioDecolor: any;
 
-  /**
-   * rutas que controla el rol master
-   */
-  rutasMaster: any[] = [
-    [
-      { ruta: '', nombre: 'Crear ' },
-      { ruta: '/ver-usuarios', nombre: 'Ver' },
-    ],
-    [
-      { ruta: '/registro-personal', nombre: 'Registrar ' },
-      { ruta: '/ver-personal', nombre: 'Ver' },
-    ],
-    [
-      { ruta: '/registro-rol', nombre: 'Crear' },
-      { ruta: '/ver-rol', nombre: 'Ver' },
-    ],
-  ];
-  /**
-   * rutas que controla el rol admin
-   */
-  rutasAdmin: any[] = [
-    [
-      { ruta: '/ver-usuarios', nombre: 'Ver' },
-      { ruta: '', nombre: 'Crear' },
-    ],
-    [{ ruta: '/ver-personal', nombre: 'Ver' }],
-  ];
-  /**
-   * rutas que controla el rol aux
-   */
-  rutasAux: any[] = [
-    { ruta: '', nombre: 'Crear' },
-    { ruta: '/ver-usuarios', nombre: 'Ver' },
-  ];
   /**
    * obtiene el nombre del personal logueado
    */
@@ -135,7 +53,6 @@ export default class PanelAdminComponent {
    * cuando el componente se destruye se elimina la funcion de cambio de color y se remueve las clases al body
    */
   ngOnDestroy(): void {
-    this.sidebar?.classList.remove('body-pd');
     clearTimeout(this.funcionCambioDecolor);
   }
   /**
@@ -143,9 +60,7 @@ export default class PanelAdminComponent {
    */
   ngOnInit(): void {
     this.obtenerNombre();
-    this.verRol();
     this.generarColorRandom();
-    this.mostrarMenu();
     this.getAllModules();
   }
   async getAllModules() {
@@ -160,76 +75,6 @@ export default class PanelAdminComponent {
     }
   }
 
-  /**
-   * muestra/oculta las acciones del menu lateral cuando se hace click en la opcion de usuarios
-   */
-  mostrarOpcionesUsuario() {
-    this.mostrarOpcionesMenuUsuario = !this.mostrarOpcionesMenuUsuario;
-  }
-  /**
-   * muestra/oculta las acciones del menu lateral cuando se hace click en la opcion de personal
-   */
-  mostrarOpcionesPersonal() {
-    this.mostrarOpcionesMenuPersonal = !this.mostrarOpcionesMenuPersonal;
-  }
-  /**
-   * muestra/oculta las acciones del menu lateral cuando se hace click en la opcion de rol
-   */
-  mostrarOpcionesRol() {
-    this.mostrarOpcionesMenuRol = !this.mostrarOpcionesMenuRol;
-  }
-  /**
-   * muestra/oculta las acciones del menu lateral cuando se hace click en la opcion escaneo qr
-   */
-  mostrarOpcionesQR() {
-    this.mostrarOpcionesMenuQR = !this.mostrarOpcionesMenuQR;
-  }
-  /**
-   * muestra/oculta las acciones del menu lateral cuando se hace click en la opcion de contraseña
-   */
-  mostrarOpcionesContrasena() {
-    this.mostrarOpcionesMenuContrasena = !this.mostrarOpcionesMenuContrasena;
-  }
-  /**
-   * muesta/oculta el menu lateral
-   */
-  mostrarMenu() {
-    this.expandirMenu = !this.expandirMenu;
-    this.sidebar = document.querySelector('body#body-pd');
-    if (this.expandirMenu) {
-      this.sidebar?.classList.add('body-pd');
-    } else {
-      this.sidebar?.classList.remove('body-pd');
-    }
-  }
-  ocultarMenu() {
-    this.expandirMenu = false;
-    this.sidebar = document.querySelector('body#body-pd');
-    this.sidebar?.classList.remove('body-pd');
-  }
-
-  /**
-   * obtiene el rol del personal logueado y asigna las rutas a las que tiene acceso
-   */
-  verRol() {
-    const rol = this.StorageService.desencriptar('rol');
-    if (rol == 'root') {
-      this.esMaster = true;
-      this.esAdmin = false;
-      this.esAux = false;
-      this.rutas = this.rutasMaster;
-    } else if (rol == 'ADMIN_ROLE') {
-      this.esAdmin = true;
-      this.esMaster = false;
-      this.esAux = false;
-      this.rutas = this.rutasAdmin;
-    } else {
-      this.esAdmin = false;
-      this.esMaster = false;
-      this.esAux = true;
-      this.rutas = this.rutasAux;
-    }
-  }
   /**
    * metodo para cerrar la sesion del personal logueado
    */
@@ -284,5 +129,30 @@ export default class PanelAdminComponent {
     menuArrow?.classList.toggle('rotate');
     menu?.nextElementSibling?.classList.toggle('active');
     // menu?.children[2].classList.toggle('rotate');
+  }
+
+  hoverSubMenuHoverClass(id: string) {
+    // const item = document.querySelector(`#submenu-item-${id}`);
+    const wrappers = document.querySelectorAll('.submenu-wrapper');
+
+    wrappers.forEach((wrapper: any) => {
+      wrapper.classList.remove('active-subroutes');
+      console.log(wrapper, 'WRAPPER');
+      const itemId = wrapper.dataset.module;
+      console.log(itemId, 'dataser');
+
+      if (itemId == id) {
+        wrapper?.classList.add('active-subroutes');
+      } else {
+        wrapper?.classList.remove('active-subroutes');
+      }
+    });
+  }
+
+  hoverSubMenuClassLeave() {
+    const wrappers = document.querySelectorAll('.submenu-wrapper');
+    wrappers.forEach((wrapper: any) => {
+      wrapper.classList.remove('active-subroutes');
+    });
   }
 }
