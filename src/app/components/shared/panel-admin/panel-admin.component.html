@@ -9,22 +9,22 @@
         <div class="nav_item collapse_items" (mouseenter)="hoverSubMenu.set(true)"
             (mouseleave)="hoverSubMenu.set(false)">
             <div class="spread-collapse-items" id="menu-{{module.id}}" (click)="showSubMenu(module.id)">
-                <i class="fa fa-users"></i>
+                <i class="fa {{module.icon}}"></i>
 
                 <a class="hidding-text"
                     [ngClass]="{'text-appear':toggleOpenMenu() == true, 'hidding-text':toggleOpenMenu() == false }">{{module.name}}</a>
 
-                <i class="fa-regular fa-circle-up rotate"
+                <i class="fa-regular fa-circle-up arrows" id="submenu-arrow-{{module.id}}"
                     [ngClass]="{'text-appear':toggleOpenMenu() == true, 'hidding-text':toggleOpenMenu() == false }"></i>
             </div>
 
 
-            <div style="width: 100%;" class="submenu">
+            <div style="width: 100%;" class="submenu" id="{{module.id}}">
                 @for (submodule of module.Submodulos; track $index) {
 
                 <div [ngClass]="{'active-subroutes':hoverSubMenu()}" routerLink="{{submodule.route}}">
 
-                    <i class="fa fa-users" style="margin-right: 10px; padding: 10px;"></i>
+                    <i class="fa {{submodule.icon}}" style="margin-right: 10px; padding: 10px;"></i>
 
                     <a>{{submodule.name}}</a>
 
@@ -41,7 +41,7 @@
         } @else {
 
         <div class="nav_item" routerLink="{{module.route}}">
-            <i class="fa fa-users"></i>
+            <i class="fa {{module.icon}}"></i>
 
             <a
                 [ngClass]="{'text-appear':toggleOpenMenu() == true, 'hidding-text':toggleOpenMenu() == false }">{{module.name}}</a>

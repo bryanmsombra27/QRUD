@@ -261,12 +261,28 @@ export default class PanelAdminComponent {
   }
 
   showSubMenu(id: string) {
+    const menuOptions = document.querySelectorAll('.submenu');
     const menu = document.querySelector(`#menu-${id}`);
+    const menuArrow = document.querySelector(`#submenu-arrow-${id}`);
 
+    const arrows = document.querySelectorAll('.arrows');
+
+    menuOptions.forEach((option) => {
+      if (option.id === id) return;
+
+      option.classList.remove('active');
+    });
+
+    arrows.forEach((option) => {
+      const optid = option.id.split('arrow-')[1];
+
+      if (optid == id) return;
+
+      option.classList.remove('rotate');
+    });
+
+    menuArrow?.classList.toggle('rotate');
     menu?.nextElementSibling?.classList.toggle('active');
-    menu?.children[2].classList.toggle('rotate');
-
-    console.log(menu, ' MENU ELEGIDO');
-    console.log(menu?.nextSibling, ' MENU ELEGIDO');
+    // menu?.children[2].classList.toggle('rotate');
   }
 }
