@@ -1,118 +1,85 @@
-<div class="header">
-    <a href="#" class="logo">QRUD</a>
-    <div class="header-right">
-        <a class="random" href="#" id="cambioColor">{{inicial}}</a>
-        <a>Bienvenido! </a>
-        <a>{{nombrePersonal}}</a>
-    </div>
-</div>
-<div class="l-navbar " id="navbar" [ngClass]="{'expander':expandirMenu,'movil':!expandirMenu}">
-    <nav class="nav">
-        <div>
-            <div class="nav__brand">
+<section class="flex">
 
-                <i class="fa-solid fa-bars nav__toggle" id="nav-toggle" (click)="mostrarMenu()"></i>
+    <nav class="sidebar" [ngClass]="{ 'active': toggleOpenMenu() }">
+        <div class="menu-icon">
+            <i class="fa fa-bars fa-2x" (click)="toogleMenu()"></i>
+        </div>
+        @for (module of modulos(); track $index) {
+        @if(module.Submodulos && module.Submodulos!.length > 0) {
+        <div class="nav_item collapse_items" (mouseenter)="hoverSubMenu.set(true)"
+            (mouseleave)="hoverSubMenu.set(false)">
+            <div class="spread-collapse-items" id="menu-{{module.id}}" (click)="showSubMenu(module.id)">
+                <i class="fa fa-users"></i>
+
+                <a class="hidding-text"
+                    [ngClass]="{'text-appear':toggleOpenMenu() == true, 'hidding-text':toggleOpenMenu() == false }">{{module.name}}</a>
+
+                <i class="fa-regular fa-circle-up rotate"
+                    [ngClass]="{'text-appear':toggleOpenMenu() == true, 'hidding-text':toggleOpenMenu() == false }"></i>
             </div>
-            <div class="nav__list">
-                <div class="profile">
-                    <img src="assets/img/logo.svg" alt="">
+
+
+            <div style="width: 100%;" class="submenu">
+                @for (submodule of module.Submodulos; track $index) {
+
+                <div [ngClass]="{'active-subroutes':hoverSubMenu()}" routerLink="{{submodule.route}}">
+
+                    <i class="fa fa-users" style="margin-right: 10px; padding: 10px;"></i>
+
+                    <a>{{submodule.name}}</a>
+
                 </div>
+                }
 
-
-                <div class="nav__link  collapse" [ngClass]="{'movil-links':!expandirMenu}"
-                    (click)="mostrarOpcionesUsuario()" *ngIf="esAdmin || esMaster || esAux ">
-                    <i class="fa-solid fa-users"></i>
-                    <span class="nav__name">Usuarios</span>
-
-
-                    <i class="fa-solid fa-chevron-down collapse__link"
-                        [ngClass]="{'rotate':mostrarOpcionesMenuUsuario}"></i>
-
-                    <ul class="collapse__menu " [ngClass]="{'showCollapse':mostrarOpcionesMenuUsuario}">
-
-                        <ng-container *ngIf="esMaster || esAdmin">
-                            <a routerLink="{{ruta.ruta}}" class="collapse__sublink" (click)="ocultarMenu()"
-                                *ngFor="let ruta of rutas[0]">{{ruta.nombre}}</a>
-
-                        </ng-container>
-
-                        <ng-container *ngIf="esAux">
-                            <a routerLink="{{ruta.ruta}}" class="collapse__sublink" (click)="ocultarMenu()"
-                                *ngFor="let ruta of rutas">{{ruta.nombre}}</a>
-                        </ng-container>
-
-                    </ul>
-                </div>
-                <div class="nav__link collapse" [ngClass]="{'movil-links':!expandirMenu}"
-                    (click)="mostrarOpcionesPersonal()" *ngIf="esMaster || esAdmin">
-                    <i class="fa-solid fa-users-gear"></i>
-                    <span class="nav__name">Personal</span>
-
-                    <i class="fa-solid fa-chevron-down collapse__link"
-                        [ngClass]="{'rotate':mostrarOpcionesMenuPersonal}"></i>
-
-                    <ul class="collapse__menu" [ngClass]="{'showCollapse':mostrarOpcionesMenuPersonal}">
-                        <ng-container *ngIf="esMaster || esAdmin">
-                            <a routerLink="{{ruta.ruta}}" class="collapse__sublink" (click)="ocultarMenu()"
-                                *ngFor="let ruta of rutas[1]">{{ruta.nombre}}</a>
-
-                        </ng-container>
-
-                    </ul>
-                </div>
-                <div class="nav__link collapse " [ngClass]="{'movil-links':!expandirMenu}"
-                    (click)="mostrarOpcionesRol()" *ngIf="esMaster">
-                    <i class="fa-solid fa-user-tag"></i>
-                    <span class="nav__name">Rol</span>
-
-                    <i class="fa-solid fa-chevron-down collapse__link"
-                        [ngClass]="{'rotate':mostrarOpcionesMenuRol}"></i>
-
-                    <ul class="collapse__menu " [ngClass]="{'showCollapse':mostrarOpcionesMenuRol}">
-                        <ng-container *ngIf="esMaster || esAdmin">
-                            <a routerLink="{{ruta.ruta}}" class="collapse__sublink" (click)="ocultarMenu()"
-                                *ngFor="let ruta of rutas[2]">{{ruta.nombre}}</a>
-
-                        </ng-container>
-                    </ul>
-                </div>
-
-                <div class="nav__link collapse" [ngClass]="{'movil-links':!expandirMenu}" (click)="mostrarOpcionesQR()"
-                    *ngIf="esAdmin || esMaster || esAux ">
-                    <i class="fa-solid fa-qrcode"></i>
-                    <span class="nav__name">QR</span>
-                    <i class="fa-solid fa-chevron-down collapse__link" [ngClass]="{'rotate':mostrarOpcionesMenuQR}"></i>
-
-                    <ul class="collapse__menu" [ngClass]="{'showCollapse':mostrarOpcionesMenuQR}">
-                        <a routerLink="/qr" class="collapse__sublink" (click)="ocultarMenu()">Escanear QR</a>
-                    </ul>
-                </div>
-
-                <div class="nav__link collapse" [ngClass]="{'movil-links':!expandirMenu}"
-                    (click)="mostrarOpcionesContrasena()" *ngIf="esAdmin || esMaster || esAux ">
-                    <i class="fa-solid fa-key"></i>
-                    <span class="nav__name">Contraseña</span>
-
-                    <i class="fa-solid fa-chevron-down collapse__link"
-                        [ngClass]="{'rotate':mostrarOpcionesMenuContrasena}"></i>
-
-                    <ul class="collapse__menu" [ngClass]="{'showCollapse':mostrarOpcionesMenuContrasena}">
-                        <a routerLink="/contrasena" (click)="ocultarMenu()" class="collapse__sublink">Cambiar
-                            Contraseña</a>
-                    </ul>
-                </div>
 
             </div>
+
+
+
         </div>
 
-        <a class="nav__link" (click)="logout()">
-            <i class="fa-solid fa-right-from-bracket"></i>
-            <span class="nav__name">Salir</span>
-        </a>
+        } @else {
+
+        <div class="nav_item" routerLink="{{module.route}}">
+            <i class="fa fa-users"></i>
+
+            <a
+                [ngClass]="{'text-appear':toggleOpenMenu() == true, 'hidding-text':toggleOpenMenu() == false }">{{module.name}}</a>
+
+        </div>
+        }
+
+
+
+        }
+
+
+
+
+
+
+
+
     </nav>
-</div>
 
-<main>
-    <router-outlet></router-outlet>
 
-</main>
+
+    <div class="content">
+        <div class="header">
+            <h1>QRUD</h1>
+            <div class="profile">
+                <p>Bienvenido!</p>
+                <a class="random" href="#" id="cambioColor">{{inicial}}</a>
+                <p>{{nombrePersonal}}</p>
+
+            </div>
+
+        </div>
+
+
+        <router-outlet></router-outlet>
+
+
+
+    </div>
+</section>

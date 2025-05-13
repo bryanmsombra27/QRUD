@@ -1,8 +1,20 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA, inject } from '@angular/core';
+import {
+  Component,
+  CUSTOM_ELEMENTS_SCHEMA,
+  inject,
+  signal,
+} from '@angular/core';
 import { AuthService } from '../../../services/auth.service';
 import { StorageService } from '../../../services/storage.service';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { SidebarmenuService } from '../../../services/sidebarmenu.service';
+import { firstValueFrom } from 'rxjs';
+import { Modulo } from '../../../interfaces/modulos.interface';
+import {
+  CustomError,
+  ErrorServidorService,
+} from '../../../services/errorServidor.service';
 
 @Component({
   selector: 'app-panel-admin',
@@ -113,7 +125,12 @@ export default class PanelAdminComponent {
    */
   AuthService = inject(AuthService);
   StorageService = inject(StorageService);
+  sidebarServices = inject(SidebarmenuService);
+  ErrorServidor = inject(ErrorServidorService);
 
+  modulos = signal<Modulo[]>([]);
+  toggleOpenMenu = signal<boolean>(false);
+  hoverSubMenu = signal<boolean>(false);
   /**
    * cuando el componente se destruye se elimina la funcion de cambio de color y se remueve las clases al body
    */
@@ -129,7 +146,20 @@ export default class PanelAdminComponent {
     this.verRol();
     this.generarColorRandom();
     this.mostrarMenu();
+    this.getAllModules();
   }
+  async getAllModules() {
+    try {
+      const response = await firstValueFrom(
+        this.sidebarServices.getModulesForsidebar()
+      );
+
+      this.modulos.set(response.modulos);
+    } catch (error) {
+      this.ErrorServidor.invalidToken(error as CustomError);
+    }
+  }
+
   /**
    * muestra/oculta las acciones del menu lateral cuando se hace click en la opcion de usuarios
    */
@@ -224,5 +254,19 @@ export default class PanelAdminComponent {
       (document.querySelector('#cambioColor') as any).style.backgroundColor =
         colorRandom;
     }, 3000);
+  }
+
+  toogleMenu() {
+    this.toggleOpenMenu.update((state) => !state);
+  }
+
+  showSubMenu(id: string) {
+    const menu = document.querySelector(`#menu-${id}`);
+
+    menu?.nextElementSibling?.classList.toggle('active');
+    menu?.children[2].classList.toggle('rotate');
+
+    console.log(menu, ' MENU ELEGIDO');
+    console.log(menu?.nextSibling, ' MENU ELEGIDO');
   }
 }
