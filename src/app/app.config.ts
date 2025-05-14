@@ -4,9 +4,11 @@ import {
   provideZoneChangeDetection,
 } from '@angular/core';
 import { provideRouter, withHashLocation } from '@angular/router';
+import { providePrimeNG } from 'primeng/config';
 
 import { routes } from './app.routes';
 import { provideHttpClient } from '@angular/common/http';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -14,5 +16,11 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes, withHashLocation()),
     provideHttpClient(),
     importProvidersFrom(),
+    provideAnimationsAsync(),
+    providePrimeNG({
+      // theme: {
+      //     preset: Aura
+      // }
+    }),
   ],
 };

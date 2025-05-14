@@ -60,7 +60,7 @@ export default class PanelAdminComponent {
    */
   ngOnInit(): void {
     this.obtenerNombre();
-    this.generarColorRandom();
+    // this.generarColorRandom();
     this.getAllModules();
   }
   async getAllModules() {
@@ -68,7 +68,6 @@ export default class PanelAdminComponent {
       const response = await firstValueFrom(
         this.sidebarServices.getModulesForsidebar()
       );
-
       this.modulos.set(response.modulos);
     } catch (error) {
       this.ErrorServidor.invalidToken(error as CustomError);

@@ -55,6 +55,10 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./pages/cambio-contrasena/cambio-contrasena.component'),
       },
+      {
+        path: 'modulo',
+        loadComponent: () => import('./pages/modulos/modulos.component'),
+      },
     ],
   },
   {

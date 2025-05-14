@@ -1,0 +1,16 @@
+<ng-content select="[modalTrigger]" />
+
+
+
+@if (isOpenModal()) {
+<div class="modal-wrapper">
+    <div class="modal-box">
+        <i class="fa-solid fa-circle-xmark close-modal-btn" (click)="closeModal()"></i>
+
+        <ng-content select="[modalContent]" />
+
+
+    </div>
+
+</div>
+}
