@@ -41,36 +41,49 @@
     </div>
 
     <div class="grid-body">
-        <div class="grid-subbody-expanded">
-            <h5>usuarios</h5>
-            <h5>/users</h5>
-            <h5>fa-users</h5>
+        @for (module of modulos(); track $index) {
+        @if(module?.Submodulos && module.Submodulos!.length >0) {
+        <div class="grid-subbody-expanded " id="expanded-row-{{module.id}}" (click)="expandRows(module.id)">
+            <h5>{{module.name}}</h5>
+            <h5>{{module.route}}</h5>
+            <h5><i class="fa {{module.icon}}"></i> </h5>
             <h5><i class="fa fa-edit"></i> </h5>
 
-            <div class="grid-accordeon-header    ">
+            <div class="grid-accordeon-header " id="accordeon-{{module.id}}">
                 <h5>Nombre del Submodulo</h5>
                 <h5>Ruta</h5>
                 <h5>Icono</h5>
                 <h5>Acciones </h5>
             </div>
 
-            <div class="grid-accordeon-body      ">
-                <h5>usuarios</h5>
-                <h5>/users</h5>
-                <h5>fa-users</h5>
+            <div class="grid-accordeon-body    " *ngFor="let submodule of module.Submodulos;"
+                id="accordeon-body-{{module.id}}">
+                <h5>{{submodule.name}}</h5>
+                <h5>{{submodule.route}}</h5>
+                <h5><i class="fa {{submodule.icon}}"></i> </h5>
                 <h5><i class="fa fa-edit"></i> </h5>
             </div>
 
         </div>
+        } @else {
+
         <div class="grid-subbody">
-            <h5>modulos</h5>
-            <h5>/modulo</h5>
-            <h5>fa-prgf</h5>
-            <h5><i class="fa fa-edit"></i></h5>
+            <h5>{{module.name}}</h5>
+            <h5>{{module.route}}</h5>
+            <h5><i class="fa {{module.icon}}"></i> </h5>
+            <i class="fa fa-edit"></i>
 
 
 
         </div>
+
+        }
+
+
+
+        }
+
+
 
 
 

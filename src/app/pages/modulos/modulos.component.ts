@@ -51,4 +51,14 @@ export default class ModulosComponent implements OnInit {
     await this.modulosService.getAllModules();
     this.modulos.set(this.modulosService.modules);
   }
+
+  expandRows(id: string) {
+    const row = document.querySelector(`#expanded-row-${id}`);
+    const accordeon = document.querySelector(`#accordeon-${id}`);
+    const accordeonBody = document.querySelector(`#accordeon-body-${id}`);
+
+    row?.classList.toggle('active');
+    accordeon?.classList.toggle('active');
+    accordeonBody?.classList.toggle('active');
+  }
 }
