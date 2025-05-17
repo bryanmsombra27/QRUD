@@ -9,7 +9,7 @@ body {
   line-height: 0.6;
   font-family: "Rosario", sans-serif;
   padding: 0 1.5em;
-  overflow: hidden;
+  /* overflow: hidden; */
   /* height: calc(100vh - 800rem); */
   /* width: calc(100vw - 800rem); */
 }

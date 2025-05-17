@@ -123,3 +123,22 @@ h5 {
   visibility: visible;
   position: relative;
 }
+
+/* modal content */
+.d-flex {
+  margin-top: 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  max-width: 500px;
+  gap: 30px;
+}
+.d-block {
+  display: block;
+}
+.scrollbar {
+  overflow-y: scroll;
+  /* height: 500px; */
+  height: 500px;
+}

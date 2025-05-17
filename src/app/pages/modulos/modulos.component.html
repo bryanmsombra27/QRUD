@@ -19,12 +19,53 @@
                
                     <div class="table-responsive">------->
 <div class="flex">
-    <h3>Lista de Personal</h3>
+    <h3>Lista de Modulos</h3>
 
     <app-custom-modal>
         <button modalTrigger class="btn" (click)="openModal()">
             <i class="fa-solid fa-book-bookmark fa-xl mr"></i>
             Agregar modulo</button>
+        <div modalContent class="scrollbar">
+            <h3>Agregar Modulo</h3>
+
+            <form action="" [formGroup]="form">
+                <div class="d-flex">
+                    <app-text error="El campo es obligatorio" fieldName="name" label="Nombre del modulo"
+                        [form]="form" />
+                    <app-text error="El campo es obligatorio" fieldName="route" label="Ruta" [form]="form" />
+                    <app-text error="El campo es obligatorio" fieldName="icon" label="Icono" [form]="form" />
+
+                </div>
+
+
+                <button modalTrigger class="btn d-block" (click)="addSubmodule()" style="align-self: flex-start;">
+                    <i class="fa-solid fa-book-bookmark fa-xl mr"></i>
+                    Agregar Submodulos</button>
+
+
+                @if(submodules.length > 0){
+                @for (submodule of submodules; track $index) {
+                <div formArrayName="submodules">
+                    <div class="d-flex" [formGroupName]="$index">
+                        <app-text error="El campo es obligatorio" fieldName="name" label="Nombre del submodulo"
+                            [form]="submodule" />
+                        <app-text error="El campo es obligatorio" fieldName="route" label="Ruta" [form]="submodule" />
+                        <app-text error="El campo es obligatorio" fieldName="icon" label="Icono" [form]="submodule" />
+
+                    </div>
+                </div>
+
+                }
+
+
+                }
+
+
+
+            </form>
+
+        </div>
+
 
 
 
