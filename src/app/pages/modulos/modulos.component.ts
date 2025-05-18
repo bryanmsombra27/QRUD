@@ -81,11 +81,18 @@ export default class ModulosComponent implements OnInit {
   get submodules(): FormGroup[] {
     return (this.form.get('submodules') as FormArray).controls as FormGroup[];
   }
+
   addSubmodule() {
     this.isSubmodule.set(true);
-
-    this.submodules.push(this.addSubmoduleDynamicForm());
-    this.changeDetector.detectChanges();
+    const submodule = this.fb.array([
+      ...this.submodules,
+      this.addSubmoduleDynamicForm(),
+    ]);
+    this.form = this.fb.group({
+      name: [this.form.get('name')?.value, Validators.required],
+      icon: [this.form.get('icon')?.value, Validators.required],
+      submodules: submodule,
+    });
   }
   removeSubmodule(index: number) {
     (this.form.get('submodules') as FormArray).removeAt(index);
@@ -98,6 +105,7 @@ export default class ModulosComponent implements OnInit {
       console.log(this.form.value);
       return;
     }
+    console.log('form valid', this.form.value);
   }
 
   openModal() {
