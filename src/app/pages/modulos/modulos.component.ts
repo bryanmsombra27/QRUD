@@ -1,4 +1,5 @@
 import {
+  ChangeDetectorRef,
   Component,
   CUSTOM_ELEMENTS_SCHEMA,
   inject,
@@ -53,6 +54,7 @@ export default class ModulosComponent implements OnInit {
 
   modulosService = inject(ModulosService);
   private fb = inject(FormBuilder);
+  private changeDetector = inject(ChangeDetectorRef);
 
   ngOnInit(): void {
     this.addModuleForm();
@@ -80,10 +82,22 @@ export default class ModulosComponent implements OnInit {
     return (this.form.get('submodules') as FormArray).controls as FormGroup[];
   }
   addSubmodule() {
+    this.isSubmodule.set(true);
+
     this.submodules.push(this.addSubmoduleDynamicForm());
+    this.changeDetector.detectChanges();
   }
   removeSubmodule(index: number) {
     (this.form.get('submodules') as FormArray).removeAt(index);
+  }
+
+  submit() {
+    this.form.markAllAsTouched();
+    if (this.form.invalid) {
+      console.log('form invalid');
+      console.log(this.form.value);
+      return;
+    }
   }
 
   openModal() {

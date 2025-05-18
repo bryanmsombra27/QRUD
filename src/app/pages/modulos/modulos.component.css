@@ -131,7 +131,8 @@ h5 {
   justify-content: space-between;
   align-items: center;
   padding: 10px;
-  max-width: 500px;
+  /* margin: 30px; */
+  /* max-width: 500px; */
   gap: 30px;
 }
 .d-block {
@@ -141,4 +142,19 @@ h5 {
   overflow-y: scroll;
   /* height: 500px; */
   height: 500px;
+}
+.icon-container {
+  display: flex;
+  align-items: baseline;
+  gap: 20px;
+  justify-content: center;
+}
+
+.right-btn {
+  width: 95%;
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 50px;
+  margin-top: 25px;
+  margin-bottom: 25px;
 }
