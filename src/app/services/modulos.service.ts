@@ -4,7 +4,12 @@ import { StorageService } from './storage.service';
 import { Meta, Pagination } from '../interfaces/pagination';
 import { environment } from '../../environments/environment';
 import { firstValueFrom } from 'rxjs';
-import { Modulo, ModulosResponse } from '../interfaces/modulos.interface';
+import {
+  CreateModule,
+  CreateModuleResponse,
+  Modulo,
+  ModulosResponse,
+} from '../interfaces/modulos.interface';
 const { url, llaveToken } = environment;
 
 @Injectable({
@@ -13,13 +18,13 @@ const { url, llaveToken } = environment;
 export class ModulosService {
   private http = inject(HttpClient);
   private storageService = inject(StorageService);
-  private pagination = signal<Pagination>({ limit: 5, page: 1, search: '' });
+  private pagination = signal<Pagination>({ limit: 25, page: 1, search: '' });
   private metaData = signal<Meta>({
     totalPages: 0,
     actualPage: 0,
     totalCount: 0,
   });
-  private modulos = signal<Modulo[]>([]);
+  modulos = signal<Modulo[]>([]);
 
   set page(page: number) {
     this.pagination.update((prevState) => ({ ...prevState, page }));
@@ -48,9 +53,9 @@ export class ModulosService {
     return this.metaData();
   }
 
-  get modules() {
-    return this.modulos();
-  }
+  // get modules() {
+  //   return this.modulos();
+  // }
 
   async getAllModules() {
     const token = this.storageService.desencriptar(llaveToken);
@@ -74,5 +79,14 @@ export class ModulosService {
     }));
 
     this.modulos.set(response.modulos);
+  }
+  createModule(module: CreateModule) {
+    const token = this.storageService.desencriptar(llaveToken);
+
+    return this.http.post<CreateModuleResponse>(`${url}/modulos`, module, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
   }
 }

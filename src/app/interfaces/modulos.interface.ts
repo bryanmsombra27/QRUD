@@ -14,3 +14,21 @@ export interface Modulo {
   Submodulos?: Modulo[];
   module_id?: string;
 }
+
+export interface CreateModule {
+  name: string;
+  route?: string;
+  icon: string;
+  submodules?: CreateSubmodule[];
+}
+
+export interface CreateSubmodule {
+  name: string;
+  route: string;
+  icon: string;
+}
+
+export interface CreateModuleResponse {
+  message: string;
+  modulo: Modulo;
+}

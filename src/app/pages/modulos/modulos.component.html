@@ -1,5 +1,4 @@
-<!-- <app-exito [msg]="msgExito()" *ngIf="msgExito().length > 0" /> -->
-<!-- <app-exito [msg]="msgQR" *ngIf="existeMsgQRExito"></app-exito> -->
+<app-exito [msg]="alertaService.msg()" *ngIf="alertaService.msg().length > 0" />
 
 
 
@@ -12,12 +11,6 @@
 
 <!-- <app-buscador (refresh)="refetchPersonal('')" (search)="search($event)" /> -->
 
-<!----------contenedor de las tablas-------------
-        <section class="recent">
-            <div class="activity-grid">
-                <div class="activity-card">
-               
-                    <div class="table-responsive">------->
 <div class="flex">
     <h3>Lista de Modulos</h3>
 
@@ -28,61 +21,8 @@
         <div modalContent class="scrollbar">
             <h3>Agregar Modulo</h3>
 
-            <form action="" [formGroup]="form" (ngSubmit)="submit()">
-                <div class="d-flex">
-                    <app-text error="El campo es obligatorio" fieldName="name" label="Nombre del modulo"
-                        [form]="form" />
-                    @if(!isSubmodule()){
-                    <app-text error="El campo es obligatorio" fieldName="route" label="Ruta" [form]="form" />
 
-                    }
-
-                    <div class="icon-container">
-                        <i class="fa {{form.get('icon')?.value}}  "></i>
-                        <app-text error="El campo es obligatorio" fieldName="icon" label="Icono" [form]="form" />
-
-                    </div>
-
-                </div>
-
-
-                <button type="button" modalTrigger class="btn d-block" (click)="addSubmodule()"
-                    style="align-self: flex-start;">
-                    <i class="fa-solid fa-book-bookmark fa-xl mr"></i>
-                    Agregar Submodulos</button>
-
-
-                @if(submodules.length > 0){
-                @for (submodule of submodules; track $index) {
-                <div formArrayName="submodules">
-                    <div class="d-flex" [formGroupName]="$index">
-                        <app-text error="El campo es obligatorio" fieldName="name" label="Nombre del submodulo"
-                            [form]="submodule" />
-                        <app-text error="El campo es obligatorio" fieldName="route" label="Ruta" [form]="submodule" />
-                        <div class="icon-container">
-                            <i class="fa {{submodule.get('icon')?.value}}  "></i>
-                            <app-text error="El campo es obligatorio" fieldName="icon" label="Icono"
-                                [form]="submodule" />
-
-                        </div>
-
-                    </div>
-                </div>
-
-                }
-
-
-                }
-                <div class="right-btn">
-                    <button class="btn " type="submit">
-                        <i class="fa-solid fa-paper-plane fa-xl mr"></i>
-                        Enviar
-                    </button>
-                </div>
-
-
-            </form>
-
+            <app-crear-modulo (closeModal)="resetModuleModal()" />
         </div>
 
 
@@ -101,7 +41,7 @@
     </div>
 
     <div class="grid-body">
-        @for (module of modulos(); track $index) {
+        @for (module of this.modulosService.modulos(); track $index) {
         @if(module?.Submodulos && module.Submodulos!.length >0) {
         <div class="grid-subbody-expanded " id="expanded-row-{{module.id}}" (click)="expandRows(module.id)">
             <h5>{{module.name}}</h5>

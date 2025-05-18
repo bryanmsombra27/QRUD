@@ -25,20 +25,21 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { CrearModuloComponent } from '../../components/formularios/crear-modulo/crear-modulo.component';
+import { AlertaService } from '../../services/alerta.service';
 
 @Component({
   selector: 'app-modulos',
   imports: [
     CommonModule,
     ReactiveFormsModule,
+    CustomModalComponent,
     ExitoComponent,
+    CrearModuloComponent,
+
     SpinnerComponent,
     BuscadorComponent,
-    OpenCustomModalComponent,
     PaginacionComponent,
-    CustomModalComponent,
-    AccordeonComponent,
-    TextComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './modulos.component.html',
@@ -49,63 +50,11 @@ export default class ModulosComponent implements OnInit {
   customModal!: CustomModalComponent;
   modulos = signal<Modulo[]>([]);
 
-  isSubmodule = signal<boolean>(false);
-  form!: FormGroup;
-
   modulosService = inject(ModulosService);
-  private fb = inject(FormBuilder);
-  private changeDetector = inject(ChangeDetectorRef);
+  alertaService = inject(AlertaService);
 
   ngOnInit(): void {
-    this.addModuleForm();
     this.getModules();
-  }
-  // AGREGAR MODULO
-  addModuleForm() {
-    this.form = this.fb.group({
-      name: ['', Validators.required],
-      route: [''],
-      icon: ['', Validators.required],
-      submodules: this.fb.array([]),
-    });
-  }
-  // AGREGAR SUBMODULOS DE FORMA DINAMICA
-  addSubmoduleDynamicForm() {
-    return this.fb.group({
-      name: ['', Validators.required],
-      route: ['', Validators.required],
-      icon: ['', Validators.required],
-    });
-  }
-
-  get submodules(): FormGroup[] {
-    return (this.form.get('submodules') as FormArray).controls as FormGroup[];
-  }
-
-  addSubmodule() {
-    this.isSubmodule.set(true);
-    const submodule = this.fb.array([
-      ...this.submodules,
-      this.addSubmoduleDynamicForm(),
-    ]);
-    this.form = this.fb.group({
-      name: [this.form.get('name')?.value, Validators.required],
-      icon: [this.form.get('icon')?.value, Validators.required],
-      submodules: submodule,
-    });
-  }
-  removeSubmodule(index: number) {
-    (this.form.get('submodules') as FormArray).removeAt(index);
-  }
-
-  submit() {
-    this.form.markAllAsTouched();
-    if (this.form.invalid) {
-      console.log('form invalid');
-      console.log(this.form.value);
-      return;
-    }
-    console.log('form valid', this.form.value);
   }
 
   openModal() {
@@ -113,7 +62,7 @@ export default class ModulosComponent implements OnInit {
   }
   async getModules() {
     await this.modulosService.getAllModules();
-    this.modulos.set(this.modulosService.modules);
+    // this.modulos.set(this.modulosService.modulos());
   }
 
   expandRows(id: string) {
@@ -124,5 +73,13 @@ export default class ModulosComponent implements OnInit {
     row?.classList.toggle('active');
     accordeon?.classList.toggle('active');
     accordeonBody?.classList.toggle('active');
+  }
+
+  async resetModuleModal() {
+    this.customModal.closeModal();
+    // await this.modulosService.getAllModules();
+    setTimeout(() => {
+      this.alertaService.clearMessage();
+    }, 1500);
   }
 }

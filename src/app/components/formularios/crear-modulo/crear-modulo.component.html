@@ -1,0 +1,55 @@
+<form action="" [formGroup]="form" (ngSubmit)="submit()">
+    <div class="d-flex">
+        <app-text error="El campo es obligatorio" fieldName="name" label="Nombre del modulo" [form]="form" />
+        @if(!isSubmodule()){
+        <div class="icon-container">
+            <span class="slash">/</span>
+            <app-text error="El campo es obligatorio" fieldName="route" label="Ruta" [form]="form" />
+
+        </div>
+
+        }
+
+        <div class="icon-container">
+            <i class="fa {{form.get('icon')?.value}}  "></i>
+            <app-text error="El campo es obligatorio" fieldName="icon" label="Icono" [form]="form" />
+
+        </div>
+
+    </div>
+
+
+    <button type="button" modalTrigger class="btn d-block" (click)="addSubmodule()" style="align-self: flex-start;">
+        <i class="fa-solid fa-book-bookmark fa-xl mr"></i>
+        Agregar Submodulos</button>
+
+
+    @if(submodules.length > 0){
+    @for (submodule of submodules; track $index) {
+    <div formArrayName="submodules">
+        <div class="d-flex" [formGroupName]="$index">
+            <app-text error="El campo es obligatorio" fieldName="name" label="Nombre del submodulo"
+                [form]="submodule" />
+            <app-text error="El campo es obligatorio" fieldName="route" label="Ruta" [form]="submodule" />
+            <div class="icon-container">
+                <i class="fa {{submodule.get('icon')?.value}}  "></i>
+                <app-text error="El campo es obligatorio" fieldName="icon" label="Icono" [form]="submodule" />
+
+            </div>
+
+        </div>
+    </div>
+
+    }
+
+
+    }
+    <div class="right-btn">
+        <button class="btn " type="submit">
+            <i class="fa-solid fa-paper-plane fa-xl mr"></i>
+            Enviar
+        </button>
+    </div>
+
+
+</form>
