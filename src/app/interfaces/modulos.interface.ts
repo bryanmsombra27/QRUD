@@ -32,3 +32,7 @@ export interface CreateModuleResponse {
   message: string;
   modulo: Modulo;
 }
+export interface DeleteModuleResponse {
+  message: string;
+  modulo: Modulo;
+}

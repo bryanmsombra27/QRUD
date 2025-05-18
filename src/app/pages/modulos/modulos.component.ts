@@ -27,6 +27,11 @@ import {
 } from '@angular/forms';
 import { CrearModuloComponent } from '../../components/formularios/crear-modulo/crear-modulo.component';
 import { AlertaService } from '../../services/alerta.service';
+import {
+  CustomError,
+  ErrorServidorService,
+} from '../../services/errorServidor.service';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-modulos',
@@ -48,10 +53,16 @@ import { AlertaService } from '../../services/alerta.service';
 export default class ModulosComponent implements OnInit {
   @ViewChild(CustomModalComponent)
   customModal!: CustomModalComponent;
+
+  @ViewChild('deleteModuleModal')
+  deleteModuleModal!: CustomModalComponent;
+
   modulos = signal<Modulo[]>([]);
+  moduleDeleteconfirmation = signal<Modulo | null>(null);
 
   modulosService = inject(ModulosService);
   alertaService = inject(AlertaService);
+  private ErrorServidor = inject(ErrorServidorService);
 
   ngOnInit(): void {
     this.getModules();
@@ -75,9 +86,44 @@ export default class ModulosComponent implements OnInit {
     accordeonBody?.classList.toggle('active');
   }
 
-  async resetModuleModal() {
+  deleteModuleConfirmation(module: Modulo) {
+    const row = document.querySelector(`#expanded-row-${module.id}`);
+    const accordeon = document.querySelector(`#accordeon-${module.id}`);
+    const accordeonBody = document.querySelector(
+      `#accordeon-body-${module.id}`
+    );
+    this.moduleDeleteconfirmation.set(module);
+
+    this.deleteModuleModal.showModal();
+
+    row?.classList.add('active');
+    accordeon?.classList.add('active');
+    accordeonBody?.classList.add('active');
+  }
+  cancelDeleteModuleModal() {
+    this.deleteModuleModal.closeModal();
+    this.moduleDeleteconfirmation.set(null);
+  }
+
+  async deleteModule() {
+    try {
+      const response = await firstValueFrom(
+        this.modulosService.deleteModule(this.moduleDeleteconfirmation()!.id)
+      );
+      this.alertaService.setMessage(response.message);
+      await this.modulosService.getAllModules();
+      this.deleteModuleModal.closeModal();
+      this.moduleDeleteconfirmation.set(null);
+      setTimeout(() => {
+        this.alertaService.clearMessage();
+      }, 1500);
+    } catch (error) {
+      this.ErrorServidor.invalidToken(error as CustomError);
+    }
+  }
+
+  resetModuleModal() {
     this.customModal.closeModal();
-    // await this.modulosService.getAllModules();
     setTimeout(() => {
       this.alertaService.clearMessage();
     }, 1500);

@@ -129,3 +129,45 @@ h5 {
   /* height: 500px; */
   height: 500px;
 }
+
+/* ACTION BUTTONS */
+.d-flex {
+  margin: 0 auto;
+  padding: 15px;
+  display: flex;
+  gap: 15px;
+}
+.d-flex i {
+  cursor: pointer;
+}
+
+.action-modal-btn {
+  /* margin: 30px auto; */
+  margin-top: 30px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.delete-action-btn {
+  cursor: pointer;
+  background-color: rgb(201, 55, 55);
+  color: white;
+  padding: 10px 15px;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+}
+.cancel-action-btn {
+  cursor: pointer;
+  background-color: rgb(159, 169, 31);
+  color: white;
+  padding: 10px 15px;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+}

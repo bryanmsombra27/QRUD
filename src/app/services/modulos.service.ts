@@ -7,6 +7,7 @@ import { firstValueFrom } from 'rxjs';
 import {
   CreateModule,
   CreateModuleResponse,
+  DeleteModuleResponse,
   Modulo,
   ModulosResponse,
 } from '../interfaces/modulos.interface';
@@ -18,7 +19,7 @@ const { url, llaveToken } = environment;
 export class ModulosService {
   private http = inject(HttpClient);
   private storageService = inject(StorageService);
-  private pagination = signal<Pagination>({ limit: 25, page: 1, search: '' });
+  private pagination = signal<Pagination>({ limit: 5, page: 1, search: '' });
   private metaData = signal<Meta>({
     totalPages: 0,
     actualPage: 0,
@@ -84,6 +85,16 @@ export class ModulosService {
     const token = this.storageService.desencriptar(llaveToken);
 
     return this.http.post<CreateModuleResponse>(`${url}/modulos`, module, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  }
+
+  deleteModule(id: string) {
+    const token = this.storageService.desencriptar(llaveToken);
+
+    return this.http.delete<DeleteModuleResponse>(`${url}/modulos/${id}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

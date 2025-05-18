@@ -10,7 +10,7 @@
 
 
 <!-- <app-buscador (refresh)="refetchPersonal('')" (search)="search($event)" /> -->
-
+<!-- ADD MODULES -->
 <div class="flex">
     <h3>Lista de Modulos</h3>
 
@@ -31,6 +31,27 @@
     </app-custom-modal>
 </div>
 
+<app-custom-modal #deleteModuleModal>
+
+    <div modalContent>
+        <h3>¿Eliminar Modulo?</h3>
+
+        <span>¿Esta seguro que desea eliminar el modulo de <b> {{moduleDeleteconfirmation()?.name}}</b> ?</span>
+
+        <div class="action-modal-btn">
+            <button class="cancel-action-btn" (click)="cancelDeleteModuleModal()">Cancelar</button>
+            <button class="delete-action-btn" (click)="deleteModule()">Confirmar</button>
+
+        </div>
+
+
+    </div>
+
+
+</app-custom-modal>
+
+
+
 <div class="grid">
     <div class="grid-headers">
         <h5>Nombre del modulo</h5>
@@ -47,7 +68,11 @@
             <h5>{{module.name}}</h5>
             <h5>{{module.route}}</h5>
             <h5><i class="fa {{module.icon}}"></i> </h5>
-            <h5><i class="fa fa-edit"></i> </h5>
+            <div class="d-flex">
+                <i class="fa fa-edit"></i>
+                <i class="fa fa-trash" (click)="deleteModuleConfirmation(module)"></i>
+
+            </div>
 
             <div class="grid-accordeon-header " id="accordeon-{{module.id}}">
                 <h5>Nombre del Submodulo</h5>
@@ -61,7 +86,11 @@
                 <h5>{{submodule.name}}</h5>
                 <h5>{{submodule.route}}</h5>
                 <h5><i class="fa {{submodule.icon}}"></i> </h5>
-                <h5><i class="fa fa-edit"></i> </h5>
+                <div class="d-flex">
+                    <i class="fa fa-edit"></i>
+                    <i class="fa fa-trash"></i>
+
+                </div>
             </div>
 
         </div>
@@ -71,7 +100,12 @@
             <h5>{{module.name}}</h5>
             <h5>{{module.route}}</h5>
             <h5><i class="fa {{module.icon}}"></i> </h5>
-            <i class="fa fa-edit"></i>
+            <div class="d-flex">
+                <i class="fa fa-edit"></i>
+                <i class="fa fa-trash"></i>
+
+            </div>
+
 
 
 
