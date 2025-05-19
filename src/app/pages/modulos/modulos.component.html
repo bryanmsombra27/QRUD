@@ -64,14 +64,18 @@
                 <h5>Acciones </h5>
             </div>
 
-            <div class="grid-accordeon-body    " *ngFor="let submodule of module.Submodulos;"
-                id="accordeon-body-{{module.id}}">
+            <div class="grid-accordeon-body  {{`accordeon-body-${module.id}`}} "
+                *ngFor="let submodule of module.Submodulos;" id="accordeon-body-{{module.id}}">
+                <!-- <pre>
+                {{module.Submodulos |json }}
+            </pre> -->
+
                 <h5>{{submodule.name}}</h5>
                 <h5>{{submodule.route}}</h5>
                 <h5><i class="fa {{submodule.icon}}"></i> </h5>
                 <div class="d-flex">
-                    <i class="fa fa-edit"></i>
-                    <i class="fa fa-trash"></i>
+                    <i class="fa fa-edit" (click)="editSubmodule()"></i>
+                    <i class="fa fa-trash" (click)="deleteSubModuleConfirmation(submodule,module.id)"></i>
 
                 </div>
             </div>
@@ -113,6 +117,24 @@
         <div class="action-modal-btn">
             <button class="cancel-action-btn" (click)="cancelDeleteModuleModal()">Cancelar</button>
             <button class="delete-action-btn" (click)="deleteModule()">Confirmar</button>
+
+        </div>
+
+
+    </div>
+
+
+</app-custom-modal>
+<app-custom-modal #deleteSubModuleModal>
+
+    <div modalContent>
+        <h3>¿Eliminar Submodulo?</h3>
+
+        <span>¿Esta seguro que desea eliminar el submodulo de <b> {{submoduleConfirmation()?.name}}</b> ?</span>
+
+        <div class="action-modal-btn">
+            <button class="cancel-action-btn" (click)="cancelDeleteSubModuleModal()">Cancelar</button>
+            <button class="delete-action-btn" (click)="deleteSubModule()">Confirmar</button>
 
         </div>
 

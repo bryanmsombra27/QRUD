@@ -24,8 +24,9 @@
 
 /* accordeon */
 .accordion-content {
-  max-height: 0;
+  /*max-height: 0;
   overflow: hidden;
+  */
   transition: max-height 0.3s ease;
   padding: 0 1rem;
   background: #fff;
@@ -38,7 +39,7 @@
 
 .accordion-content.open {
   padding: 1rem;
-  max-height: 500px; /* o un valor suficientemente grande */
+  min-height: fit-content; /* o un valor suficientemente grande */
 }
 
 /* table */
@@ -122,6 +123,7 @@ h5 {
   height: 100%;
   visibility: visible;
   position: relative;
+  z-index: 0;
 }
 
 .scrollbar {

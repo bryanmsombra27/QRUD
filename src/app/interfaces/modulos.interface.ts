@@ -25,6 +25,13 @@ export interface CreateModule {
 export interface UpdateModule
   extends Pick<CreateModule, 'icon' | 'name' | 'route'> {}
 
+export interface Submodulo {
+  id: string;
+  name: string;
+  icon: string;
+  route: string;
+}
+
 export interface CreateSubmodule {
   name: string;
   route: string;

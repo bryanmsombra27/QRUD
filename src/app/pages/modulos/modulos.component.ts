@@ -12,7 +12,7 @@ import { BuscadorComponent } from '../../components/shared/buscador/buscador.com
 import { PaginacionComponent } from '../../components/shared/paginacion/paginacion.component';
 import { CustomModalComponent } from '../../components/shared/custom-modal/custom-modal.component';
 import { ModulosService } from '../../services/modulos.service';
-import { Modulo } from '../../interfaces/modulos.interface';
+import { Modulo, Submodulo } from '../../interfaces/modulos.interface';
 import { CommonModule } from '@angular/common';
 
 import { ReactiveFormsModule } from '@angular/forms';
@@ -52,8 +52,13 @@ export default class ModulosComponent implements OnInit {
   @ViewChild('editModuleModal')
   editModuleModal!: CustomModalComponent;
 
+  @ViewChild('deleteSubModuleModal')
+  deleteSubModuleModal!: CustomModalComponent;
+
   modulos = signal<Modulo[]>([]);
   moduleConfirmation = signal<Modulo | null>(null);
+  submoduleConfirmation = signal<Submodulo | null>(null);
+  moduleId = signal<string | null>(null);
 
   modulosService = inject(ModulosService);
   alertaService = inject(AlertaService);
@@ -68,17 +73,26 @@ export default class ModulosComponent implements OnInit {
   }
   async getModules() {
     await this.modulosService.getAllModules();
+    console.log(this.modulosService.modulos(), 'modulos actuales');
+
     // this.modulos.set(this.modulosService.modulos());
   }
 
   expandRows(id: string) {
     const row = document.querySelector(`#expanded-row-${id}`);
     const accordeon = document.querySelector(`#accordeon-${id}`);
-    const accordeonBody = document.querySelector(`#accordeon-body-${id}`);
+    const accordeonBody = document.querySelectorAll(`.accordeon-body-${id}`);
 
     row?.classList.toggle('active');
     accordeon?.classList.toggle('active');
-    accordeonBody?.classList.toggle('active');
+
+    if (accordeonBody.length > 0) {
+      accordeonBody.forEach((item) => {
+        item.classList.toggle('active');
+      });
+    }
+
+    // accordeonBody?.classList.toggle('active');
   }
 
   deleteModuleConfirmation(module: Modulo) {
@@ -95,9 +109,37 @@ export default class ModulosComponent implements OnInit {
     accordeon?.classList.add('active');
     accordeonBody?.classList.add('active');
   }
+  deleteSubModuleConfirmation(module: Submodulo, id: string) {
+    const row = document.querySelector(`#expanded-row-${id}`);
+    const accordeon = document.querySelector(`#accordeon-${id}`);
+    const accordeonBody = document.querySelectorAll(`.accordeon-body-${id}`);
+
+    this.submoduleConfirmation.set(module);
+    this.moduleId.set(id);
+
+    row?.classList?.remove('active');
+    accordeon?.classList?.remove('active');
+
+    if (accordeonBody.length > 0) {
+      accordeonBody.forEach((item) => {
+        item.classList.remove('active');
+      });
+    }
+
+    this.deleteSubModuleModal.showModal();
+  }
   cancelDeleteModuleModal() {
     this.deleteModuleModal.closeModal();
     this.moduleConfirmation.set(null);
+  }
+
+  cancelDeleteSubModuleModal() {
+    this.deleteSubModuleModal.closeModal();
+    this.moduleConfirmation.set(null);
+  }
+
+  editSubmodule() {
+    console.log('Editing .....');
   }
 
   async deleteModule() {
@@ -116,6 +158,34 @@ export default class ModulosComponent implements OnInit {
       this.ErrorServidor.invalidToken(error as CustomError);
     }
   }
+  async deleteSubModule() {
+    try {
+      const response = await firstValueFrom(
+        this.modulosService.deleteSubmodule(this.submoduleConfirmation()!.id)
+      );
+      this.alertaService.setMessage(response.message);
+      const row = document.querySelector(`#expanded-row-${this.moduleId()}`);
+      const accordeon = document.querySelector(`#accordeon-${this.moduleId()}`);
+      const submodules = document.querySelectorAll(
+        `.accordeon-body-${this.moduleId()}`
+      );
+
+      row?.classList.toggle('active');
+      accordeon?.classList.toggle('active');
+      submodules.forEach((item) => {
+        item.classList.toggle('active');
+      });
+
+      await this.modulosService.getAllModules();
+      this.deleteSubModuleModal.closeModal();
+      this.submoduleConfirmation.set(null);
+      setTimeout(() => {
+        this.alertaService.clearMessage();
+      }, 1500);
+    } catch (error) {
+      this.ErrorServidor.invalidToken(error as CustomError);
+    }
+  }
 
   resetModuleModal() {
     this.customModal.closeModal();
@@ -123,6 +193,7 @@ export default class ModulosComponent implements OnInit {
       this.alertaService.clearMessage();
     }, 1500);
   }
+
   closeEditModal() {
     this.editModuleModal.closeModal();
     setTimeout(() => {

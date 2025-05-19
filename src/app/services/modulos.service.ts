@@ -102,6 +102,15 @@ export class ModulosService {
       },
     });
   }
+  deleteSubmodule(id: string) {
+    const token = this.storageService.desencriptar(llaveToken);
+
+    return this.http.delete<DeleteModuleResponse>(`${url}/submodulos/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  }
 
   updateModule(id: string, module: UpdateModule) {
     const token = this.storageService.desencriptar(llaveToken);
