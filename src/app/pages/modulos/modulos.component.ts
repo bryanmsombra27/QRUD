@@ -45,6 +45,11 @@ import { ActualizarSubmoduloComponent } from '../../components/formularios/actua
   styleUrl: './modulos.component.css',
 })
 export default class ModulosComponent implements OnInit {
+  // TODO:  refactorizar cdigo que se repite en varios lugares
+  // TODO:  AÑADIR boton para crear submodulos
+  // TODO: TERMINAR LA FUNCIONALIDAD PARA ELIMINAR SUBMODULOS EN EL FORMULARIO DE CREACION POR SI CREA MAS SUBMODULOS DE LOS QUE OCUPA
+  // TODO: VERIFICAR BUG CUANDO SE ACTUALIZA UN MODULO/SUBMODULO YA QUE CUANDO SE MANDA VACIO EL CAMPO, EN EL BACKEND SE GUARDA COMO /null
+
   @ViewChild(CustomModalComponent)
   customModal!: CustomModalComponent;
 
