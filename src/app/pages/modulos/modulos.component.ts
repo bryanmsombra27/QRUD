@@ -24,6 +24,7 @@ import {
 } from '../../services/errorServidor.service';
 import { firstValueFrom } from 'rxjs';
 import { ActualizarModuloComponent } from '../../components/formularios/actualizar-modulo/actualizar-modulo.component';
+import { ActualizarSubmoduloComponent } from '../../components/formularios/actualizar-submodulo/actualizar-submodulo.component';
 
 @Component({
   selector: 'app-modulos',
@@ -37,6 +38,7 @@ import { ActualizarModuloComponent } from '../../components/formularios/actualiz
     BuscadorComponent,
     PaginacionComponent,
     ActualizarModuloComponent,
+    ActualizarSubmoduloComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './modulos.component.html',
@@ -51,6 +53,9 @@ export default class ModulosComponent implements OnInit {
 
   @ViewChild('editModuleModal')
   editModuleModal!: CustomModalComponent;
+
+  @ViewChild('editSubModuleModal')
+  editSubModuleModal!: CustomModalComponent;
 
   @ViewChild('deleteSubModuleModal')
   deleteSubModuleModal!: CustomModalComponent;
@@ -138,8 +143,19 @@ export default class ModulosComponent implements OnInit {
     this.moduleConfirmation.set(null);
   }
 
-  editSubmodule() {
-    console.log('Editing .....');
+  editSubmodule(moduleId: string, submodule: Submodulo) {
+    const row = document.querySelector(`#expanded-row-${moduleId}`);
+    const accordeon = document.querySelector(`#accordeon-${moduleId}`);
+    const submodules = document.querySelectorAll(`.accordeon-body-${moduleId}`);
+
+    row?.classList.remove('active');
+    accordeon?.classList.remove('active');
+    submodules.forEach((item) => {
+      item.classList.remove('active');
+    });
+    this.moduleId.set(moduleId);
+    this.submoduleConfirmation.set(submodule);
+    this.editSubModuleModal.showModal();
   }
 
   async deleteModule() {
@@ -200,6 +216,12 @@ export default class ModulosComponent implements OnInit {
       this.alertaService.clearMessage();
     }, 1500);
   }
+  closeEditSubModuleModal() {
+    this.editSubModuleModal.closeModal();
+    setTimeout(() => {
+      this.alertaService.clearMessage();
+    }, 1500);
+  }
 
   selectEditModule(module: Modulo) {
     const row = document.querySelector(`#expanded-row-${module.id}`);
@@ -207,12 +229,12 @@ export default class ModulosComponent implements OnInit {
     const accordeonBody = document.querySelector(
       `#accordeon-body-${module.id}`
     );
-    this.moduleConfirmation.set(module);
-
-    this.editModuleModal.showModal();
 
     row?.classList?.add('active');
     accordeon?.classList?.add('active');
     accordeonBody?.classList?.add('active');
+
+    this.moduleConfirmation.set(module);
+    this.editModuleModal.showModal();
   }
 }

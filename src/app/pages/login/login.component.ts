@@ -55,7 +55,10 @@ export class LoginComponent implements OnInit {
   }
   formularioLogin() {
     this.form = this.fb.group({
-      email: ['koso2@koso.com', [Validators.required, Validators.email]],
+      email: [
+        'Taylor.Stiedemann@hotmail.com',
+        [Validators.required, Validators.email],
+      ],
       password: ['123456', [Validators.required]],
     });
   }

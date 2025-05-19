@@ -51,3 +51,7 @@ export interface UpdateModuleResponse {
   message: string;
   modulo: Modulo;
 }
+export interface UpdateSubModuleResponse {
+  message: string;
+  submodulo: Submodulo;
+}

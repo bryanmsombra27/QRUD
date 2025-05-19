@@ -74,7 +74,7 @@
                 <h5>{{submodule.route}}</h5>
                 <h5><i class="fa {{submodule.icon}}"></i> </h5>
                 <div class="d-flex">
-                    <i class="fa fa-edit" (click)="editSubmodule()"></i>
+                    <i class="fa fa-edit" (click)="editSubmodule(module.id,submodule)"></i>
                     <i class="fa fa-trash" (click)="deleteSubModuleConfirmation(submodule,module.id)"></i>
 
                 </div>
@@ -149,6 +149,22 @@
         <h2>Editar Modulo {{moduleConfirmation()?.name}} </h2>
 
         <app-actualizar-modulo [module]="moduleConfirmation()!" (closeModal)="closeEditModal()" />
+
+    </div>
+
+
+
+
+
+
+</app-custom-modal>
+
+<app-custom-modal #editSubModuleModal>
+    <div modalContent>
+        <h2>Editar Submodulo {{submoduleConfirmation()?.name}} </h2>
+
+        <app-actualizar-submodulo [module]="submoduleConfirmation()!" (closeModal)="closeEditSubModuleModal()"
+            [moduleId]="moduleId()!" />
 
     </div>
 

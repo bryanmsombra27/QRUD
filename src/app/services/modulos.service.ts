@@ -12,6 +12,7 @@ import {
   ModulosResponse,
   UpdateModule,
   UpdateModuleResponse,
+  UpdateSubModuleResponse,
 } from '../interfaces/modulos.interface';
 const { url, llaveToken } = environment;
 
@@ -110,6 +111,19 @@ export class ModulosService {
         Authorization: `Bearer ${token}`,
       },
     });
+  }
+  updateSubmodule(id: string, submodule: UpdateModule) {
+    const token = this.storageService.desencriptar(llaveToken);
+
+    return this.http.patch<UpdateSubModuleResponse>(
+      `${url}/submodulos/${id}`,
+      submodule,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
   }
 
   updateModule(id: string, module: UpdateModule) {
