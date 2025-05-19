@@ -10,6 +10,8 @@ import {
   DeleteModuleResponse,
   Modulo,
   ModulosResponse,
+  UpdateModule,
+  UpdateModuleResponse,
 } from '../interfaces/modulos.interface';
 const { url, llaveToken } = environment;
 
@@ -99,5 +101,19 @@ export class ModulosService {
         Authorization: `Bearer ${token}`,
       },
     });
+  }
+
+  updateModule(id: string, module: UpdateModule) {
+    const token = this.storageService.desencriptar(llaveToken);
+
+    return this.http.patch<UpdateModuleResponse>(
+      `${url}/modulos/${id}`,
+      module,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
   }
 }

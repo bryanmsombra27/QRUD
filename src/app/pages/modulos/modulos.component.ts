@@ -1,5 +1,4 @@
 import {
-  ChangeDetectorRef,
   Component,
   CUSTOM_ELEMENTS_SCHEMA,
   inject,
@@ -10,21 +9,13 @@ import {
 import { ExitoComponent } from '../../components/shared/exito/exito.component';
 import { SpinnerComponent } from '../../components/shared/spinner/spinner.component';
 import { BuscadorComponent } from '../../components/shared/buscador/buscador.component';
-import { OpenCustomModalComponent } from '../../components/shared/open-custom-modal/open-custom-modal.component';
 import { PaginacionComponent } from '../../components/shared/paginacion/paginacion.component';
 import { CustomModalComponent } from '../../components/shared/custom-modal/custom-modal.component';
 import { ModulosService } from '../../services/modulos.service';
 import { Modulo } from '../../interfaces/modulos.interface';
 import { CommonModule } from '@angular/common';
-import { AccordeonComponent } from '../../components/shared/accordeon/accordeon.component';
-import { TextComponent } from '../../components/shared/inputs/text/text.component';
-import {
-  FormArray,
-  FormBuilder,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+
+import { ReactiveFormsModule } from '@angular/forms';
 import { CrearModuloComponent } from '../../components/formularios/crear-modulo/crear-modulo.component';
 import { AlertaService } from '../../services/alerta.service';
 import {
@@ -32,6 +23,7 @@ import {
   ErrorServidorService,
 } from '../../services/errorServidor.service';
 import { firstValueFrom } from 'rxjs';
+import { ActualizarModuloComponent } from '../../components/formularios/actualizar-modulo/actualizar-modulo.component';
 
 @Component({
   selector: 'app-modulos',
@@ -41,10 +33,10 @@ import { firstValueFrom } from 'rxjs';
     CustomModalComponent,
     ExitoComponent,
     CrearModuloComponent,
-
     SpinnerComponent,
     BuscadorComponent,
     PaginacionComponent,
+    ActualizarModuloComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './modulos.component.html',
@@ -57,8 +49,11 @@ export default class ModulosComponent implements OnInit {
   @ViewChild('deleteModuleModal')
   deleteModuleModal!: CustomModalComponent;
 
+  @ViewChild('editModuleModal')
+  editModuleModal!: CustomModalComponent;
+
   modulos = signal<Modulo[]>([]);
-  moduleDeleteconfirmation = signal<Modulo | null>(null);
+  moduleConfirmation = signal<Modulo | null>(null);
 
   modulosService = inject(ModulosService);
   alertaService = inject(AlertaService);
@@ -92,7 +87,7 @@ export default class ModulosComponent implements OnInit {
     const accordeonBody = document.querySelector(
       `#accordeon-body-${module.id}`
     );
-    this.moduleDeleteconfirmation.set(module);
+    this.moduleConfirmation.set(module);
 
     this.deleteModuleModal.showModal();
 
@@ -102,18 +97,18 @@ export default class ModulosComponent implements OnInit {
   }
   cancelDeleteModuleModal() {
     this.deleteModuleModal.closeModal();
-    this.moduleDeleteconfirmation.set(null);
+    this.moduleConfirmation.set(null);
   }
 
   async deleteModule() {
     try {
       const response = await firstValueFrom(
-        this.modulosService.deleteModule(this.moduleDeleteconfirmation()!.id)
+        this.modulosService.deleteModule(this.moduleConfirmation()!.id)
       );
       this.alertaService.setMessage(response.message);
       await this.modulosService.getAllModules();
       this.deleteModuleModal.closeModal();
-      this.moduleDeleteconfirmation.set(null);
+      this.moduleConfirmation.set(null);
       setTimeout(() => {
         this.alertaService.clearMessage();
       }, 1500);
@@ -127,5 +122,26 @@ export default class ModulosComponent implements OnInit {
     setTimeout(() => {
       this.alertaService.clearMessage();
     }, 1500);
+  }
+  closeEditModal() {
+    this.editModuleModal.closeModal();
+    setTimeout(() => {
+      this.alertaService.clearMessage();
+    }, 1500);
+  }
+
+  selectEditModule(module: Modulo) {
+    const row = document.querySelector(`#expanded-row-${module.id}`);
+    const accordeon = document.querySelector(`#accordeon-${module.id}`);
+    const accordeonBody = document.querySelector(
+      `#accordeon-body-${module.id}`
+    );
+    this.moduleConfirmation.set(module);
+
+    this.editModuleModal.showModal();
+
+    row?.classList?.add('active');
+    accordeon?.classList?.add('active');
+    accordeonBody?.classList?.add('active');
   }
 }

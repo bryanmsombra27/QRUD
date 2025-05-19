@@ -31,24 +31,7 @@
     </app-custom-modal>
 </div>
 
-<app-custom-modal #deleteModuleModal>
 
-    <div modalContent>
-        <h3>¿Eliminar Modulo?</h3>
-
-        <span>¿Esta seguro que desea eliminar el modulo de <b> {{moduleDeleteconfirmation()?.name}}</b> ?</span>
-
-        <div class="action-modal-btn">
-            <button class="cancel-action-btn" (click)="cancelDeleteModuleModal()">Cancelar</button>
-            <button class="delete-action-btn" (click)="deleteModule()">Confirmar</button>
-
-        </div>
-
-
-    </div>
-
-
-</app-custom-modal>
 
 
 
@@ -69,7 +52,7 @@
             <h5>{{module.route}}</h5>
             <h5><i class="fa {{module.icon}}"></i> </h5>
             <div class="d-flex">
-                <i class="fa fa-edit"></i>
+                <i class="fa fa-edit" (click)="selectEditModule(module)"></i>
                 <i class="fa fa-trash" (click)="deleteModuleConfirmation(module)"></i>
 
             </div>
@@ -101,8 +84,8 @@
             <h5>{{module.route}}</h5>
             <h5><i class="fa {{module.icon}}"></i> </h5>
             <div class="d-flex">
-                <i class="fa fa-edit"></i>
-                <i class="fa fa-trash"></i>
+                <i class="fa fa-edit" (click)="selectEditModule(module)"></i>
+                <i class="fa fa-trash" (click)="deleteModuleConfirmation(module)"></i>
 
             </div>
 
@@ -117,12 +100,39 @@
 
         }
 
+    </div>
+</div>
 
+<app-custom-modal #deleteModuleModal>
 
+    <div modalContent>
+        <h3>¿Eliminar Modulo?</h3>
+
+        <span>¿Esta seguro que desea eliminar el modulo de <b> {{moduleConfirmation()?.name}}</b> ?</span>
+
+        <div class="action-modal-btn">
+            <button class="cancel-action-btn" (click)="cancelDeleteModuleModal()">Cancelar</button>
+            <button class="delete-action-btn" (click)="deleteModule()">Confirmar</button>
+
+        </div>
 
 
     </div>
 
 
+</app-custom-modal>
 
-</div>
+<app-custom-modal #editModuleModal>
+    <div modalContent>
+        <h2>Editar Modulo {{moduleConfirmation()?.name}} </h2>
+
+        <app-actualizar-modulo [module]="moduleConfirmation()!" (closeModal)="closeEditModal()" />
+
+    </div>
+
+
+
+
+
+
+</app-custom-modal>
