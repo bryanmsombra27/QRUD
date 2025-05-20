@@ -39,3 +39,8 @@ body {
   border: solid 2px #f0def3;
   border-radius: 10px;
 }
+
+.p-datatable-table {
+  /* width: max-content !important; */
+  max-width: 100vw;
+}

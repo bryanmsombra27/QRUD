@@ -1,1 +1,44 @@
-<p>permissions works!</p>
+<p-table [value]="products" [expandedRowKeys]="expandedRows" dataKey="id" [ngStyle]="{'width':'max-content'}">
+
+    <ng-template #header>
+        <div class="header-grid">
+            <span></span>
+            <h4>Modulo</h4>
+            <h4>Escribir</h4>
+            <h4>Editar</h4>
+            <h4>Eliminar</h4>
+        </div>
+    </ng-template>
+
+    <ng-template #body let-product let-expanded="expanded">
+
+
+        <div class="header-grid">
+            <a (click)="toggleRow(product)" style="cursor: pointer;">
+                <i class="fa" [ngClass]="expanded ? 'fa-chevron-down' : 'fa-chevron-right'"></i>
+            </a>
+            <span style="text-align: center; margin: 0 auto;">Rol </span>
+            <span style="text-align: right; margin: 0 auto;"><app-switch-box /> </span>
+            <span style="text-align: right; margin: 0 auto;"><app-switch-box /></span>
+            <span style="text-align: right; margin: 0 auto;"><app-switch-box /></span>
+        </div>
+    </ng-template>
+
+    <ng-template #expandedrow let-product>
+        <div class="subgrid">
+            <h4>Submodulo</h4>
+            <h4>Escribir</h4>
+            <h4>Editar</h4>
+            <h4>Eliminar</h4>
+        </div>
+        <div class="subgrid">
+
+            <span>rol</span>
+            <span style="text-align: center;"><app-switch-box /> </span>
+            <span style="text-align: center;"><app-switch-box /></span>
+            <span style="text-align: center;"><app-switch-box /></span>
+        </div>
+
+    </ng-template>
+
+</p-table>
