@@ -59,6 +59,11 @@ export const routes: Routes = [
         path: 'modulo',
         loadComponent: () => import('./pages/modulos/modulos.component'),
       },
+      {
+        path: 'permisos/:id',
+        loadComponent: () =>
+          import('./pages/permissions/permissions.component'),
+      },
     ],
   },
   {

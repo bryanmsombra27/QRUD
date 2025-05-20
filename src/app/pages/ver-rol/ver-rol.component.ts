@@ -23,6 +23,7 @@ import { CommonModule } from '@angular/common';
 import { ActualizarRolComponent } from '../../components/formularios/actualizar-rol/actualizar-rol.component';
 import RegistroRolComponent from '../registro-rol/registro-rol.component';
 import { OpenCustomModalComponent } from '../../components/shared/open-custom-modal/open-custom-modal.component';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-ver-rol',
@@ -36,6 +37,7 @@ import { OpenCustomModalComponent } from '../../components/shared/open-custom-mo
     ActualizarRolComponent,
     RegistroRolComponent,
     OpenCustomModalComponent,
+    RouterModule,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './ver-rol.component.html',
