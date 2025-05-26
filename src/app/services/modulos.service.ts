@@ -22,7 +22,7 @@ const { url, llaveToken } = environment;
 export class ModulosService {
   private http = inject(HttpClient);
   private storageService = inject(StorageService);
-  private pagination = signal<Pagination>({ limit: 5, page: 1, search: '' });
+  private pagination = signal<Pagination>({ limit: 15, page: 1, search: '' });
   private metaData = signal<Meta>({
     totalPages: 0,
     actualPage: 0,

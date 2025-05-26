@@ -1,33 +1,103 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import {
+  Component,
+  inject,
+  OnInit,
+  OutputEmitterRef,
+  signal,
+} from '@angular/core';
 import {
   TableModule,
   TableRowCollapseEvent,
   TableRowExpandEvent,
 } from 'primeng/table';
 import { SwitchBoxComponent } from '../../components/shared/switch-box/switch-box.component';
+import { ModulosService } from '../../services/modulos.service';
+import { Modulo } from '../../interfaces/modulos.interface';
 @Component({
   selector: 'app-permissions',
   imports: [TableModule, CommonModule, SwitchBoxComponent],
   templateUrl: './permissions.component.html',
   styleUrl: './permissions.component.css',
 })
-export default class PermissionsComponent {
-  products = [
-    {
-      code: 'aqos',
-      name: 'koso',
-      category: 'kjooso',
-      quantity: 1200,
-    },
-  ];
-  expandedRows: { [key: string]: boolean } = {};
+export default class PermissionsComponent implements OnInit {
+  modulosService = inject(ModulosService);
+  permissionAsignation = signal<PermisionAsignation[]>([]);
+  // permissionAsignation = signal<any>([]);
 
-  onRowExpand(event: TableRowExpandEvent) {}
-
-  onRowCollapse(event: TableRowCollapseEvent) {}
-
-  toggleRow(product: any) {
-    this.expandedRows[product.id] = !this.expandedRows[product.id];
+  ngOnInit(): void {
+    this.getModules();
   }
+
+  async getModules() {
+    await this.modulosService.getAllModules();
+    console.log(this.modulosService.modulos(), 'modulos actuales');
+
+    // this.modulos.set(this.modulosService.modulos());
+  }
+
+  expandRows(id: string) {
+    const row = document.querySelector(`#expanded-row-${id}`);
+    const accordeon = document.querySelector(`#accordeon-${id}`);
+    const accordeonBody = document.querySelectorAll(`.accordeon-body-${id}`);
+
+    row?.classList.toggle('active');
+    accordeon?.classList.toggle('active');
+
+    if (accordeonBody.length > 0) {
+      accordeonBody.forEach((item) => {
+        item.classList.toggle('active');
+      });
+    }
+
+    // accordeonBody?.classList.toggle('active');
+  }
+
+  asignarPermisos() {
+    console.log(this.permissionAsignation(), 'PERMISOS DE MODULOS');
+  }
+
+  handlePermissionsOnChange(
+    permission: Modulo & { type: 'write' | 'delete' | 'edit' }
+  ) {
+    const index = this.permissionAsignation().findIndex(
+      (modulo: any) => modulo.id === permission.id
+    );
+
+    if (index >= 0) {
+      this.permissionAsignation.update((state) => {
+        state[index] = {
+          ...state[index],
+          [permission.type]: !state[index][permission.type],
+        };
+
+        return state;
+      });
+    } else {
+      this.permissionAsignation.update((state: PermisionAsignation[]) => {
+        return [
+          ...state,
+          {
+            id: permission.id,
+            edit: permission.type === 'edit' && true,
+            delete: permission.type === 'delete' && true,
+            write: permission.type === 'write' && true,
+          },
+        ] as PermisionAsignation[];
+      });
+    }
+  }
+}
+
+interface PermisionAsignation {
+  id: string;
+  edit: boolean;
+  delete: boolean;
+  write: boolean;
+  submodules?: {
+    id: string;
+    edit: boolean;
+    delete: boolean;
+    write: boolean;
+  }[];
 }

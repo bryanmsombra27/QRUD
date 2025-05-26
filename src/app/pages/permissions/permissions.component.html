@@ -1,44 +1,73 @@
-<p-table [value]="products" [expandedRowKeys]="expandedRows" dataKey="id" [ngStyle]="{'width':'max-content'}">
+<div class="grid">
+    <div class="grid-headers">
+        <h5>Nombre del modulo</h5>
+        <h5>Editar</h5>
+        <h5>Eliminar</h5>
+        <h5>Escribir</h5>
 
-    <ng-template #header>
-        <div class="header-grid">
-            <span></span>
-            <h4>Modulo</h4>
-            <h4>Escribir</h4>
-            <h4>Editar</h4>
-            <h4>Eliminar</h4>
+    </div>
+
+    <div class="grid-body">
+        @for (module of this.modulosService.modulos(); track $index) {
+        @if(module?.Submodulos && module.Submodulos!.length >0) {
+        <div class="grid-subbody-expanded " id="expanded-row-{{module.id}}" (click)="expandRows(module.id)">
+            <h5>{{module.name}}</h5>
+            <!-- <h5><app-switch-box tipoPermiso="edit" [modulo]="module"
+                    (permisosModulo)="handlePermissionsOnChange($event)" /> </h5>
+            <h5><app-switch-box tipoPermiso="delete" [modulo]="module"
+                    (permisosModulo)="handlePermissionsOnChange($event)" /> </h5>
+            <h5><app-switch-box tipoPermiso="write" [modulo]="module"
+                    (permisosModulo)="handlePermissionsOnChange($event)" /> </h5> -->
+
+
+            <div class="grid-accordeon-header " id="accordeon-{{module.id}}">
+                <h5>Nombre del Submodulo</h5>
+                <h5>Editar</h5>
+                <h5>Eliminar</h5>
+                <h5>Escribir</h5>
+            </div>
+
+            <div class="grid-accordeon-body  {{`accordeon-body-${module.id}`}} "
+                *ngFor="let submodule of module.Submodulos;" id="accordeon-body-{{module.id}}">
+                <!-- <pre>
+                {{module.Submodulos |json }}
+            </pre> -->
+
+                <h5>{{submodule.name}}</h5>
+                <h5><app-switch-box tipoPermiso="edit" (permisosModulo)="handlePermissionsOnChange($event)" /> </h5>
+                <h5><app-switch-box tipoPermiso="delete" (permisosModulo)="handlePermissionsOnChange($event)" /> </h5>
+                <h5><app-switch-box tipoPermiso="write" (permisosModulo)="handlePermissionsOnChange($event)" /> </h5>
+            </div>
+
         </div>
-    </ng-template>
+        } @else {
 
-    <ng-template #body let-product let-expanded="expanded">
+        <div class="grid-subbody">
+            <h5>{{module.name}}</h5>
+            <h5><app-switch-box tipoPermiso="edit" [modulo]="module"
+                    (permisosModulo)="handlePermissionsOnChange($event)" /> </h5>
+            <h5><app-switch-box tipoPermiso="delete" [modulo]="module"
+                    (permisosModulo)="handlePermissionsOnChange($event)" /> </h5>
+            <h5><app-switch-box tipoPermiso="write" [modulo]="module"
+                    (permisosModulo)="handlePermissionsOnChange($event)" /> </h5>
 
 
-        <div class="header-grid">
-            <a (click)="toggleRow(product)" style="cursor: pointer;">
-                <i class="fa" [ngClass]="expanded ? 'fa-chevron-down' : 'fa-chevron-right'"></i>
-            </a>
-            <span style="text-align: center; margin: 0 auto;">Rol </span>
-            <span style="text-align: right; margin: 0 auto;"><app-switch-box /> </span>
-            <span style="text-align: right; margin: 0 auto;"><app-switch-box /></span>
-            <span style="text-align: right; margin: 0 auto;"><app-switch-box /></span>
-        </div>
-    </ng-template>
 
-    <ng-template #expandedrow let-product>
-        <div class="subgrid">
-            <h4>Submodulo</h4>
-            <h4>Escribir</h4>
-            <h4>Editar</h4>
-            <h4>Eliminar</h4>
-        </div>
-        <div class="subgrid">
 
-            <span>rol</span>
-            <span style="text-align: center;"><app-switch-box /> </span>
-            <span style="text-align: center;"><app-switch-box /></span>
-            <span style="text-align: center;"><app-switch-box /></span>
+
         </div>
 
-    </ng-template>
+        }
 
-</p-table>
+
+
+        }
+
+    </div>
+</div>
+
+<div class="flex" *ngIf="permissionAsignation().length >0">
+    <button class="btn" (click)="asignarPermisos()">
+        <i class="fa-solid fa-save fa-xl mr"></i>
+        Agregar permisos</button>
+</div>

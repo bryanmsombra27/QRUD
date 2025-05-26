@@ -1,25 +1,112 @@
-.header-grid {
+/* table */
+.grid {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  /*width: 600px;
-  */
+  grid-template-columns: repeat(4, 1fr);
   margin: 0 auto;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+.grid-headers {
+  grid-column: 1 / span 4;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border: 1px solid #ccc;
+  overflow: hidden;
+}
+
+.grid-headers h5 {
+  margin: 0;
   text-align: center;
-  background: white;
   padding: 15px;
+  border-bottom: none;
+  border-left: 1px solid #ccc;
+}
+
+h5 {
+  text-align: center;
+  padding: 15px;
+  margin: 0;
+}
+
+.grid-body,
+.grid-subbody,
+.grid-subbody-expanded,
+.grid-accordeon-header,
+.grid-accordeon-body {
+  grid-column: 1 / span 4;
+  display: grid;
+  position: relative;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.grid-subbody-expanded {
+  cursor: pointer;
+}
+
+.grid-subbody-expanded::before {
+  content: ">";
+  position: absolute;
+  left: 15px;
+  top: 10px;
+  font-size: 20px;
+  font-weight: bold;
+  transition: all 0.3s ease-in-out;
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -ms-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+}
+
+.grid-subbody-expanded.active::before {
+  transform: rotate(90deg);
+  -webkit-transform: rotate(90deg);
+  -moz-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  -o-transform: rotate(90deg);
+}
+
+.grid-accordeon-header,
+.grid-accordeon-body {
+  height: 0;
+  visibility: hidden;
+  position: absolute;
+  z-index: -22;
+}
+
+.grid-accordeon-header.active,
+.grid-accordeon-body.active {
+  height: 100%;
+  visibility: visible;
+  position: relative;
+  z-index: 0;
+}
+
+.scrollbar {
+  overflow-y: scroll;
+  /* height: 500px; */
+  height: 500px;
+}
+
+/* MODAL BTN */
+.flex {
+  display: flex;
+  width: 95%;
+  justify-content: flex-end;
+  margin-top: 45px;
+}
+
+.btn {
+  padding: 10px 15px;
+  background-color: #3e3798;
+  color: white;
   border-radius: 10px;
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
   -ms-border-radius: 10px;
   -o-border-radius: 10px;
+  cursor: pointer;
 }
-
-.subgrid {
-  display: grid;
-  text-align: center;
-  grid-template-columns: repeat(4, 1fr);
-  background: white;
-  /* width: 600px; */
-  margin: 0 auto;
-  padding: 15px;
+.mr {
+  margin-right: 10px;
 }
