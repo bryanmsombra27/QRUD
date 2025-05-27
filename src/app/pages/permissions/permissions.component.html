@@ -34,9 +34,12 @@
             </pre> -->
 
                 <h5>{{submodule.name}}</h5>
-                <h5><app-switch-box tipoPermiso="edit" (permisosModulo)="handlePermissionsOnChange($event)" /> </h5>
-                <h5><app-switch-box tipoPermiso="delete" (permisosModulo)="handlePermissionsOnChange($event)" /> </h5>
-                <h5><app-switch-box tipoPermiso="write" (permisosModulo)="handlePermissionsOnChange($event)" /> </h5>
+                <h5><app-switch-box [modulo]="module" [submodulo]="submodule.id" tipoPermiso="edit"
+                        (permisosModulo)="handlePermissionsOnChange($event)" /> </h5>
+                <h5><app-switch-box [modulo]="module" [submodulo]="submodule.id" tipoPermiso="delete"
+                        (permisosModulo)="handlePermissionsOnChange($event)" /> </h5>
+                <h5><app-switch-box [modulo]="module" [submodulo]="submodule.id" tipoPermiso="write"
+                        (permisosModulo)="handlePermissionsOnChange($event)" /> </h5>
             </div>
 
         </div>

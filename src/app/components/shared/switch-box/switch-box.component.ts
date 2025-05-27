@@ -8,11 +8,15 @@ import { Modulo } from '../../../interfaces/modulos.interface';
   styleUrl: './switch-box.component.css',
 })
 export class SwitchBoxComponent {
-  id = input<string>('');
   activado = output<any>();
-  permisosModulo = output<Modulo & { type: 'edit' | 'delete' | 'write' }>();
+  permisosModulo = output<
+    Modulo & { type: 'edit' | 'delete' | 'write'; submoduleId: string }
+  >();
+
+  id = input<string>('');
   tipoPermiso = input<'edit' | 'delete' | 'write'>();
   modulo = input<Modulo>();
+  submodulo = input<string>();
 
   async switchBox(e: any) {
     const input = e.currentTarget.children[0];
@@ -27,6 +31,7 @@ export class SwitchBoxComponent {
         this.permisosModulo.emit({
           ...this.modulo()!,
           type: this.tipoPermiso()!,
+          submoduleId: this.submodulo()!,
         });
       }
     }
