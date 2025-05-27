@@ -78,14 +78,31 @@ export default class PermissionsComponent implements OnInit {
 
         if (submoduleIndex >= 0) {
           this.permissionAsignation.update((state: any) => {
+            state[index].submodules[submoduleIndex] = {
+              ...state[index].submodules[submoduleIndex],
+              [permission.type]:
+                !state[index].submodules[submoduleIndex][permission.type],
+            };
+
+            state[index] = {
+              ...state[index],
+              submodules: [...state[index].submodules],
+            };
+
+            return state;
+          });
+        } else {
+          this.permissionAsignation.update((state: any) => {
             state[index] = {
               ...state[index],
               submodules: [
                 ...state[index].submodules,
                 {
-                  ...state[index].submodules[submoduleIndex],
-                  [permission.type]:
-                    !state[index].submodules[submoduleIndex][permission.type],
+                  edit: permission.type === 'edit' ? true : false,
+                  delete: permission.type === 'delete' ? true : false,
+                  write: permission.type === 'write' ? true : false,
+                  id: permission.submoduleId,
+                  [permission.type]: !state[index][permission.type],
                 },
               ],
             };
@@ -108,13 +125,6 @@ export default class PermissionsComponent implements OnInit {
       if (permission.submoduleId) {
         // cuando son varios submodulos
         this.permissionAsignation.update((state) => {
-          const submoduleIndex =
-            this.permissionAsignation()[index]?.submodules?.findIndex(
-              (submodulo) => submodulo.id == permission.submoduleId
-            ) ?? -1;
-
-          // const submodules =
-
           return [
             ...state,
             {
@@ -123,7 +133,7 @@ export default class PermissionsComponent implements OnInit {
               delete: false,
               write: false,
               submodules: [
-                ...this.permissionAsignation()[index]?.submodules!,
+                // ...this.permissionAsignation()[index]?.submodules!,
                 {
                   id: permission.submoduleId,
                   edit: permission.type === 'edit' && true,
