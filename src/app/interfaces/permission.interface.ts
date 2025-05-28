@@ -34,4 +34,6 @@ interface Permisos_submodulos {
   edit: boolean;
   write: boolean;
   delete: boolean;
+  module_permission_id: string;
+  submodule_id: string;
 }

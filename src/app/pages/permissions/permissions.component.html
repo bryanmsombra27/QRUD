@@ -14,14 +14,6 @@
                 @if(module?.Submodulos && module.Submodulos!.length >0) {
                 <div class="grid-subbody-expanded " id="expanded-row-{{module.id}}" (click)="expandRows(module.id)">
                         <h5>{{module.name}}</h5>
-                        <!-- <h5><app-switch-box tipoPermiso="edit" [modulo]="module"
-                    (permisosModulo)="handlePermissionsOnChange($event)" /> </h5>
-            <h5><app-switch-box tipoPermiso="delete" [modulo]="module"
-                    (permisosModulo)="handlePermissionsOnChange($event)" /> </h5>
-            <h5><app-switch-box tipoPermiso="write" [modulo]="module"
-                    (permisosModulo)="handlePermissionsOnChange($event)" /> </h5> -->
-
-
                         <div class="grid-accordeon-header " id="accordeon-{{module.id}}">
                                 <h5>Nombre del Submodulo</h5>
                                 <h5>Editar</h5>
@@ -37,10 +29,13 @@
 
                                 <h5>{{submodule.name}}</h5>
                                 <h5><app-switch-box [modulo]="module" [submodulo]="submodule.id" tipoPermiso="edit"
+                                                [defaultValue]="moduleIsAlreadyAssigned(module,'edit',submodule.id)"
                                                 (permisosModulo)="handlePermissionsOnChange($event)" /> </h5>
                                 <h5><app-switch-box [modulo]="module" [submodulo]="submodule.id" tipoPermiso="delete"
+                                                [defaultValue]="moduleIsAlreadyAssigned(module,'delete',submodule.id)"
                                                 (permisosModulo)="handlePermissionsOnChange($event)" /> </h5>
                                 <h5><app-switch-box [modulo]="module" [submodulo]="submodule.id" tipoPermiso="write"
+                                                [defaultValue]="moduleIsAlreadyAssigned(module,'write',submodule.id)"
                                                 (permisosModulo)="handlePermissionsOnChange($event)" /> </h5>
                         </div>
 

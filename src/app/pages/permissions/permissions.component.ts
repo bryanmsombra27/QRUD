@@ -209,12 +209,22 @@ export default class PermissionsComponent implements OnInit {
     }
   }
 
-  moduleIsAlreadyAssigned(module: Modulo, type: 'edit' | 'delete' | 'write') {
-    console.log(module.id, 'modulo principal');
-
+  moduleIsAlreadyAssigned(
+    module: Modulo,
+    type: 'edit' | 'delete' | 'write',
+    submodule?: string
+  ) {
     const moduleFound = this.rolAssignation().find(
       (asignation) => asignation.module_id === module.id
     )!;
+
+    if (submodule) {
+      const submoduleFound = moduleFound.Permisos_submodulos.find(
+        (submodulo) => submodulo.submodule_id == submodule
+      );
+
+      return submoduleFound && submoduleFound[type] ? true : false;
+    }
 
     return moduleFound && moduleFound[type] ? true : false;
   }
