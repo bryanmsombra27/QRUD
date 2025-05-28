@@ -14,19 +14,36 @@ import {
 import { SwitchBoxComponent } from '../../components/shared/switch-box/switch-box.component';
 import { ModulosService } from '../../services/modulos.service';
 import { Modulo } from '../../interfaces/modulos.interface';
+import { PermissionService } from '../../services/permission.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { firstValueFrom } from 'rxjs';
+import {
+  CustomError,
+  ErrorServidorService,
+} from '../../services/errorServidor.service';
+import { ExitoComponent } from '../../components/shared/exito/exito.component';
+import { AlertaService } from '../../services/alerta.service';
+import { Permisos_modulos } from '../../interfaces/permission.interface';
 @Component({
   selector: 'app-permissions',
-  imports: [TableModule, CommonModule, SwitchBoxComponent],
+  imports: [TableModule, CommonModule, SwitchBoxComponent, ExitoComponent],
   templateUrl: './permissions.component.html',
   styleUrl: './permissions.component.css',
 })
 export default class PermissionsComponent implements OnInit {
   modulosService = inject(ModulosService);
+  permisosService = inject(PermissionService);
+  alertaService = inject(AlertaService);
+  private ErrorServidor = inject(ErrorServidorService);
+  router = inject(ActivatedRoute);
+
   permissionAsignation = signal<PermisionAsignation[]>([]);
   // permissionAsignation = signal<any>([]);
+  rolAssignation = signal<Permisos_modulos[]>([]);
 
   ngOnInit(): void {
     this.getModules();
+    this.asignationByRol();
   }
 
   async getModules() {
@@ -34,6 +51,20 @@ export default class PermissionsComponent implements OnInit {
     console.log(this.modulosService.modulos(), 'modulos actuales');
 
     // this.modulos.set(this.modulosService.modulos());
+  }
+
+  async asignationByRol() {
+    try {
+      const roleId = this.router.snapshot.params['id'];
+      const response = await firstValueFrom(
+        this.permisosService.getAssinatedModulesByRole(roleId)
+      );
+      this.rolAssignation.set(response.permisos);
+
+      console.log(response.permisos, 'PERMISOS ASIGNADOR POR ROL');
+    } catch (error) {
+      this.ErrorServidor.invalidToken(error as CustomError);
+    }
   }
 
   expandRows(id: string) {
@@ -53,8 +84,25 @@ export default class PermissionsComponent implements OnInit {
     // accordeonBody?.classList.toggle('active');
   }
 
-  asignarPermisos() {
+  // console.log(this.router., 'ROLE ID');
+  async asignarPermisos() {
     console.log(this.permissionAsignation(), 'PERMISOS DE MODULOS');
+    const roleId = this.router.snapshot.params['id'];
+    try {
+      const response = await firstValueFrom(
+        this.permisosService.assignPermission(
+          roleId,
+          this.permissionAsignation()
+        )
+      );
+      this.alertaService.setMessage(response.message);
+
+      setTimeout(() => {
+        this.alertaService.clearMessage();
+      }, 1500);
+    } catch (error) {
+      this.ErrorServidor.invalidToken(error as CustomError);
+    }
   }
 
   handlePermissionsOnChange(
@@ -63,7 +111,7 @@ export default class PermissionsComponent implements OnInit {
       submoduleId: string;
     }
   ) {
-    console.log('se dispara', permission);
+    // console.log('se dispara', permission);
 
     const index = this.permissionAsignation().findIndex(
       (modulo: any) => modulo.id === permission.id
@@ -159,6 +207,16 @@ export default class PermissionsComponent implements OnInit {
         });
       }
     }
+  }
+
+  moduleIsAlreadyAssigned(module: Modulo, type: 'edit' | 'delete' | 'write') {
+    console.log(module.id, 'modulo principal');
+
+    const moduleFound = this.rolAssignation().find(
+      (asignation) => asignation.module_id === module.id
+    )!;
+
+    return moduleFound && moduleFound[type] ? true : false;
   }
 }
 

@@ -17,6 +17,7 @@ export class SwitchBoxComponent {
   tipoPermiso = input<'edit' | 'delete' | 'write'>();
   modulo = input<Modulo>();
   submodulo = input<string>();
+  defaultValue = input<boolean>(false);
 
   async switchBox(e: any) {
     const input = e.currentTarget.children[0];
