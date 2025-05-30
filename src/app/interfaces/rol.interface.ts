@@ -3,6 +3,14 @@ import { Meta } from './pagination';
 export interface RolRelation {
   id: string;
   name: string;
+  Permisos_modulos: ModulePermission[];
+}
+
+interface ModulePermission {
+  id: string;
+  name: string;
+  route: string;
+  icon: string;
 }
 
 export interface RegistroRol {

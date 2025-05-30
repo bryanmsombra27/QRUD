@@ -56,7 +56,7 @@ export class LoginComponent implements OnInit {
   formularioLogin() {
     this.form = this.fb.group({
       email: [
-        'Taylor.Stiedemann@hotmail.com',
+        'Sandrine84@hotmail.com',
         [Validators.required, Validators.email],
       ],
       password: ['123456', [Validators.required]],
@@ -76,6 +76,10 @@ export class LoginComponent implements OnInit {
       this.msgErrores.set('');
       const response = await this.AuthService.login(personal);
       this.StorageService.encryptar('nombre', response.personal.nombre);
+      this.StorageService.encryptar(
+        'menu',
+        JSON.stringify(response.personal.rol.Permisos_modulos)
+      );
 
       console.log(response, 'RESPUESTA BACKEND');
       setTimeout(() => {

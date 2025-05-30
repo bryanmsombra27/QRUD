@@ -63,15 +63,27 @@ export default class PanelAdminComponent {
     // this.generarColorRandom();
     this.getAllModules();
   }
+
+  // TODO: IMPLEMENTAR LA FUNCIONALIDAD DE LOS SUBMODULOS
   async getAllModules() {
-    try {
-      const response = await firstValueFrom(
-        this.sidebarServices.getModulesForsidebar()
-      );
-      this.modulos.set(response.modulos);
-    } catch (error) {
-      this.ErrorServidor.invalidToken(error as CustomError);
+    const menu = JSON.parse(this.StorageService.desencriptar('menu'));
+    console.log(menu, 'menu');
+    const sidebarMenu: Modulo[] = [];
+
+    for (const item of menu) {
+      sidebarMenu.push(item.ModulosPermissions);
     }
+
+    this.modulos.set(sidebarMenu);
+
+    // try {
+    //   const response = await firstValueFrom(
+    //     this.sidebarServices.getModulesForsidebar()
+    //   );
+    //   this.modulos.set(response.modulos);
+    // } catch (error) {
+    //   this.ErrorServidor.invalidToken(error as CustomError);
+    // }
   }
 
   /**
