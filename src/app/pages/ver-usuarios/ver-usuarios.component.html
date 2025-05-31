@@ -63,7 +63,7 @@
                 <div class="btn-group">
 
                     @if (permiso().edit && usuario.isActive) {
-                    <button class="btn" (click)="actualizarUsuario(usuario)" *ngIf="accesoDenegado"><i
+                    <button class="btn" (click)="actualizarUsuario(usuario)"><i
                             class="fa-solid fa-square-pen fa-xl"></i></button>
 
                     @if (!usuario.qr) {

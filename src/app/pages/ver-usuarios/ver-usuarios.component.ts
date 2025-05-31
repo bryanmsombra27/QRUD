@@ -26,6 +26,7 @@ import { SwitchBoxComponent } from '../../components/shared/switch-box/switch-bo
 import { OpenCustomModalComponent } from '../../components/shared/open-custom-modal/open-custom-modal.component';
 import RegistroUsuarioComponent from '../registro-usuario/registro-usuario.component';
 import { ModuloActualService } from '../../services/modulo-actual.service';
+import { PermisoModulo } from '../../interfaces/permission.interface';
 
 @Component({
   selector: 'app-ver-usuarios',
@@ -63,17 +64,10 @@ export default class VerUsuariosComponent {
     read: false,
     write: false,
   });
-  closeModal: any;
-
-  /**
-   * propiedad que restringe el acceso a ciertas acciones que esten delimitadas por el rol del personal logueado
-   */
-  accesoDenegado: boolean = true;
 
   /**
    * inyeccion de servicios
    */
-  private StorageService = inject(StorageService);
   private ErrorServidor = inject(ErrorServidorService);
   private UsuarioService = inject(UsuarioService);
   private selectedModuleService = inject(ModuloActualService);
@@ -82,7 +76,6 @@ export default class VerUsuariosComponent {
    * metodo que se ejecuta al iniciar el componente el cual obtiene todos los registros de los usuarios activos y verifica el rol del personal logueado
    */
   ngOnInit(): void {
-    this.restriccionPorRol();
     this.obtenerUsuarios();
     this.permisos();
   }
@@ -107,7 +100,6 @@ export default class VerUsuariosComponent {
 
       this.usuarios.set(response.usuarios);
       this.metaData.set(response.meta);
-      this.closeModal();
     } catch (error) {
       this.ErrorServidor.invalidToken(error as CustomError);
     }
@@ -208,26 +200,8 @@ export default class VerUsuariosComponent {
       this.ErrorServidor.invalidToken(error as CustomError);
     }
   }
-  /**
-   * metodo que verifica la el rol del personal logueado para restringir el acceso a ciertas acciones
-   */
-  restriccionPorRol() {
-    const rol = this.StorageService.desencriptar('rol');
-
-    if (rol == 'aux') {
-      this.accesoDenegado = false;
-    }
-  }
 
   search(search: string) {
     this.UsuarioService.search = search;
   }
-}
-
-interface PermisoModulo {
-  id: string;
-  read: boolean;
-  write: boolean;
-  delete: boolean;
-  edit: boolean;
 }

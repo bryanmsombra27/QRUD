@@ -18,6 +18,8 @@ import { firstValueFrom } from 'rxjs';
 import { ActualizarPersonalComponent } from '../../components/formularios/actualizar-personal/actualizar-personal.component';
 import { OpenCustomModalComponent } from '../../components/shared/open-custom-modal/open-custom-modal.component';
 import RegistroPersonalComponent from '../registro-personal/registro-personal.component';
+import { PermisoModulo } from '../../interfaces/permission.interface';
+import { ModuloActualService } from '../../services/modulo-actual.service';
 
 @Component({
   selector: 'app-ver-personal',
@@ -47,25 +49,39 @@ export default class VerPersonalComponent {
   msgExito = signal<string>('');
   personalparaActualizar = signal<Personal | null>(null);
   personalParaEliminar = signal<Personal | null>(null);
-
-  /**
-   * propiedad que restringe el acceso a ciertas acciones que esten delimitadas por el rol del personal logueado
-   */
-  accesoDenegado: boolean = true;
+  permiso = signal<PermisoModulo>({
+    delete: false,
+    edit: false,
+    id: '',
+    read: false,
+    write: false,
+  });
 
   /**
    * inyeccion de servicios
    */
-  private StorageService = inject(StorageService);
   private ErrorServidor = inject(ErrorServidorService);
   private personalService = inject(PersonalService);
+  private selectedModuleService = inject(ModuloActualService);
 
   /**
    * metodo que se ejecuta al iniciar el componente el cual obtiene todos los registros de los usuarios activos y verifica el rol del personal logueado
    */
   ngOnInit(): void {
-    this.restriccionPorRol();
     this.obtenerPersonal();
+    this.permisos();
+  }
+
+  permisos() {
+    const permiso = this.selectedModuleService.permisosDelModuloSeleccionado();
+
+    this.permiso.set({
+      delete: permiso.delete,
+      edit: permiso.edit,
+      id: permiso.module_id,
+      read: permiso.read,
+      write: permiso.write,
+    });
   }
 
   /**
@@ -160,17 +176,6 @@ export default class VerPersonalComponent {
       }, 1500);
     } catch (error) {
       this.ErrorServidor.invalidToken(error as CustomError);
-    }
-  }
-
-  /**
-   * metodo que verifica la el rol del personal logueado para restringir el acceso a ciertas acciones
-   */
-  restriccionPorRol() {
-    const rol = this.StorageService.desencriptar('rol');
-
-    if (rol == 'aux') {
-      this.accesoDenegado = false;
     }
   }
 

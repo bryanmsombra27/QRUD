@@ -23,11 +23,13 @@
                     <div class="table-responsive">------->
 <div class="flex">
     <h3>Lista de Personal</h3>
-
+    @if (permiso().write) {
     <app-open-custom-modal>
         <app-registro-personal (refresh)="obtenerPersonal()" />
 
     </app-open-custom-modal>
+    }
+
 </div>
 
 
@@ -55,14 +57,18 @@
             <td class="right" data-title="Email">{{personal.email}}</td>
             <td class="icons" data-title="Acciones">
                 <div class="btn-group">
-                    @if (accesoDenegado && personal.isActive) {
-                    <button class="btn" (click)="actualizarUsuario(personal)" *ngIf="accesoDenegado"><i
+                    @if (permiso().edit && personal.isActive) {
+                    <button class="btn" (click)="actualizarUsuario(personal)"><i
                             class="fa-solid fa-square-pen fa-xl"></i></button>
 
+
+
+                    }
+
+                    @if(permiso().delete && personal.isActive){
                     <label class="btn" for="btn-modal-delete" (click)="referenciaUsuarioEliminar(personal)"><i
                             class="fa-solid fa-user-xmark fa-lg"></i></label>
-
-                    } @else {
+                    } @else if(permiso().delete && !personal.isActive) {
                     <label for="btn-modal-delete-def" (click)="referenciaUsuarioEliminar(personal)">
 
                         <i class="fa-solid fa-trash fa-lg btn"></i>

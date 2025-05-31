@@ -49,14 +49,20 @@
             <td data-title="RFC">{{rol.description }}</td>
             <td class="icons" data-title="Acciones">
                 <div class="btn-group">
-                    @if (accesoDenegado && rol.isActive) {
-                    <button class="btn" (click)="actualizarUsuario(rol)" *ngIf="accesoDenegado"><i
+                    @if (permiso().edit && rol.isActive) {
+                    <button class="btn" (click)="actualizarUsuario(rol)"><i
                             class="fa-solid fa-square-pen fa-xl"></i></button>
 
+
+
+                    }
+                    @if(permiso().delete && rol.isActive){
                     <label class="btn" for="btn-modal-delete" (click)="referenciaRolEliminar(rol)"><i
                             class="fa-solid fa-user-xmark fa-lg"></i></label>
+                    }
 
-                    } @else {
+
+                    @else if(permiso().delete && !rol.isActive) {
                     <label for="btn-modal-delete-def" (click)="referenciaRolEliminar(rol)">
 
                         <i class="fa-solid fa-trash fa-lg btn"></i>
@@ -69,7 +75,10 @@
 
                     }
 
+                    @if (restriccionPorRol()) {
                     <i class="fa-solid fa-book  fa-lg btn" routerLink="/permisos/{{rol.id}}"></i>
+
+                    }
 
 
                 </div>

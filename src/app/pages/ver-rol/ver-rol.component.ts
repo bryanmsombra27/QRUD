@@ -24,6 +24,8 @@ import { ActualizarRolComponent } from '../../components/formularios/actualizar-
 import RegistroRolComponent from '../registro-rol/registro-rol.component';
 import { OpenCustomModalComponent } from '../../components/shared/open-custom-modal/open-custom-modal.component';
 import { RouterModule } from '@angular/router';
+import { PermisoModulo } from '../../interfaces/permission.interface';
+import { ModuloActualService } from '../../services/modulo-actual.service';
 
 @Component({
   selector: 'app-ver-rol',
@@ -52,13 +54,16 @@ export default class VerRolComponent {
   });
   mostrarFormularioEmergente = signal<boolean>(false);
   msgExito = signal<string>('');
+  permiso = signal<PermisoModulo>({
+    delete: false,
+    edit: false,
+    id: '',
+    read: false,
+    write: false,
+  });
+
   rolparaActualizar = signal<Rol | null>(null);
   rolparaEliminar = signal<Rol | null>(null);
-
-  /**
-   * propiedad que restringe el acceso a ciertas acciones que esten delimitadas por el rol del personal logueado
-   */
-  accesoDenegado: boolean = true;
 
   /**
    * inyeccion de servicios
@@ -66,6 +71,7 @@ export default class VerRolComponent {
   private StorageService = inject(StorageService);
   private ErrorServidor = inject(ErrorServidorService);
   private rolService = inject(RolService);
+  private selectedModuleService = inject(ModuloActualService);
 
   /**
    * metodo que se ejecuta al iniciar el componente el cual obtiene todos los registros de los usuarios activos y verifica el rol del personal logueado
@@ -73,6 +79,19 @@ export default class VerRolComponent {
   ngOnInit(): void {
     this.restriccionPorRol();
     this.obtenerRoles();
+    this.permisos();
+  }
+
+  permisos() {
+    const permiso = this.selectedModuleService.permisosDelModuloSeleccionado();
+
+    this.permiso.set({
+      delete: permiso.delete,
+      edit: permiso.edit,
+      id: permiso.module_id,
+      read: permiso.read,
+      write: permiso.write,
+    });
   }
 
   /**
@@ -172,9 +191,7 @@ export default class VerRolComponent {
   restriccionPorRol() {
     const rol = this.StorageService.desencriptar('rol');
 
-    if (rol == 'aux') {
-      this.accesoDenegado = false;
-    }
+    return rol == 'root' ? true : false;
   }
 
   search(search: string) {

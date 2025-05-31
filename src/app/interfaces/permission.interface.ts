@@ -37,3 +37,6 @@ interface Permisos_submodulos {
   module_permission_id: string;
   submodule_id: string;
 }
+
+export interface PermisoModulo
+  extends Pick<Permisos_modulos, 'id' | 'read' | 'edit' | 'write' | 'delete'> {}
