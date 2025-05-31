@@ -1,5 +1,6 @@
 import { Component, input, output } from '@angular/core';
 import { Modulo } from '../../../interfaces/modulos.interface';
+import { ModuleType } from '../../../interfaces/permission.interface';
 
 @Component({
   selector: 'app-switch-box',
@@ -9,12 +10,10 @@ import { Modulo } from '../../../interfaces/modulos.interface';
 })
 export class SwitchBoxComponent {
   activado = output<any>();
-  permisosModulo = output<
-    Modulo & { type: 'edit' | 'delete' | 'write'; submoduleId: string }
-  >();
+  permisosModulo = output<Modulo & { type: ModuleType; submoduleId: string }>();
 
   id = input<string>('');
-  tipoPermiso = input<'edit' | 'delete' | 'write'>();
+  tipoPermiso = input<ModuleType>();
   modulo = input<Modulo>();
   submodulo = input<string>();
   defaultValue = input<boolean>(false);

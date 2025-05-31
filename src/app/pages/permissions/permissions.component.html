@@ -3,6 +3,7 @@
 <div class="grid">
         <div class="grid-headers">
                 <h5>Nombre del modulo</h5>
+                <h5>Leer</h5>
                 <h5>Editar</h5>
                 <h5>Eliminar</h5>
                 <h5>Escribir</h5>
@@ -16,6 +17,7 @@
                         <h5>{{module.name}}</h5>
                         <div class="grid-accordeon-header " id="accordeon-{{module.id}}">
                                 <h5>Nombre del Submodulo</h5>
+                                <h5>Leer</h5>
                                 <h5>Editar</h5>
                                 <h5>Eliminar</h5>
                                 <h5>Escribir</h5>
@@ -28,11 +30,14 @@
             </pre> -->
 
                                 <h5>{{submodule.name}}</h5>
-                                <h5><app-switch-box [modulo]="module" [submodulo]="submodule.id" tipoPermiso="edit"
+                                <h5><app-switch-box [modulo]="module" [submodulo]="submodule.id" tipoPermiso="read"
                                                 [defaultValue]="moduleIsAlreadyAssigned(module,'edit',submodule.id)"
                                                 (permisosModulo)="handlePermissionsOnChange($event)" /> </h5>
-                                <h5><app-switch-box [modulo]="module" [submodulo]="submodule.id" tipoPermiso="delete"
+                                <h5><app-switch-box [modulo]="module" [submodulo]="submodule.id" tipoPermiso="edit"
                                                 [defaultValue]="moduleIsAlreadyAssigned(module,'delete',submodule.id)"
+                                                (permisosModulo)="handlePermissionsOnChange($event)" /> </h5>
+                                <h5><app-switch-box [modulo]="module" [submodulo]="submodule.id" tipoPermiso="delete"
+                                                [defaultValue]="moduleIsAlreadyAssigned(module,'write',submodule.id)"
                                                 (permisosModulo)="handlePermissionsOnChange($event)" /> </h5>
                                 <h5><app-switch-box [modulo]="module" [submodulo]="submodule.id" tipoPermiso="write"
                                                 [defaultValue]="moduleIsAlreadyAssigned(module,'write',submodule.id)"
@@ -44,6 +49,9 @@
 
                 <div class="grid-subbody">
                         <h5>{{module.name}}</h5>
+                        <h5><app-switch-box tipoPermiso="read" [modulo]="module"
+                                        [defaultValue]="moduleIsAlreadyAssigned(module,'read')"
+                                        (permisosModulo)="handlePermissionsOnChange($event)" /> </h5>
                         <h5><app-switch-box tipoPermiso="edit" [modulo]="module"
                                         [defaultValue]="moduleIsAlreadyAssigned(module,'edit')"
                                         (permisosModulo)="handlePermissionsOnChange($event)" /> </h5>

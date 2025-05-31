@@ -110,7 +110,5 @@ export class CrearModuloComponent implements OnInit {
     } catch (error) {
       this.ErrorServidor.invalidToken(error as CustomError);
     }
-
-    console.log('form valid', this.form.value);
   }
 }

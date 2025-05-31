@@ -40,3 +40,5 @@ interface Permisos_submodulos {
 
 export interface PermisoModulo
   extends Pick<Permisos_modulos, 'id' | 'read' | 'edit' | 'write' | 'delete'> {}
+
+export type ModuleType = 'edit' | 'delete' | 'write' | 'read';

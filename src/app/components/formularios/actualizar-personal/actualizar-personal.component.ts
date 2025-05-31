@@ -99,8 +99,6 @@ export class ActualizarPersonalComponent {
    * metodo que actualiza el usuario en el backend
    */
   async submit() {
-    console.log(this.form.value, 'VALORES DEL FORMULAIRO');
-
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       return;

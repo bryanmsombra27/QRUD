@@ -10,8 +10,6 @@ export class CustomModalComponent {
   isOpenModal = signal<boolean>(false);
 
   showModal() {
-    console.log('click show modal');
-    console.log('se ejecuto la funcion de refenrencia de la funcion');
     this.isOpenModal.set(true);
   }
 

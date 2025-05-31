@@ -55,8 +55,6 @@ export class ActualizarModuloComponent implements OnInit, OnChanges {
 
   // AGREGAR MODULO
   addModuleForm() {
-    console.log(this.module(), 'editar');
-
     this.form = this.fb.group({
       name: [this.module()?.name, Validators.required],
       route: [this.module()?.route],

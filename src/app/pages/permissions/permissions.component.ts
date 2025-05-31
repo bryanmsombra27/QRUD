@@ -23,7 +23,10 @@ import {
 } from '../../services/errorServidor.service';
 import { ExitoComponent } from '../../components/shared/exito/exito.component';
 import { AlertaService } from '../../services/alerta.service';
-import { Permisos_modulos } from '../../interfaces/permission.interface';
+import {
+  ModuleType,
+  Permisos_modulos,
+} from '../../interfaces/permission.interface';
 @Component({
   selector: 'app-permissions',
   imports: [TableModule, CommonModule, SwitchBoxComponent, ExitoComponent],
@@ -48,7 +51,7 @@ export default class PermissionsComponent implements OnInit {
 
   async getModules() {
     await this.modulosService.getAllModules();
-    console.log(this.modulosService.modulos(), 'modulos actuales');
+    // console.log(this.modulosService.modulos(), 'modulos actuales');
 
     // this.modulos.set(this.modulosService.modulos());
   }
@@ -61,7 +64,7 @@ export default class PermissionsComponent implements OnInit {
       );
       this.rolAssignation.set(response.permisos);
 
-      console.log(response.permisos, 'PERMISOS ASIGNADOR POR ROL');
+      // console.log(response.permisos, 'PERMISOS ASIGNADOR POR ROL');
     } catch (error) {
       this.ErrorServidor.invalidToken(error as CustomError);
     }
@@ -107,11 +110,11 @@ export default class PermissionsComponent implements OnInit {
 
   handlePermissionsOnChange(
     permission: Modulo & {
-      type: 'write' | 'delete' | 'edit';
+      type: ModuleType;
       submoduleId: string;
     }
   ) {
-    // console.log('se dispara', permission);
+    console.log('se dispara', permission);
 
     const index = this.permissionAsignation().findIndex(
       (modulo: any) => modulo.id === permission.id
@@ -149,6 +152,7 @@ export default class PermissionsComponent implements OnInit {
                   edit: permission.type === 'edit' ? true : false,
                   delete: permission.type === 'delete' ? true : false,
                   write: permission.type === 'write' ? true : false,
+                  read: permission.type === 'read' ? true : false,
                   id: permission.submoduleId,
                   [permission.type]: !state[index][permission.type],
                 },
@@ -163,6 +167,7 @@ export default class PermissionsComponent implements OnInit {
         this.permissionAsignation.update((state) => {
           state[index] = {
             ...state[index],
+
             [permission.type]: !state[index][permission.type],
           };
 
@@ -180,12 +185,14 @@ export default class PermissionsComponent implements OnInit {
               edit: false,
               delete: false,
               write: false,
+              read: false,
               submodules: [
                 // ...this.permissionAsignation()[index]?.submodules!,
                 {
                   id: permission.submoduleId,
                   edit: permission.type === 'edit' && true,
                   delete: permission.type === 'delete' && true,
+                  read: permission.type === 'read' ? true : false,
                   write: permission.type === 'write' && true,
                 },
               ],
@@ -195,13 +202,20 @@ export default class PermissionsComponent implements OnInit {
       } else {
         // cuando es un solo modulo
         this.permissionAsignation.update((state: PermisionAsignation[]) => {
+          // si el permiso ya fue asignado  pasar la referencia
+          const moduleFound = this.rolAssignation().find(
+            (asignation) => asignation.module_id === permission.id
+          )!;
+
           return [
             ...state,
             {
               id: permission.id,
-              edit: permission.type === 'edit' && true,
-              delete: permission.type === 'delete' && true,
-              write: permission.type === 'write' && true,
+              edit: moduleFound.edit,
+              delete: moduleFound.delete,
+              write: moduleFound.write,
+              read: moduleFound.read,
+              [permission.type]: !moduleFound[permission.type],
             },
           ] as PermisionAsignation[];
         });
@@ -211,7 +225,7 @@ export default class PermissionsComponent implements OnInit {
 
   moduleIsAlreadyAssigned(
     module: Modulo,
-    type: 'edit' | 'delete' | 'write',
+    type: ModuleType,
     submodule?: string
   ) {
     const moduleFound = this.rolAssignation().find(
@@ -232,6 +246,7 @@ export default class PermissionsComponent implements OnInit {
 
 interface PermisionAsignation {
   id: string;
+  read: boolean;
   edit: boolean;
   delete: boolean;
   write: boolean;
@@ -240,5 +255,6 @@ interface PermisionAsignation {
     edit: boolean;
     delete: boolean;
     write: boolean;
+    read: boolean;
   }[];
 }

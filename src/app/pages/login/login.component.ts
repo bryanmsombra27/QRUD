@@ -81,7 +81,6 @@ export class LoginComponent implements OnInit {
         JSON.stringify(response.personal.rol.Permisos_modulos)
       );
 
-      console.log(response, 'RESPUESTA BACKEND');
       setTimeout(() => {
         this.loginExistoso.set(false);
         this.router.navigateByUrl('/');

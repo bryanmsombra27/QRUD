@@ -70,7 +70,7 @@ export default class PanelAdminComponent {
   async getAllModules() {
     const menu = this.StorageService.consultarPermisosMenu();
 
-    console.log(menu, 'menu');
+    // console.log(menu, 'menu');
     const sidebarMenu: Modulo[] = [];
 
     for (const item of menu) {
@@ -151,9 +151,9 @@ export default class PanelAdminComponent {
 
     wrappers.forEach((wrapper: any) => {
       wrapper.classList.remove('active-subroutes');
-      console.log(wrapper, 'WRAPPER');
+      // console.log(wrapper, 'WRAPPER');
       const itemId = wrapper.dataset.module;
-      console.log(itemId, 'dataser');
+      // console.log(itemId, 'dataser');
 
       if (itemId == id) {
         wrapper?.classList.add('active-subroutes');
