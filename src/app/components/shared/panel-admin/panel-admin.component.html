@@ -24,7 +24,8 @@
                 @for (submodule of module.Submodulos; track $index) {
 
                 <!-- <div [ngClass]="{'active-subroutes':hoverSubMenu()}" routerLink="{{submodule.route}}"> -->
-                <div routerLink="{{submodule.route}}" [attr.data-module]="module.id" class="submenu-wrapper">
+                <div routerLink="{{submodule.route}}" [attr.data-module]="module.id" class="submenu-wrapper"
+                    (click)="selectModule(module.id)">
 
                     <i class="fa {{submodule.icon}}" style="margin-right: 10px; padding: 10px;"></i>
 
@@ -42,7 +43,7 @@
 
         } @else {
 
-        <div class="nav_item" routerLink="{{module.route}}">
+        <div class="nav_item" routerLink="{{module.route}}" (click)="selectModule(module.id)">
             <i class="fa {{module.icon}}"></i>
 
             <a

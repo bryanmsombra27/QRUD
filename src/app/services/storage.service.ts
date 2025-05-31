@@ -35,4 +35,9 @@ export class StorageService {
   guardarSesionStorage(llave: string, valor: any) {
     sessionStorage.setItem(llave, valor);
   }
+  consultarPermisosMenu() {
+    const menu = JSON.parse(this.desencriptar('menu'));
+
+    return menu;
+  }
 }

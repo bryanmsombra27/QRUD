@@ -25,6 +25,7 @@ import { Meta } from '../../interfaces/pagination';
 import { SwitchBoxComponent } from '../../components/shared/switch-box/switch-box.component';
 import { OpenCustomModalComponent } from '../../components/shared/open-custom-modal/open-custom-modal.component';
 import RegistroUsuarioComponent from '../registro-usuario/registro-usuario.component';
+import { ModuloActualService } from '../../services/modulo-actual.service';
 
 @Component({
   selector: 'app-ver-usuarios',
@@ -55,6 +56,13 @@ export default class VerUsuariosComponent {
   msgExito = signal<string>('');
   usuarioparaActualizar = signal<User | null>(null);
   usuarioparaEliminar = signal<User | null>(null);
+  permiso = signal<PermisoModulo>({
+    delete: false,
+    edit: false,
+    id: '',
+    read: false,
+    write: false,
+  });
   closeModal: any;
 
   /**
@@ -68,6 +76,7 @@ export default class VerUsuariosComponent {
   private StorageService = inject(StorageService);
   private ErrorServidor = inject(ErrorServidorService);
   private UsuarioService = inject(UsuarioService);
+  private selectedModuleService = inject(ModuloActualService);
 
   /**
    * metodo que se ejecuta al iniciar el componente el cual obtiene todos los registros de los usuarios activos y verifica el rol del personal logueado
@@ -75,6 +84,18 @@ export default class VerUsuariosComponent {
   ngOnInit(): void {
     this.restriccionPorRol();
     this.obtenerUsuarios();
+    this.permisos();
+  }
+  permisos() {
+    const permiso = this.selectedModuleService.permisosDelModuloSeleccionado();
+
+    this.permiso.set({
+      delete: permiso.delete,
+      edit: permiso.edit,
+      id: permiso.module_id,
+      read: permiso.read,
+      write: permiso.write,
+    });
   }
 
   /**
@@ -201,4 +222,12 @@ export default class VerUsuariosComponent {
   search(search: string) {
     this.UsuarioService.search = search;
   }
+}
+
+interface PermisoModulo {
+  id: string;
+  read: boolean;
+  write: boolean;
+  delete: boolean;
+  edit: boolean;
 }

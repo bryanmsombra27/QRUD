@@ -26,10 +26,13 @@
 <div class="flex">
     <h3>Lista de Usuarios</h3>
 
+    @if (permiso().write) {
     <app-open-custom-modal>
         <app-registro-usuario (refresh)="obtenerUsuarios()" />
 
     </app-open-custom-modal>
+    }
+
 </div>
 
 
@@ -58,16 +61,21 @@
             <td class="right" data-title="Email">{{usuario.email}}</td>
             <td class="icons" data-title="Acciones">
                 <div class="btn-group">
-                    @if (accesoDenegado && usuario.isActive) {
+
+                    @if (permiso().edit && usuario.isActive) {
                     <button class="btn" (click)="actualizarUsuario(usuario)" *ngIf="accesoDenegado"><i
                             class="fa-solid fa-square-pen fa-xl"></i></button>
 
+                    @if (!usuario.qr) {
+                    <button class="btn" (click)="enviarQR(usuario.id)"><i class="fa-solid fa-qrcode fa-lg"></i></button>
+                    }
+
+                    }
+
+                    @if (permiso().delete && usuario.isActive) {
                     <label class="btn" for="btn-modal-delete" (click)="referenciaUsuarioEliminar(usuario)"><i
                             class="fa-solid fa-user-xmark fa-lg"></i></label>
-
-                    <button class="btn" (click)="enviarQR(usuario.id)" *ngIf="!usuario.qr"><i
-                            class="fa-solid fa-qrcode fa-lg"></i></button>
-                    } @else {
+                    } @else if(permiso().delete && !usuario.isActive) {
                     <label for="btn-modal-delete-def" (click)="referenciaUsuarioEliminar(usuario)">
 
                         <i class="fa-solid fa-trash fa-lg btn"></i>
@@ -79,6 +87,8 @@
                     }
 
                     }
+
+
 
                 </div>
 

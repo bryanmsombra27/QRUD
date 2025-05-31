@@ -15,6 +15,7 @@ import {
   CustomError,
   ErrorServidorService,
 } from '../../../services/errorServidor.service';
+import { ModuloActualService } from '../../../services/modulo-actual.service';
 
 @Component({
   selector: 'app-panel-admin',
@@ -45,6 +46,7 @@ export default class PanelAdminComponent {
   StorageService = inject(StorageService);
   sidebarServices = inject(SidebarmenuService);
   ErrorServidor = inject(ErrorServidorService);
+  selecteModuleService = inject(ModuloActualService);
 
   modulos = signal<Modulo[]>([]);
   toggleOpenMenu = signal<boolean>(false);
@@ -66,7 +68,8 @@ export default class PanelAdminComponent {
 
   // TODO: IMPLEMENTAR LA FUNCIONALIDAD DE LOS SUBMODULOS
   async getAllModules() {
-    const menu = JSON.parse(this.StorageService.desencriptar('menu'));
+    const menu = this.StorageService.consultarPermisosMenu();
+
     console.log(menu, 'menu');
     const sidebarMenu: Modulo[] = [];
 
@@ -165,5 +168,10 @@ export default class PanelAdminComponent {
     wrappers.forEach((wrapper: any) => {
       wrapper.classList.remove('active-subroutes');
     });
+  }
+
+  // TODO: AGREGAR LA FUNCIONALIDAD PARA SELECCIONAR UN SUBMODULO
+  selectModule(id: string) {
+    this.selecteModuleService.moduloActual(id);
   }
 }
