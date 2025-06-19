@@ -73,14 +73,17 @@ body {
     width: 100%;
   }
 }
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 700px) {
   .container p {
+    text-align: center;
     font-size: 15 !important;
     font-weight: bold;
     margin-left: 0px;
     margin-right: 0px;
     margin-bottom: 0px;
-    margin: 2px;
-    width: 14rem;
+    /* width: 14rem; */
+  }
+  .container {
+    padding: 10px;
   }
 }
