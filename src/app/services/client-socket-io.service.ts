@@ -13,7 +13,8 @@ export class ClientSocketIoService {
   }
 
   private connect(): void {
-    this.socket = io('http://localhost:3000'); // Ajusta URL según tu backend
+    // this.socket = io('http://localhost:3000'); // Ajusta URL según tu backend
+    this.socket = io('https://qrud-backend-latest.onrender.com'); // Ajusta URL según tu backend
 
     console.log('SOCKET CONECTADO');
   }
