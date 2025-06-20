@@ -5,7 +5,7 @@
             <i class="fa fa-bars fa-2x" (click)="toogleMenu()"></i>
         </div>
         @for (module of modulos(); track $index) {
-        @if(module.Submodulos && module.Submodulos!.length > 0) {
+        @if(module?.Submodulos && module.Submodulos!.length > 0) {
         <!-- <div class="nav_item collapse_items" (mouseenter)="hoverSubMenu.set(true)" -->
         <div class="nav_item collapse_items" (mouseenter)="hoverSubMenuHoverClass(module.id)"
             (mouseleave)="hoverSubMenuClassLeave()">

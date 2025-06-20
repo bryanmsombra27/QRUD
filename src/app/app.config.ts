@@ -4,12 +4,10 @@ import {
   provideZoneChangeDetection,
 } from '@angular/core';
 import { provideRouter, withHashLocation } from '@angular/router';
-import { providePrimeNG } from 'primeng/config';
 
 import { routes } from './app.routes';
 import { provideHttpClient } from '@angular/common/http';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-// import Material from '@primeng/themes/material';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -18,10 +16,5 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(),
     importProvidersFrom(),
     provideAnimationsAsync(),
-    providePrimeNG({
-      // theme: {
-      //   preset: Material,
-      // },
-    }),
   ],
 };

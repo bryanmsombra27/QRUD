@@ -6,11 +6,7 @@ import {
   OutputEmitterRef,
   signal,
 } from '@angular/core';
-import {
-  TableModule,
-  TableRowCollapseEvent,
-  TableRowExpandEvent,
-} from 'primeng/table';
+
 import { SwitchBoxComponent } from '../../components/shared/switch-box/switch-box.component';
 import { ModulosService } from '../../services/modulos.service';
 import { Modulo } from '../../interfaces/modulos.interface';
@@ -29,7 +25,7 @@ import {
 } from '../../interfaces/permission.interface';
 @Component({
   selector: 'app-permissions',
-  imports: [TableModule, CommonModule, SwitchBoxComponent, ExitoComponent],
+  imports: [CommonModule, SwitchBoxComponent, ExitoComponent],
   templateUrl: './permissions.component.html',
   styleUrl: './permissions.component.css',
 })
@@ -207,17 +203,30 @@ export default class PermissionsComponent implements OnInit {
             (asignation) => asignation.module_id === permission.id
           )!;
 
-          return [
-            ...state,
-            {
-              id: permission.id,
-              edit: moduleFound.edit,
-              delete: moduleFound.delete,
-              write: moduleFound.write,
-              read: moduleFound.read,
-              [permission.type]: !moduleFound[permission.type],
-            },
-          ] as PermisionAsignation[];
+          if (moduleFound) {
+            return [
+              ...state,
+              {
+                id: permission.id,
+                edit: moduleFound.edit,
+                delete: moduleFound.delete,
+                write: moduleFound.write,
+                read: moduleFound.read,
+                [permission.type]: !moduleFound[permission.type],
+              },
+            ] as PermisionAsignation[];
+          } else {
+            return [
+              ...state,
+              {
+                id: permission.id,
+                edit: permission.type === 'edit' ? true : false,
+                delete: permission.type === 'delete' ? true : false,
+                write: permission.type === 'write' ? true : false,
+                read: permission.type === 'read' ? true : false,
+              },
+            ];
+          }
         });
       }
     }

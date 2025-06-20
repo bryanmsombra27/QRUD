@@ -16,6 +16,7 @@ import {
   ErrorServidorService,
 } from '../../../services/errorServidor.service';
 import { ModuloActualService } from '../../../services/modulo-actual.service';
+import { ClientSocketIoService } from '../../../services/client-socket-io.service';
 
 @Component({
   selector: 'app-panel-admin',
@@ -47,6 +48,7 @@ export default class PanelAdminComponent {
   sidebarServices = inject(SidebarmenuService);
   ErrorServidor = inject(ErrorServidorService);
   selecteModuleService = inject(ModuloActualService);
+  socketService = inject(ClientSocketIoService);
 
   modulos = signal<Modulo[]>([]);
   toggleOpenMenu = signal<boolean>(false);
@@ -62,6 +64,7 @@ export default class PanelAdminComponent {
    */
   ngOnInit(): void {
     this.obtenerNombre();
+    this.actualizarPermisos();
     // this.generarColorRandom();
     this.getAllModules();
   }
@@ -173,5 +176,39 @@ export default class PanelAdminComponent {
   // TODO: AGREGAR LA FUNCIONALIDAD PARA SELECCIONAR UN SUBMODULO
   selectModule(id: string) {
     this.selecteModuleService.moduloActual(id);
+  }
+
+  actualizarPermisos() {
+    this.socketService.onUpdatePermissions().subscribe((data) => {
+      console.log(data, 'PERMISOS ACTUALIZADOS');
+
+      const menu = this.StorageService.consultarPermisosMenu() as [];
+      console.log(menu, 'MENU ACTUAL');
+      const newPermissionsForMenu = data.Permisos_modulos;
+
+      console.log(newPermissionsForMenu, 'NUEVO MENU');
+
+      this.StorageService.encryptar(
+        'menu',
+        JSON.stringify(newPermissionsForMenu)
+      );
+      this.getAllModules();
+    });
+  }
+
+  private mergeArraysById(oldArray: any[], newArray: any[]): any[] {
+    const map = new Map<number, any>();
+
+    // Primero agrega los elementos del arreglo antiguo
+    for (const item of oldArray) {
+      map.set(item.id, item);
+    }
+
+    // Luego sobrescribe (o añade nuevos) desde el arreglo nuevo
+    for (const item of newArray) {
+      map.set(item.id, item);
+    }
+
+    return Array.from(map.values());
   }
 }
