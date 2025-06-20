@@ -83,9 +83,7 @@ export default class PermissionsComponent implements OnInit {
     // accordeonBody?.classList.toggle('active');
   }
 
-  // console.log(this.router., 'ROLE ID');
   async asignarPermisos() {
-    console.log(this.permissionAsignation(), 'PERMISOS DE MODULOS');
     const roleId = this.router.snapshot.params['id'];
     try {
       const response = await firstValueFrom(

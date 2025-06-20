@@ -17,7 +17,6 @@ export class ModuloActualService {
 
   permisosDelModuloSeleccionado() {
     const permisos = this.storageService.consultarPermisosMenu();
-    // console.log(this.moduloSeleccionado(), 'modulo seleccionado');
     this.storageService.guardarSesionStorage(
       'modulo_actual',
       this.moduloSeleccionado()

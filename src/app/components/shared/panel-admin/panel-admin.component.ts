@@ -179,36 +179,18 @@ export default class PanelAdminComponent {
   }
 
   actualizarPermisos() {
+    const rol = this.StorageService.desencriptar('rol');
+
     this.socketService.onUpdatePermissions().subscribe((data) => {
-      console.log(data, 'PERMISOS ACTUALIZADOS');
+      if (rol == data.roleName) {
+        const newPermissionsForMenu = data.permissions;
 
-      const menu = this.StorageService.consultarPermisosMenu() as [];
-      console.log(menu, 'MENU ACTUAL');
-      const newPermissionsForMenu = data.Permisos_modulos;
-
-      console.log(newPermissionsForMenu, 'NUEVO MENU');
-
-      this.StorageService.encryptar(
-        'menu',
-        JSON.stringify(newPermissionsForMenu)
-      );
-      this.getAllModules();
+        this.StorageService.encryptar(
+          'menu',
+          JSON.stringify(newPermissionsForMenu)
+        );
+        this.getAllModules();
+      }
     });
-  }
-
-  private mergeArraysById(oldArray: any[], newArray: any[]): any[] {
-    const map = new Map<number, any>();
-
-    // Primero agrega los elementos del arreglo antiguo
-    for (const item of oldArray) {
-      map.set(item.id, item);
-    }
-
-    // Luego sobrescribe (o añade nuevos) desde el arreglo nuevo
-    for (const item of newArray) {
-      map.set(item.id, item);
-    }
-
-    return Array.from(map.values());
   }
 }

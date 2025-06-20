@@ -15,8 +15,6 @@ export class ClientSocketIoService {
   private connect(): void {
     // this.socket = io('http://localhost:3000'); // Ajusta URL según tu backend
     this.socket = io('https://qrud-backend-latest.onrender.com'); // Ajusta URL según tu backend
-
-    console.log('SOCKET CONECTADO');
   }
 
   // Emitir un evento
@@ -33,11 +31,8 @@ export class ClientSocketIoService {
   //   });
   // }
   onUpdatePermissions(): Observable<any> {
-    console.log('ENTRA A SOCKET SERVER');
-    console.log('SOCKET: ', this.socket);
     return new Observable((observer) => {
       this.socket.on('updateRolPermissions', (data) => {
-        console.log('UPDATE PERMISSIONS: ', data);
         observer.next(data);
       });
     });
