@@ -65,6 +65,13 @@
 
                     }
 
+                    @if (permiso().write && personal.isActive) {
+                    <button class="btn" (click)="generateQRForLogin(personal.id)"><i
+                            class="fa-solid fa-qrcode fa-xl"></i></button>
+                    }
+
+
+
                     @if(permiso().delete && personal.isActive){
                     <label class="btn" for="btn-modal-delete" (click)="referenciaUsuarioEliminar(personal)"><i
                             class="fa-solid fa-user-xmark fa-lg"></i></label>

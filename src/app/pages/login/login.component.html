@@ -1,56 +1,25 @@
 <app-errores-backend [mensaje]="msgErrores()" *ngIf="msgErrores().length >0"></app-errores-backend>
 
-<div class="fondo" *ngIf="loginExistoso()">
-    <div class="spinner-container">
-        <div class="lds-spinner">
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-        </div>
+
+
+@if (loginExistoso()) {
+
+<app-spinner-screen />
+}
+
+
+<app-custom-modal>
+    <div modalContent>
+        <app-login-qr />
     </div>
-</div>
+</app-custom-modal>
 
 
 <img class="wave" src="assets/img/wave2.png">
-<!-- <div class="form-img">
-    <div class="content-form">
-        <img src="assets/img/logo.svg">
-        <h1>¡Bienvenido!</h1>
-        <form [formGroup]="form" (ngSubmit)="login()">
-
-            <app-text type="email" error="Debe de ser un correo valido" fieldName="email" [form]="form" label="Email"
-                (removeAlerts)="this.removerAlertas()" />
-
-
-            <app-text type="password" error="El campo es obligatorio" fieldName="password" [form]="form"
-                label="Password" (removeAlerts)="this.removerAlertas()" />
-
-            <app-btn text="Ingresar" [center]="false" />
-            <p>
-                <a routerLink="/forget-password" style="cursor: pointer;">¿Olvidaste tu contraseña?</a>
-            </p>
-
-        </form>
-    </div>
-    <div class="login-imagen">
-        <img src="assets/img/undraw_mobile_interface_wakp.svg" alt="User">
-    </div>
-
-
-</div> -->
 
 <div class="form">
     <div class="content-form">
-        <img src="assets/img/logo.svg" class="img-logo">
+        <img src="assets/img/logo.svg" class="img-logo" (dblclick)="openModal()">
         <h1>¡Bienvenido!</h1>
         <form [formGroup]="form" (ngSubmit)="login()">
 

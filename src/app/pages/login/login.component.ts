@@ -4,6 +4,7 @@ import {
   inject,
   OnInit,
   signal,
+  ViewChild,
 } from '@angular/core';
 import {
   FormBuilder,
@@ -22,6 +23,9 @@ import { ErroresFrontendComponent } from '../../components/shared/errores-fronte
 import { ErroresBackendComponent } from '../../components/shared/errores-backend/errores-backend.component';
 import { TextComponent } from '../../components/shared/inputs/text/text.component';
 import { BtnComponent } from '../../components/shared/btn/btn.component';
+import { SpinnerScreenComponent } from '../../components/shared/spinner-screen/spinner-screen.component';
+import { CustomModalComponent } from '../../components/shared/custom-modal/custom-modal.component';
+import { LoginQrComponent } from '../login-qr/login-qr.component';
 
 @Component({
   selector: 'app-login',
@@ -32,6 +36,9 @@ import { BtnComponent } from '../../components/shared/btn/btn.component';
     RouterModule,
     TextComponent,
     BtnComponent,
+    SpinnerScreenComponent,
+    CustomModalComponent,
+    LoginQrComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 
@@ -42,6 +49,9 @@ export class LoginComponent implements OnInit {
   form!: FormGroup;
   loginExistoso = signal<boolean>(false);
   msgErrores = signal<string>('');
+
+  @ViewChild(CustomModalComponent)
+  customModal!: CustomModalComponent;
 
   // services
   private fb = inject(FormBuilder);
@@ -97,5 +107,9 @@ export class LoginComponent implements OnInit {
 
   removerAlertas() {
     this.msgErrores.set('');
+  }
+
+  openModal() {
+    this.customModal.showModal();
   }
 }

@@ -29,6 +29,21 @@ export class AuthService {
       )
     );
   }
+  loginWithQR(id: string) {
+    return firstValueFrom(
+      this.http.post<LoginResponse>(`${url}/auth/login/qr`, { id: id }).pipe(
+        tap((response) => {
+          this.StorageService.encryptar(llaveToken, response.token);
+          this.StorageService.encryptar(llaveRole, response.personal.rol.name);
+          this.StorageService.encryptar('nombre', response.personal.nombre);
+          this.StorageService.encryptar(
+            'menu',
+            JSON.stringify(response.personal.rol.Permisos_modulos)
+          );
+        })
+      )
+    );
+  }
 
   logout() {
     sessionStorage.clear();

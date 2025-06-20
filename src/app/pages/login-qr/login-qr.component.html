@@ -1,0 +1,29 @@
+@if (msgErrores().length >0) {
+<app-errores-backend [mensaje]="msgErrores()" />
+
+}
+
+
+<h3>Inicia sesión con QR</h3>
+<div class="container">
+
+
+    @if (hideScanner()) {
+    <div class="spinner-container">
+        <app-spinner></app-spinner>
+    </div>
+    } @else{
+    <zxing-scanner [formats]="allowedFormats" (scanSuccess)="escanearQR($event)"
+        (camerasNotFound)="camaranoEncontrada($event)"> </zxing-scanner>
+
+    }
+
+
+</div>
+
+@if (!camara()) {
+<div class="spinner-container">
+    <app-spinner></app-spinner>
+</div>
+<h1>Para acceder a este componente, debe de tener una camara disponible </h1>
+}

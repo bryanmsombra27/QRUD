@@ -183,4 +183,19 @@ export default class VerPersonalComponent {
     console.log(search, 'BUSQUEDA');
     this.personalService.search = search;
   }
+
+  async generateQRForLogin(id: string) {
+    try {
+      const response = await firstValueFrom(
+        this.personalService.generateQrForLogin(id)
+      );
+      // response.message
+      this.msgExito.set(response.message);
+      setTimeout(() => {
+        this.msgExito.set('');
+      }, 1500);
+    } catch (error) {
+      this.ErrorServidor.invalidToken(error as CustomError);
+    }
+  }
 }

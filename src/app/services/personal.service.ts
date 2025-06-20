@@ -156,4 +156,13 @@ export class PersonalService {
       data
     );
   }
+  generateQrForLogin(id: string) {
+    const token = this.storageService.desencriptar(llaveToken);
+
+    return this.http.get<{ message: string }>(`${url}/personal/qrcode/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  }
 }
